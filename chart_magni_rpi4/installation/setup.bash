@@ -133,6 +133,10 @@ if [[ $IN_DOCKER ]]; then echo 'Currently in Docker, not proceding to configurat
 ######################################### INSTALLING CONFIGURATION FILES  ############################################
 echo -e "Installing configuration files"
 
+echo -e "Disabling pifi"
+sudo systemctl disable pifi.service
+sudo systemctl stop pifi.service
+
 echo -e "Deploying bashrc"
 cp $SCRIPT_DIR/config/.bashrc $HOME
 
@@ -162,9 +166,6 @@ sudo cp $SCRIPT_DIR/config/networking.service /etc/systemd/system/network-online
 
 echo -e "Deployment env configuration env.sh"
 sudo cp $SCRIPT_DIR/config/env.sh /etc/ubiquity
-
-echo -e "Deploying Pifi Configuration"
-sudo cp $SCRIPT_DIR/config/pifi.conf /etc/pifi
 
 echo -e "Deployment interfaces file"
 sudo cp $SCRIPT_DIR/config/interfaces /etc/network

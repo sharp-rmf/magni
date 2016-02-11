@@ -6,6 +6,11 @@ source-directory /etc/network/interfaces.d
 auto lo
 iface lo inet loopback
 
+auto wlan0
+iface wlan0 inet static
+address 10.42.0.1
+network 255.255.255.0
+
 auto wlx58d56e91d24f
 iface wlx58d56e91d24f inet static
 address 10.233.29.64
