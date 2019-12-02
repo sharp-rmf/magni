@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>magni_rplidar_nav</name>
+  <version>0.0.0</version>
+  <description>A Magni navstack configuration for RPLIDAR-A3</description>
+  <maintainer email="morgan@openrobotics.org">Morgan Quigley</maintainer>
+  <license>Apache 2.0</license>
+  <author email="Charayaphan_Nakorn_Boon_Han@cgh.com.sg">Charayaphan Nakorn Boon Han</author>
+  <author email="morgan@openrobotics.org">Morgan Quigley</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>magni_bringup</exec_depend>
+  <exec_depend>magni_description</exec_depend>
+
+  <export>
+  </export>
+</package>
