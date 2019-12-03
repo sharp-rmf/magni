@@ -1,1 +1,4 @@
-base_local_planner: "dwa_local_planner/DWAPlannerROS"
+# (MQ) couldn't seem to get dwa_local_planner working nicely,
+# so we'll use the default TrajectoryPlannerROS for now
+# base_local_planner: "dwa_local_planner/DWAPlannerROS"
+base_local_planner: "base_local_planner/TrajectoryPlannerROS"

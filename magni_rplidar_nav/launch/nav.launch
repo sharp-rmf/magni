@@ -1,0 +1,24 @@
+<launch>
+  <arg name="map_yaml" />
+  <arg name="magni_serial_port" />
+  <arg name="rplidar_serial_port" />
+
+  <include file="$(find magni_rplidar_nav)/launch/amcl.launch">
+    <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)" />
+    <arg name="map_yaml" value="$(arg map_yaml)" />
+  </include>
+
+  <include file="$(find magni_rplidar_nav)/launch/magni.launch">
+    <arg name="magni_serial_port" value="$(arg magni_serial_port)" />
+  </include>
+
+  <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/costmap_common_params.yaml" ns="local_costmap" />
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/costmap_common_params.yaml" ns="global_costmap" />
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/local_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/global_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/dwa_local_planner_params.yaml"/>
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/base_local_planner_params.yaml"/>
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/move_base_params.yaml"/>
+  </node>
+</launch> 
