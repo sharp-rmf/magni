@@ -15,7 +15,7 @@
   <rosparam command="load" file="$(find magni_bringup)/param/base.yaml" />
   <!-- override the "stock" magni serial_port param with our configuration -->
   <param name="ubiquity_motor/serial_port" value="$(arg magni_serial_port)" />
-  <param name="ubiquity_velocity_controller/wheel_separation" value="0.34" />
+  <rosparam command="load" file="$(find magni_rplidar_nav)/param/magni.yaml" />
 
   <!-- Launch the roscontrol controllers needed -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner"
