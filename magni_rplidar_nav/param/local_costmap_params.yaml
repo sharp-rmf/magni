@@ -1,7 +1,7 @@
 local_costmap:
   global_frame: odom
   robot_base_frame: base_footprint
-  update_frequency: 5.0
+  update_frequency: 5.0  # we actually don't want it to re-plan...
   publish_frequency: 2.0
   static_map: false
   rolling_window: true
@@ -10,5 +10,5 @@ local_costmap:
   resolution: 0.05
   transform_tolerance: 0.5
   inflation_layer:
-    inflation_radius: 0.5
+    inflation_radius: 1.0
     cost_scaling_factor: 10.0
