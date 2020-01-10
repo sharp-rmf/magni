@@ -1,17 +1,19 @@
 # magni_helpers
 This package documents the steps necessary to get the magni working on DP1+++.
 
-## Pending issues
+# Pending issues
 - [ ] Slow boot time for certain topics ( like /battery_state )
 - [ ] Soft Braking 
 - [ ] SSH server seems to fail every alternate boot
+- [ ] 5 to 10 second wait between motion pauses for decawave localization updates 
 
-## Required apt
+# Required packages
 ```
 sudo apt install picocom -y
 sudo apt install python3-vcstool -y
 ```
 
+# TODO:
 ## RPI4 image
 - [x] Follow [this](https://forum.ubiquityrobotics.com/t/ros-image-on-raspberry-pi-4/326/30) thread. Need to update PYGPIO to above v69.
 - [x] In order to get automatic connection to Wifi, need to go to network manager in GUI and toggle "all users can connect to network" (one of the checkboxes)
