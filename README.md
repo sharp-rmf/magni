@@ -4,6 +4,7 @@ This package documents the steps necessary to get the magni working on DP1+++.
 ## Pending issues
 - [ ] Slow boot time for certain topics ( like /battery_state )
 - [ ] Soft Braking 
+- [ ] SSH server seems to fail every alternate boot
 
 ## RPI4 image
 - [x] Follow [this](https://forum.ubiquityrobotics.com/t/ros-image-on-raspberry-pi-4/326/30) thread. Need to update PYGPIO to above v69.
@@ -22,6 +23,7 @@ This package documents the steps necessary to get the magni working on DP1+++.
 - [ ] Tune ros1_navigation parameters for dual RPlidar.
 
 ## Decawave Localization
+- [ ] udev rule to assign device name to decawave
 - [ ] Write package that uses serial data from Decawave  
 - [ ] Figure out how to transform the UWB frame of reference to the local frame. ( Try to make this tool general )
 - [ ] Periodically update the robot pose using UWB ( theoretically more accurate )
