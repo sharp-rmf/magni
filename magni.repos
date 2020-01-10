@@ -1,0 +1,10 @@
+repositories:
+    common_library:
+        type: git
+        url: https://github.com/cnboonhan94/common-library.git
+        version: master
+    rplidar_ros:
+        type: git
+        url: https://github.com/Slamtec/rplidar_ros.git
+        version: master 
+
