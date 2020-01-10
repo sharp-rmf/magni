@@ -3,6 +3,7 @@ This package documents the steps necessary to get the magni working on DP1+++.
 
 ## Pending issues
 - [ ] Slow boot time for certain topics ( like /battery_state )
+- [ ] Soft Braking 
 
 ## RPI4 image
 - [x] Follow [this](https://forum.ubiquityrobotics.com/t/ros-image-on-raspberry-pi-4/326/30) thread. Need to update PYGPIO to above v69.
