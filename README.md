@@ -31,7 +31,7 @@ sudo apt install python3-vcstool -y
 - [ ] Tune ros1_navigation parameters for dual RPlidar.
 
 ## Decawave Localization
-- [ ] udev rule to assign device name to decawave
+- [x] udev rule to assign device name to decawave
 - [ ] Write package that uses serial data from Decawave  
 - [ ] Figure out how to transform the UWB frame of reference to the local frame. ( Try to make this tool general )
 - [ ] Periodically update the robot pose using UWB ( theoretically more accurate )
