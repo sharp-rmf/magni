@@ -1,11 +1,7 @@
 repositories:
-    common_library:
-        type: git
-        url: https://github.com/cnboonhan94/common-library.git
-        version: master
     rplidar_ros:
         type: git
-        url: https://github.com/Slamtec/rplidar_ros.git
+        url: git@github.com:Slamtec/rplidar_ros.git 
         version: master 
     cgh_ward_45:
         type: git
@@ -19,4 +15,8 @@ repositories:
         type: git
         url: git@github.com:sharp-rmf/rmf_sim.git
         version: master 
-
+    traffic_editor:
+        type: git
+        url: git@github.com:osrf/traffic_editor.git 
+        version: master 
+    
