@@ -1,7 +1,10 @@
+src/*/
+
 *.swp
 tags
 .vscode
+.catkin_tools
 
 build
 devel
-log
+logs

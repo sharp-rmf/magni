@@ -7,4 +7,16 @@ repositories:
         type: git
         url: https://github.com/Slamtec/rplidar_ros.git
         version: master 
+    cgh_ward_45:
+        type: git
+        url: git@github.com:sharp-rmf/cgh_ward_45.git 
+        version: master 
+    rmf_core:
+        type: git
+        url: git@github.com:osrf/rmf_core.git
+        version: master 
+    rmf_sim:
+        type: git
+        url: git@github.com:sharp-rmf/rmf_sim.git
+        version: master 
 
