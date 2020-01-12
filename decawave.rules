@@ -1,8 +1,0 @@
-# set the udev rule , make the device_port be fixed by decawave
-#
-
-# copy to /etc/udev/rules.d
-# sudo udevadm trigger
-KERNEL=="ttyACM*", ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0105", MODE:="0777", SYMLINK+="decawave" 
-
-
