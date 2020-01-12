@@ -1,12 +1,6 @@
 # magni_helpers
 This package documents the steps necessary to get the magni working on DP1+++.
 
-# Pending issues
-- [ ] Slow boot time for certain topics ( like /battery_state )
-- [ ] Soft Braking 
-- [ ] SSH server seems to fail every alternate boot
-- [ ] 5 to 10 second wait between motion pauses for decawave localization updates 
-
 # Required packages
 ```
 sudo apt install picocom -y
@@ -31,7 +25,7 @@ sudo apt install python3-vcstool -y
 - [ ] Tune ros1_navigation parameters for dual RPlidar.
 
 ## Decawave Localization
-- [x] udev rule to assign device name to decawave
+- [x] [udev rule to assign device name to decawave](https://github.com/cnboonhan94/magni_helpers/blob/master/udev/decawave.rules)
 - [ ] Write package that uses serial data from Decawave  
 - [ ] Figure out how to transform the UWB frame of reference to the local frame. ( Try to make this tool general )
 - [ ] Periodically update the robot pose using UWB ( theoretically more accurate )
