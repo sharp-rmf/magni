@@ -1,3 +1,7 @@
 *.swp
 tags
 .vscode
+
+build
+devel
+log
