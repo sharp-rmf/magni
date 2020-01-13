@@ -4,6 +4,8 @@ ros2/src/*/
 !ros1/src/magni.repos
 !ros2/src/rmf_server.repos
 
+!ros1/src/magni_45_rplidar
+
 *.swp
 tags
 .vscode

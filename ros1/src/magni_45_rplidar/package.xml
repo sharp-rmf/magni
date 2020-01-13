@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>magni_45_rplidar</name>
+  <version>0.0.0</version>
+  <description>A Magni navstack configuration for RPLIDAR-A3</description>
+  <maintainer email="cnboonhan94@gmail.com">Boon Han</maintainer>
+  <license>Apache 2.0</license>
+  <author email="Charayaphan_Nakorn_Boon_Han@cgh.com.sg">Charayaphan Nakorn Boon Han</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+  <export>
+  </export>
+</package>
