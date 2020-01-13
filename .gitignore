@@ -6,8 +6,6 @@ ros2/src/*/
 
 !ros1/src/magni_45_rplidar
 
-!ros2/src/rmf_tutorial_tui
-
 *.swp
 tags
 .vscode
