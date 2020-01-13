@@ -8,7 +8,8 @@ This package documents the steps necessary to get the magni working on DP1+++.
 
 ## Dual RPlidar
 ### udev
-- [ ] The RPlidars need unique /dev identifiers. We should follow [this](https://askubuntu.com/questions/49910/how-to-distinguish-between-identical-usb-to-serial-adapters).
+- [x] The RPlidars need unique /dev identifiers. We should follow [this](https://askubuntu.com/questions/49910/how-to-distinguish-between-identical-usb-to-serial-adapters).
+- [ ] Supply power to the RPlidars using external power source. This is necessary as the rpi4 does not seem to be able to supply the necessary power on its own
 - [ ] Exclude "blocked area" data and append the data streams from the dual RPLidar set up.
 - [ ] Test localization using the `rmf_dp2_maps`. 
 
