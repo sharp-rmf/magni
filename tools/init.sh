@@ -4,6 +4,8 @@ PROJECT_ROOT="$HOME/dev/magni_45"
 # Required packages and one-time setup 
 sudo apt install picocom -y
 sudo apt install python3-vcstool -y
+sudo apt install python3-pip -y
+sudo apt install npyscreen -y
 
 echo "Copying udev rules.."
 sudo cp $PROJECT_ROOT/ros1/udev/*.rules /etc/udev/rules.d
