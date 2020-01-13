@@ -3,8 +3,4 @@ repositories:
         type: git
         url: git@github.com:Slamtec/rplidar_ros.git 
         version: master 
-    cgh_ward_45:
-        type: git
-        url: git@github.com:sharp-rmf/cgh_ward_45.git 
-        version: master 
     

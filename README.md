@@ -1,12 +1,6 @@
 # magni_helpers
 This package documents the steps necessary to get the magni working on DP1+++.
 
-# Required packages
-```
-sudo apt install picocom -y
-sudo apt install python3-vcstool -y
-```
-
 # TODO:
 ## RPI4 image
 - [x] Follow [this](https://forum.ubiquityrobotics.com/t/ros-image-on-raspberry-pi-4/326/30) thread. Need to update PYGPIO to above v69.
