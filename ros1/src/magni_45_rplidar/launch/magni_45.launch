@@ -5,7 +5,10 @@
         <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/magni_chart_5cm.yaml"/>
     </include>
 
-    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/amcl.yaml" />
+	<node pkg="amcl" type="amcl" name="amcl" output="screen" />
+
+	<node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
     <rosparam command="load" file="$(find magni_45_rplidar)/param/costmap_common_params.yaml" ns="local_costmap" />
     <rosparam command="load" file="$(find magni_45_rplidar)/param/costmap_common_params.yaml" ns="global_costmap" />
     <rosparam command="load" file="$(find magni_45_rplidar)/param/local_costmap_params.yaml" />
@@ -15,7 +18,4 @@
     <rosparam command="load" file="$(find magni_45_rplidar)/param/move_base_params.yaml"/>
   </node>
 
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/amcl.yaml" />
-
-	<node pkg="amcl" type="amcl" name="amcl" output="screen" />
 </launch>
