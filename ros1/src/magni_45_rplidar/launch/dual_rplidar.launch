@@ -1,5 +1,6 @@
 <launch>
     <include file="$(find magni_45_rplidar)/launch/front_rplidar.launch"/>
     <include file="$(find magni_45_rplidar)/launch/back_rplidar.launch"/>
+    <node name="map_server" pkg="map_server" type="map_server" args=$(arg map_yaml) />
 </launch>
 
