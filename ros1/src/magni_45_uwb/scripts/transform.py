@@ -8,14 +8,6 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from std_msgs.msg import String
 import tf
 import re
-import numpy as np
-
-dwm_to_base_link = np.array([
-    [0.015322908908635599, -0.9804653130438025, 14.34677179077444],
-    [0.9804653130438025, 0.015322908908635599, 6.608554966414207],
-    [0, 0, 1]
-])
-scale_factor = 0.98
 
 
 def start(ser):
@@ -39,10 +31,10 @@ def listen(ser, pub, tf_listener):
             data = str(ser.readline())
 
             # parse data
-            if data != '':
-                print("Parsing line: " + data)
+	    if data != '':
+		print("Parsing line: " + data)
 
-            m = re.match(r"POS,(.*),(.*),(.*),.*", data)
+	    m = re.match(r"POS,(.*),(.*),(.*),.*", data)
 
             if m:
                 print("match found!\n")
@@ -53,21 +45,18 @@ def listen(ser, pub, tf_listener):
                     # Waited too long, something probably failed
                     start(ser)
                     last_parsed = rospy.Time.now()
-                continue
+		continue
 
-            # Print received decawave position
-            x = float(m.group(1))
-            y = float(m.group(2))
-            z = float(m.group(3))
-            print("{},{},{}".format(x, y, z))
-            x, y, z = transform_to_base_frame(x, y, z)
-            print("Transformed:", end='')
-            print("{},{},{}".format(x, y, z))
+	    # Print received decawave position
+	    x = float(m.group(1))
+	    y = float(m.group(2))
+	    z = float(m.group(3))
+	    print("{},{},{}".format(x, y, z))
 
             # Get current robot pose
             if not rospy.is_shutdown():
                 try:
-                    (trans, rot) = tf_listener.lookupTransform('map', 'base_link',
+                    (trans, rot)=tf_listener.lookupTransform('map', 'base_link',
                                                                rospy.Time(0))
                 except(tf.LookupException,
                         tf.ConnectivityException,
@@ -75,7 +64,7 @@ def listen(ser, pub, tf_listener):
                     print(e)
                     continue
 
-            msg = construct_pose_update(x, y, z, rot)
+            msg=construct_pose_update(x, y, z, rot)
             pub.publish(msg)
             time.sleep(0.01)
 
@@ -86,19 +75,16 @@ def listen(ser, pub, tf_listener):
             print("Keyboard Interrupt registered.")
             break
 
-def transform_to_base_frame(x, y, z):
-    dwm_point = np.array([x, y, 1])
-    return np.dot(dwm_to_base_link, dwm_point)
 
 def construct_pose_update(x, y, z, rot):
-    msg = PoseWithCovarianceStamped()
-    msg.header.frame_id = "map"
-    msg.header.stamp = rospy.Time.now()
-    msg.pose.pose.position.x = x
-    msg.pose.pose.position.y = y
-    msg.pose.pose.position.z = 0
-    msg.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0685]
+    msg=PoseWithCovarianceStamped()
+    msg.header.frame_id="map"
+    msg.header.stamp=rospy.Time.now()
+    msg.pose.pose.position.x=x
+    msg.pose.pose.position.y=y
+    msg.pose.pose.position.z=0
+    msg.pose.covariance=[0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0685]
     msg.pose.pose.orientation.x = rot[0]
     msg.pose.pose.orientation.y = rot[1]
     msg.pose.pose.orientation.z = rot[2]
@@ -107,20 +93,20 @@ def construct_pose_update(x, y, z, rot):
 
 
 if __name__ == "__main__":
-    ser = serial.Serial()
-    ser.port = '/dev/decawave'
-    ser.baudrate = 115200
-    ser.bytesize = serial.EIGHTBITS
-    ser.parity = serial.PARITY_NONE
-    ser.stopbits = serial.STOPBITS_ONE
-    ser.timeout = 1
+    ser=serial.Serial()
+    ser.port='/dev/decawave'
+    ser.baudrate=115200
+    ser.bytesize=serial.EIGHTBITS
+    ser.parity=serial.PARITY_NONE
+    ser.stopbits=serial.STOPBITS_ONE
+    ser.timeout=1
 
     # Specify topics to listen and publish to here
     # pub = rospy.Publisher('/uwb/pos', PoseWithCovarianceStamped, queue_size=10)
-    pub = rospy.Publisher(
+    pub=rospy.Publisher(
         '/initialpose', PoseWithCovarianceStamped, queue_size=10)
     rospy.init_node('uwb_publisher')
-    tf_listener = tf.TransformListener()
+    tf_listener=tf.TransformListener()
     try:
         start(ser)
         listen(ser, pub, tf_listener)
