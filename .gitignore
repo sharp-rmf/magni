@@ -5,6 +5,7 @@ ros2/src/*/
 !ros2/src/rmf_server.repos
 
 !ros1/src/magni_45_rplidar
+!ros1/src/magni_45_uwb
 
 *.swp
 tags
