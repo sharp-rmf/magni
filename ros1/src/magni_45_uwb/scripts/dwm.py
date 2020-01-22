@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from __future__ import print_function
 import time
 import serial
@@ -34,6 +33,9 @@ def start(ser):
 def listen(ser, pub, tf_listener):
 
     last_parsed = rospy.Time.now()
+    last_n_readings = []
+    n = 20
+
     while True:
         try:
             data = str(ser.readline())
@@ -74,6 +76,15 @@ def listen(ser, pub, tf_listener):
                         tf.ExtrapolationException) as e:
                     print(e)
                     continue
+            
+            if len(last_n_readings) < n:
+                last_n_readings.append(np.array(x,y))
+                print("adding")
+                continue
+            else:
+                # process
+                print("publishing")
+                last_n_readings = []
 
             msg = construct_pose_update(x, y, z, rot)
             pub.publish(msg)
@@ -91,14 +102,15 @@ def transform_to_base_frame(x, y, z):
     return np.dot(dwm_to_base_link, dwm_point)
 
 def construct_pose_update(x, y, z, rot):
+    # First check if there are enough readings in last n
     msg = PoseWithCovarianceStamped()
     msg.header.frame_id = "map"
     msg.header.stamp = rospy.Time.now()
     msg.pose.pose.position.x = x
     msg.pose.pose.position.y = y
     msg.pose.pose.position.z = 0
-    msg.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0685]
+    msg.pose.covariance = [0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.005]
     msg.pose.pose.orientation.x = rot[0]
     msg.pose.pose.orientation.y = rot[1]
     msg.pose.pose.orientation.z = rot[2]
@@ -114,6 +126,8 @@ if __name__ == "__main__":
     ser.parity = serial.PARITY_NONE
     ser.stopbits = serial.STOPBITS_ONE
     ser.timeout = 1
+    last_n_readings = []
+    n = 20
 
     # Specify topics to listen and publish to here
     # pub = rospy.Publisher('/uwb/pos', PoseWithCovarianceStamped, queue_size=10)

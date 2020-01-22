@@ -18,5 +18,4 @@
     <rosparam command="load" file="$(find magni_45_rplidar)/param/move_base_params.yaml"/>
   </node>
 
-  <node pkg="magni_45_uwb" name="dwm_pos" type="dwm.py" output="screen"/>
 </launch>
