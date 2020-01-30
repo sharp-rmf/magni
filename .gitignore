@@ -6,6 +6,7 @@ ros2/src/*/
 
 !ros1/src/magni_45_rplidar
 !ros1/src/magni_45_uwb
+!ros1/src/magni_45
 
 *.swp
 tags

@@ -109,8 +109,12 @@ def construct_pose_update(x, y, z, rot):
     msg.pose.pose.position.x = x
     msg.pose.pose.position.y = y
     msg.pose.pose.position.z = 0
-    msg.pose.covariance = [0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.005]
+    msg.pose.covariance = [0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                           0.0, 0.05, 0.0, 0.0, 0.0, 0.0, 
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+                           0.0, 0.0, 0.0, 0.0, 0.0, 1.5]
     msg.pose.pose.orientation.x = rot[0]
     msg.pose.pose.orientation.y = rot[1]
     msg.pose.pose.orientation.z = rot[2]
@@ -127,13 +131,13 @@ if __name__ == "__main__":
     ser.stopbits = serial.STOPBITS_ONE
     ser.timeout = 1
     last_n_readings = []
-    n = 20
+    n = 5000
 
     # Specify topics to listen and publish to here
     # pub = rospy.Publisher('/uwb/pos', PoseWithCovarianceStamped, queue_size=10)
     pub = rospy.Publisher(
-        '/initialpose', PoseWithCovarianceStamped, queue_size=10)
-    rospy.init_node('uwb_publisher')
+        '/decawave_pose', PoseWithCovarianceStamped, queue_size=10)
+    rospy.init_node('decawave_publisher')
     tf_listener = tf.TransformListener()
     try:
         start(ser)
