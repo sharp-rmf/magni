@@ -31,7 +31,7 @@ class DecawaveAdapter(AbstractAdapter):
     def sensor_1_callback(self, msg):
         # This callback will update self.sensor_1_msg with the latest message to come from sensor_1
         # Validation of the msg should occur here
-        rospy.loginfo("Received decawave data!")
+        # rospy.loginfo("Received decawave data!")
         m = re.match(r"POS,(.*),(.*),(.*),.*", msg.data)
         if m:
             self.sensor_1_msg = msg

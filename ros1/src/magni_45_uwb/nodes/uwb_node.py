@@ -40,7 +40,7 @@ def stream_listen(ser, pub):
             m = re.match(r"POS,(.*),(.*),(.*),.*", data)
 
             if m:
-                print("Data found! Publishing..\n")
+                # print("Data found! Publishing..\n")
                 last_parsed = rospy.Time.now()
             else:
                 if (rospy.Time.now() - last_parsed).to_sec() > 15:
