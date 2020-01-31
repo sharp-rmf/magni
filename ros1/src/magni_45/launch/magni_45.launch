@@ -18,7 +18,5 @@
     <rosparam command="load" file="$(find magni_45_rplidar)/param/move_base_params.yaml"/>
   </node>
 
-	<node name="magni_45_uwb" pkg="magni_45_uwb" type="dwm.py" output="screen">
-  </node>
-
+    <include file="$(find magni_45_uwb)/launch/uwb.launch"/>
 </launch>

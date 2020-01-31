@@ -17,14 +17,19 @@ class Trigger:
         # Publish to this topic to trigger an interation of optimization
         self.pub = rospy.Publisher('/update_trigger', Bool, queue_size=1)
         self.move_base_sub = rospy.Subscriber("/move_base/status", GoalStatusArray, self.callback)
+        self.tf_listener = tf.TransformListener()
         rospy.spin()
 
     def callback(self, msg):
         timestamp = msg.header.stamp
-        status = msg.status_list[0].text
+        try:
+            status = msg.status_list[0].text
+        except IndexError as e:
+            return
+
         if status == 'Goal reached.':
             # Robot is stationary
-            if (timestamp - self.last_time).to_sec() > 3 and self.to_update:
+            if (timestamp - self.last_time).to_sec() > 1.5 and self.to_update:
                 rospy.loginfo("Robot is stationary for 3 seconds, sending update trigger..")
                 self.pub.publish(True)
                 self.last_time = timestamp
