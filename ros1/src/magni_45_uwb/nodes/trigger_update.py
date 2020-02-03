@@ -40,11 +40,12 @@ class Trigger:
 
                 if amt_of_motion < 0.5:
                     # Robot is stationary
-                    self.pub.publish(Bool())
+                    # self.pub.publish(Bool())
+                    pass
                 else:
                     #robot is moving
                     # if decawave reading and tf diverges by too much, update
-                    while amt_of_error > 2:
+                    while amt_of_error > 1.0:
                         self.pub.publish(Bool())
                         (trans_now, rot_now) = self.tf_listener.lookupTransform('/map', '/base_link' , rospy.Time(0))
                         amt_of_error = np.sum((trans_now[0:2] - self.last_sensor_reading)**2)
