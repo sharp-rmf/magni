@@ -1,5 +1,5 @@
 <launch>
-    <include file="$(find magni_45_rplidar)/launch/dual_rplidar.launch"/>
+    <include file="$(find magni_45_rplidar)/launch/single_rplidar.launch"/>
 
     <include file="$(find magni_45_rplidar)/launch/map_server.launch">
         <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/magni_chart_5cm.yaml"/>
