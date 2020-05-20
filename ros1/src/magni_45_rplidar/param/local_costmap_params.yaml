@@ -12,3 +12,13 @@ local_costmap:
   inflation_layer:
     inflation_radius: 1.0
     cost_scaling_factor: 10.0
+
+  obstacle_layer:
+    enabled: true
+    observation_sources: laser_scan_sensor
+    laser_scan_sensor:
+      sensor_frame: front_laser
+      data_type: LaserScan
+      topic: /scan
+      marking: true
+      clearing: true
