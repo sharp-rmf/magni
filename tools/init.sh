@@ -6,7 +6,6 @@ ROS_DISTRO="kinetic"
 sudo apt install picocom -y
 sudo apt install python3-vcstool -y
 sudo apt install python3-pip -y
-sudo apt install npyscreen -y
 sudo apt install ros-$ROS_DISTRO-move-base -y
 sudo apt install ros-$ROS_DISTRO-dwa-local-planner -y
 sudo apt install ros-$ROS_DISTRO-amcl -y
