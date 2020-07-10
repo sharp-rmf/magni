@@ -3,10 +3,6 @@ repositories:
         type: git
         url: git@github.com:osrf/rmf_core.git 
         version: master 
-    rmf_sim:
-        type: git
-        url: git@github.com:sharp-rmf/rmf_sim.git
-        version: master 
     traffic_editor:
         type: git
         url: git@github.com:osrf/traffic_editor.git 
