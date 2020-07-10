@@ -19,7 +19,7 @@
 
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="
-          -configuration_directory $(find rmf_mapping)/cartographer_configs
+          -configuration_directory $(find magni_45_mapping)/cartographer_configs
           -configuration_basename magni.lua"
       output="screen">
   </node>
