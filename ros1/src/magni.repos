@@ -1,5 +1,5 @@
 repositories:
     rplidar_ros:
         type: git
-        url: git@github.com:Slamtec/rplidar_ros.git 
+        url: git@github.com:sharp-rmf/rplidar_ros.git 
         version: master 
