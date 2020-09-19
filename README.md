@@ -17,7 +17,8 @@ CMake, version 3.7 or later;
 OpenSSL, preferably version 1.1 or later if you want to use TLS over TCP.  You can explicitly disable it by setting ENABLE_SSL=NO, which is very useful for reducing the footprint or when the FindOpenSSL CMake script gives you trouble;  
 Java JDK, version 8 or later, e.g., OpenJDK;  
 Apache Maven, version 3.5 or later.  
-On Ubuntu apt install maven default-jdk
+On Ubuntu apt install maven default-jdk  
+python3-catkin-tools #for catkin build
 
 # catkin build settings
 ```
