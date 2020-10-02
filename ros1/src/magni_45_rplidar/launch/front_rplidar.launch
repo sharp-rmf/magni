@@ -1,5 +1,6 @@
 <launch>
     <node name="rplidarNode_front"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+	<remap from="scan" to="front_scan"/>
         <param name="serial_port"         type="string" value="/dev/rplidar_front"/>  
         <param name="serial_baudrate"     type="int"    value="256000"/><!--A3 -->
         <param name="frame_id"            type="string" value="front_laser"/>
@@ -8,6 +9,6 @@
         <param name="scan_mode"           type="string" value="Sensitivity"/>
     </node>
 
-    <node name="front_laser_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 base_link front_laser"/>
+    <node name="front_laser_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 3.141592654 0 0 laser front_laser"/>
 </launch>
 

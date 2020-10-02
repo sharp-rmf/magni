@@ -1,5 +1,8 @@
 <launch>
     <include file="$(find magni_45_rplidar)/launch/back_rplidar.launch"/>
+    <include file="$(find magni_45_rplidar)/launch/front_rplidar.launch"/>
+    <include file="$(find ira_laser_tools)/launch/magni_laser_merger.launch"/>
+    <node name="laser_base_link_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 base_link laser"/>
 
     <include file="$(find magni_45_rplidar)/launch/map_server.launch">
         <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/magni_chart_5cm.yaml"/>
@@ -7,7 +10,7 @@
 
     <rosparam command="load" file="$(find magni_45_rplidar)/param/amcl.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen">
-	<remap from="scan" to="scan_multi"/>
+        <!--remap from="scan" to="scan_multi"/-->
 </node>
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
@@ -20,3 +23,4 @@
     <rosparam command="load" file="$(find magni_45_rplidar)/single_lidar_param/move_base_params.yaml"/>
   </node>
 </launch>
+

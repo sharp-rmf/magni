@@ -6,7 +6,7 @@
     <node name="front_laser_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 base_link laser"/>
 
     <include file="$(find magni_45_rplidar)/launch/map_server.launch">
-        <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/home.yaml"/>
+        <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/magni_chart_5cm.yaml"/>
     </include>
 
     <rosparam command="load" file="$(find magni_45_rplidar)/param/amcl.yaml" />
