@@ -1,0 +1,13 @@
+repositories:
+  free_fleet_client/cyclonedds:
+    type: git
+    url: https://github.com/eclipse-cyclonedds/cyclonedds.git
+    version: master
+  free_fleet_client/free_fleet:
+    type: git
+    url: https://github.com/osrf/free_fleet.git
+    version: feature/master
+  rplidar_ros:
+    type: git
+    url: https://github.com/Slamtec/rplidar_ros.git
+    version: master

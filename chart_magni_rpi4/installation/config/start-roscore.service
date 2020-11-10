@@ -1,0 +1,16 @@
+[Unit]
+Description=Starts Roscore on boot
+After=network.target
+StartLimitAction=reboot
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=ubuntu 
+ExecStart= roscore
+KillMode=process
+ExecStop= pkill -f roscore
+
+[Install]
+WantedBy=multi-user.target

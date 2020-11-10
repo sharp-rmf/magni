@@ -1,0 +1,13 @@
+[Unit]
+Description=Restores hostapd if down
+
+[Service]
+Type=simple
+ExecStart=systemctl start hostapd.service
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+
+

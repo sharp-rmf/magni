@@ -1,0 +1,16 @@
+[Unit]
+Description=nuc_startup
+After=network.target
+StartLimitAction=reboot
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=ubuntu 
+ExecStart= /home/ubuntu/start_device.bash
+KillMode=process
+ExecStop= pkill -f opcua_door_trans
+
+[Install]
+WantedBy=multi-user.target
