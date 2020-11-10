@@ -146,8 +146,8 @@ echo -e "Deploying bashrc"
 cp $SCRIPT_DIR/config/.bashrc $HOME
 
 echo -e "Deploying udev rules"
-sudo cp $SCRIPT_DIR/config/rplidar_back.rules /dev/udev/rules.d
-sudo cp $SCRIPT_DIR/config/rplidar_front.rules /dev/udev/rules.d
+sudo cp $SCRIPT_DIR/config/rplidar_back.rules /etc/udev/rules.d
+sudo cp $SCRIPT_DIR/config/rplidar_front.rules /etc/udev/rules.d
 
 echo -e "Deploying dnsmasq configuration"
 sudo cp $SCRIPT_DIR/config/dnsmasq.conf /etc
