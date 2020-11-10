@@ -10,7 +10,6 @@ RestartSec=1
 User=ubuntu 
 ExecStart= /home/ubuntu/start_device.bash
 KillMode=process
-ExecStop= pkill -f opcua_door_trans
 
 [Install]
 WantedBy=multi-user.target
