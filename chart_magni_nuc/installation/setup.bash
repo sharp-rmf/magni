@@ -179,6 +179,11 @@ echo -e "Deploying $SERVICE_NAME"
 sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
 sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
 
+SERVICE_NAME=start-roscore
+echo -e "Deploying $SERVICE_NAME"
+sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
+sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
+
 echo -e "Deploying startup script"
 cp $SCRIPT_DIR/start_device.bash $HOME
 
