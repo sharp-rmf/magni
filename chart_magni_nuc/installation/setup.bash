@@ -106,12 +106,18 @@ rosdep install --from-paths src --ignore-src -yr
 
 echo -e "ROS1 dependencies installed.\n"
 
+######################################### INSTALLING ROS1 DEPENDENCIES  ############################################
+echo -e "Patching RPlidar Drivers"
+cd $ROS1_WORKSPACE_PATH/src
+$SCRIPT_DIR/patch_rplidar_driver.sh
+
 ######################################### BUILD ROS1 PACKAGES  ###################################################
 echo -e "Building ROS1 Packages"
 
 cd $ROS1_WORKSPACE_PATH
 source $ROS1_PATH/setup.bash
-catkin build -j 1 -p 1 --mem-limit 50% --cmake-args -DBUILD_IDLC=NO
+#catkin build -j 1 -p 1 --mem-limit 50% --cmake-args -DBUILD_IDLC=NO  # For low ram devices
+catkin build
 
 echo -e "$REPOSITORY_NAME Workspace built.\n"
 
@@ -119,7 +125,6 @@ echo -e "$REPOSITORY_NAME Workspace built.\n"
 if [[ $IN_DOCKER ]]; then echo 'Currently in Docker, not proceding to configuration installs.'; exit 0; fi
 
 ######################################### INSTALLING CONFIGURATION FILES  ############################################
-exit 0
 echo -e "Installing configuration files"
 
 echo -e "Disabling NetworkManager.. ( sorry )"
