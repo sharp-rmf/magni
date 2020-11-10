@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-REPOSITORY_NAME=chart_magni_nuc
+REPOSITORY_NAME=chart_magni_stack
 REPOSITORY_BRANCH=master
 ROS1_WORKSPACE_PATH=$HOME/deployment_ws
 REPOSITORY_URL="git@github.com:sharp-rmf/$REPOSITORY_NAME.git"
-INSTALLATION_SETUP_PATH=$ROS1_WORKSPACE_PATH/src/$REPOSITORY_NAME/installation
+INSTALLATION_SETUP_PATH=$ROS1_WORKSPACE_PATH/src/$REPOSITORY_NAME/chart_magni_nuc/installation
 
 echo -e "Bootstrapper for $REPOSITORY_NAME\n\n"
 

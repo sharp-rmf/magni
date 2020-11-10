@@ -119,6 +119,7 @@ echo -e "$REPOSITORY_NAME Workspace built.\n"
 if [[ $IN_DOCKER ]]; then echo 'Currently in Docker, not proceding to configuration installs.'; exit 0; fi
 
 ######################################### INSTALLING CONFIGURATION FILES  ############################################
+exit 0
 echo -e "Installing configuration files"
 
 echo -e "Disabling NetworkManager.. ( sorry )"

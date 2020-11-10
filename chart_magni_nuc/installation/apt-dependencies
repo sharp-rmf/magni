@@ -1,11 +1,6 @@
 openssh-server
 ssh-client
 python3-vcstool
-ros-foxy-desktop
-ros-foxy-rmf-door-msgs
-ros-foxy-rmw-cyclonedds-cpp
-python3-colcon-common-extensions
-python3-rosdep2
 dnsmasq
 hostapd
 rfkill
