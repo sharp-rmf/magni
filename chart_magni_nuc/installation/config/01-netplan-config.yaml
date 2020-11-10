@@ -11,6 +11,7 @@ network:
   wifis:
     wlp58s0:
       dhcp4: false
+      gateway: 10.233.29.1
       access-points:
         'Pegasus':
           password: 'pega2359'
