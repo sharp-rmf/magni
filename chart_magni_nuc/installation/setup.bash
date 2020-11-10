@@ -117,7 +117,7 @@ echo -e "Building ROS1 Packages"
 cd $ROS1_WORKSPACE_PATH
 source $ROS1_PATH/setup.bash
 #catkin build -j 1 -p 1 --mem-limit 50% --cmake-args -DBUILD_IDLC=NO  # For low ram devices
-catkin build
+catkin build --cmake-args -DBUILD_IDLC=NO  
 
 echo -e "$REPOSITORY_NAME Workspace built.\n"
 
