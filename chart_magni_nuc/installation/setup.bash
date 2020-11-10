@@ -159,11 +159,6 @@ sudo systemctl unmask dnsmasq.service
 sudo systemctl enable dnsmasq.service 
 sudo systemctl start dnsmasq.service
 
-echo -e "Deploying hostapd configuration"
-sudo cp $SCRIPT_DIR/config/hostapd.conf /etc/hostapd
-sudo systemctl unmask hostapd.service
-sudo systemctl start hostapd.service
-
 SERVICE_NAME=start-ros1-node
 echo -e "Deploying $SERVICE_NAME"
 sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system

@@ -6,7 +6,6 @@ post-setup-tests.bash
 start_device.bash
 patch_rplidar_driver.sh
 config/dnsmasq.conf
-config/hostapd.conf
 config/rfkill-unblock-wifi.service
 config/start-ros1-node.service
 config/01-netplan-config.yaml
