@@ -4,6 +4,7 @@ python3-vcstool
 dnsmasq
 hostapd
 rfkill
+maven
 
 ros-melodic-desktop-full
 ros-melodic-move-base
