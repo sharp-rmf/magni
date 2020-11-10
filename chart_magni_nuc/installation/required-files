@@ -9,5 +9,4 @@ config/dnsmasq.conf
 config/hostapd.conf
 config/rfkill-unblock-wifi.service
 config/start-ros1-node.service
-config/start-roscore.service
 config/01-netplan-config.yaml
