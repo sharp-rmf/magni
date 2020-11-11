@@ -22,7 +22,7 @@ REPOSITORY_NAME=$1
 ROS1_WORKSPACE_PATH=$2
 
 export MAKEFLAGS=j1 # Limit the number of cores used when building code from source, MAKEFLAGS='-j$(nproc)' to use all cores ( might run of RAM especially on Pi4s )
-ROS1_PATH=/opt/ros/melodic
+ROS1_PATH=/opt/ros/noetic
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # Current workspace
 MAINTAINER_EMAIL="contact_me@gmail.com"
 export DEBIAN_FRONTEND="noninteractive"  # Prevent debconf interactive menus
