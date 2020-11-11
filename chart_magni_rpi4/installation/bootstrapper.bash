@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
 
-REPOSITORY_NAME=opcua_door_ros2
-REPOSITORY_BRANCH=maintainence-ci
-ROS2_WORKSPACE_PATH=$HOME/deployment_ws
+REPOSITORY_NAME=chart_magni_stack
+REPOSITORY_BRANCH=master
+ROS1_WORKSPACE_PATH=$HOME/deployment_ws
 REPOSITORY_URL="git@github.com:sharp-rmf/$REPOSITORY_NAME.git"
-INSTALLATION_SETUP_PATH=$ROS2_WORKSPACE_PATH/src/$REPOSITORY_NAME/installation
+INSTALLATION_SETUP_PATH=$ROS1_WORKSPACE_PATH/src/$REPOSITORY_NAME/chart_magni_nuc/installation
 
 echo -e "Bootstrapper for $REPOSITORY_NAME\n\n"
 
 #################################################### CHECK WORKSPACE #################################################
 echo -e "Checking that workspace path is free.. \n"
-if [ -d "$ROS2_WORKSPACE_PATH" ]
+if [ -d "$ROS1_WORKSPACE_PATH" ]
 then
   echo "Directory already exists. Please remove this folder and back it up if necessary to prevent accidental loss of data."
   exit 1
@@ -30,15 +30,15 @@ echo -e "Done"
 
 #################################################### CREATE WORKSPACE #################################################
 echo -e "Creating workspace.. \n"
-mkdir -p $ROS2_WORKSPACE_PATH/src
+mkdir -p $ROS1_WORKSPACE_PATH/src
 
 #################################################### CLONE REPOSITORY #################################################
-cd $ROS2_WORKSPACE_PATH/src
+cd $ROS1_WORKSPACE_PATH/src
 git clone $REPOSITORY_URL
-cd $ROS2_WORKSPACE_PATH/src/$REPOSITORY_NAME
+cd $ROS1_WORKSPACE_PATH/src/$REPOSITORY_NAME
 git checkout $REPOSITORY_BRANCH
 
 #################################################### START INSTALLATION  ############################################
-cd $ROS2_WORKSPACE_PATH
+cd $ROS1_WORKSPACE_PATH
 chmod +x $INSTALLATION_SETUP_PATH/setup.bash
-$INSTALLATION_SETUP_PATH/setup.bash $REPOSITORY_NAME $ROS2_WORKSPACE_PATH
+$INSTALLATION_SETUP_PATH/setup.bash $REPOSITORY_NAME $ROS1_WORKSPACE_PATH

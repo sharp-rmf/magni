@@ -1,18 +1,14 @@
 openssh-server
 ssh-client
-python3-vcstool
-ros-foxy-desktop
-ros-foxy-rmf-door-msgs
-ros-foxy-rmw-cyclonedds-cpp
-python3-colcon-common-extensions
-python3-rosdep2
+python3-vcstools
 dnsmasq
 hostapd
 rfkill
+maven
 
-ros-melodic-desktop-full
-ros-melodic-move-base
-ros-melodic-dwa-local-planner
-ros-melodic-amcl
-ros-melodic-map-server
-python-catkin-tools
+ros-noetic-desktop-full
+ros-noetic-move-base
+ros-noetic-dwa-local-planner
+ros-noetic-amcl
+ros-noetic-map-server
+python3-catkin-tools

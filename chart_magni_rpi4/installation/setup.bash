@@ -22,7 +22,7 @@ REPOSITORY_NAME=$1
 ROS1_WORKSPACE_PATH=$2
 
 export MAKEFLAGS=j1 # Limit the number of cores used when building code from source, MAKEFLAGS='-j$(nproc)' to use all cores ( might run of RAM especially on Pi4s )
-ROS1_PATH=/opt/ros/melodic
+ROS1_PATH=/opt/ros/noetic
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # Current workspace
 MAINTAINER_EMAIL="contact_me@gmail.com"
 export DEBIAN_FRONTEND="noninteractive"  # Prevent debconf interactive menus
@@ -97,7 +97,7 @@ cd $ROS1_WORKSPACE_PATH
 source $ROS1_PATH/setup.bash
 
 echo -e "Downloading ROS1 source packages"
-vcs import src < $SCRIPT_DIR/ros2-source-dependencies
+vcs import src < $SCRIPT_DIR/ros1-source-dependencies
 
 echo -e "Updating Rosdep.."
 rosdep update
@@ -106,12 +106,18 @@ rosdep install --from-paths src --ignore-src -yr
 
 echo -e "ROS1 dependencies installed.\n"
 
+######################################### INSTALLING ROS1 DEPENDENCIES  ############################################
+echo -e "Patching RPlidar Drivers"
+cd $ROS1_WORKSPACE_PATH/src
+$SCRIPT_DIR/patch_rplidar_driver.sh
+
 ######################################### BUILD ROS1 PACKAGES  ###################################################
 echo -e "Building ROS1 Packages"
 
 cd $ROS1_WORKSPACE_PATH
 source $ROS1_PATH/setup.bash
-colcon build --symlink-install
+#catkin build -j 1 -p 1 --mem-limit 50% --cmake-args -DBUILD_IDLC=NO  # For low ram devices
+catkin build --cmake-args -DBUILD_IDLC=NO  
 
 echo -e "$REPOSITORY_NAME Workspace built.\n"
 
@@ -139,6 +145,10 @@ cp $SCRIPT_DIR/config/cyclonedds.xml $HOME
 echo -e "Deploying bashrc"
 cp $SCRIPT_DIR/config/.bashrc $HOME
 
+echo -e "Deploying udev rules"
+sudo cp $SCRIPT_DIR/config/rplidar_back.rules /etc/udev/rules.d
+sudo cp $SCRIPT_DIR/config/rplidar_front.rules /etc/udev/rules.d
+
 echo -e "Deploying dnsmasq configuration"
 sudo cp $SCRIPT_DIR/config/dnsmasq.conf /etc
 echo -e "Disabling systemd-resolved"
@@ -149,22 +159,12 @@ sudo systemctl unmask dnsmasq.service
 sudo systemctl enable dnsmasq.service 
 sudo systemctl start dnsmasq.service
 
-echo -e "Deploying hostapd configuration"
-sudo cp $SCRIPT_DIR/config/hostapd.conf /etc/hostapd
-sudo systemctl unmask hostapd.service
-sudo systemctl start hostapd.service
-
-SERVICE_NAME=start-ros2-node
+SERVICE_NAME=start-ros1-node
 echo -e "Deploying $SERVICE_NAME"
 sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
 sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
 
 SERVICE_NAME=rfkill-unblock-wifi
-echo -e "Deploying $SERVICE_NAME"
-sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
-sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
-
-SERVICE_NAME=start-hostapd
 echo -e "Deploying $SERVICE_NAME"
 sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
 sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
