@@ -1,6 +1,6 @@
 openssh-server
 ssh-client
-python3-vcstools
+python3-vcstool
 dnsmasq
 hostapd
 rfkill
