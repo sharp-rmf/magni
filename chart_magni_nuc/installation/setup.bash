@@ -104,7 +104,7 @@ sudo rm /etc/ros/rosdep/sources.list.d/*
 sudo rosdep init
 rosdep update
 echo -e "Downloading ROS1 binaries"
-rosdep install --from-paths src --ignore-src -yr
+rosdep install --from-paths src --ignore-src -yr || true
 
 echo -e "ROS1 dependencies installed.\n"
 
