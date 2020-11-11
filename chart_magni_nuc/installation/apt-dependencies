@@ -1,6 +1,5 @@
 openssh-server
 ssh-client
-python3-vcstool
 dnsmasq
 hostapd
 rfkill
@@ -12,3 +11,5 @@ ros-noetic-dwa-local-planner
 ros-noetic-amcl
 ros-noetic-map-server
 python3-catkin-tools
+python3-vcstool
+python3-rosdep
