@@ -100,6 +100,7 @@ echo -e "Downloading ROS1 source packages"
 vcs import src < $SCRIPT_DIR/ros1-source-dependencies
 
 echo -e "Updating Rosdep.."
+sudo rosdep init
 rosdep update
 echo -e "Downloading ROS1 binaries"
 rosdep install --from-paths src --ignore-src -yr
