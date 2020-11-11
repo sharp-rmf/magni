@@ -6,9 +6,9 @@ hostapd
 rfkill
 maven
 
-ros-melodic-desktop-full
-ros-melodic-move-base
-ros-melodic-dwa-local-planner
-ros-melodic-amcl
-ros-melodic-map-server
+ros-noetic-desktop-full
+ros-noetic-move-base
+ros-noetic-dwa-local-planner
+ros-noetic-amcl
+ros-noetic-map-server
 python-catkin-tools
