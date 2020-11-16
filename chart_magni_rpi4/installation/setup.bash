@@ -71,7 +71,7 @@ echo -e "Sources installed. \n"
 
 ######################################### INSTALL CMAKE   ############################################
 echo -e "Install compatible version of CMAKE"
-sudo $SCRIPT_DIR/install_cmake.sh
+sudo $SCRIPT_DIR/install_cmake.bash
 
 ######################################### INSTALLING APT DEPENDENCIES  ##############################################
 echo -e "Installing apt dependencies.."
