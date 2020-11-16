@@ -108,7 +108,11 @@ rosdep install --from-paths src --ignore-src -yr || true
 
 echo -e "ROS1 dependencies installed.\n"
 
-######################################### INSTALLING ROS1 DEPENDENCIES  ############################################
+######################################### INSTALL CMAKE 3.8  ############################################
+echo -e "Patching RPlidar Drivers"
+$SCRIPT_DIR/install_cmake.sh
+
+######################################### PATCH RPLIDAR DRIVER  ############################################
 echo -e "Patching RPlidar Drivers"
 cd $ROS1_WORKSPACE_PATH/src
 $SCRIPT_DIR/patch_rplidar_driver.sh
