@@ -22,7 +22,7 @@ REPOSITORY_NAME=$1
 ROS1_WORKSPACE_PATH=$2
 
 export MAKEFLAGS=j1 # Limit the number of cores used when building code from source, MAKEFLAGS='-j$(nproc)' to use all cores ( might run of RAM especially on Pi4s )
-ROS1_PATH=/opt/ros/noetic
+ROS1_PATH=/opt/ros/kinetic
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # Current workspace
 MAINTAINER_EMAIL="contact_me@gmail.com"
 export DEBIAN_FRONTEND="noninteractive"  # Prevent debconf interactive menus
@@ -100,9 +100,11 @@ echo -e "Downloading ROS1 source packages"
 vcs import src < $SCRIPT_DIR/ros1-source-dependencies
 
 echo -e "Updating Rosdep.."
+sudo rm /etc/ros/rosdep/sources.list.d/*
+sudo rosdep init
 rosdep update
 echo -e "Downloading ROS1 binaries"
-rosdep install --from-paths src --ignore-src -yr
+rosdep install --from-paths src --ignore-src -yr || true
 
 echo -e "ROS1 dependencies installed.\n"
 
@@ -127,37 +129,12 @@ if [[ $IN_DOCKER ]]; then echo 'Currently in Docker, not proceding to configurat
 ######################################### INSTALLING CONFIGURATION FILES  ############################################
 echo -e "Installing configuration files"
 
-echo -e "Disabling NetworkManager.. ( sorry )"
-sudo systemctl stop network-manager.service
-sudo systemctl disable network-manager.service
-sudo systemctl mask network-manager.service
-sudo systemctl daemon-reload
-
-echo -e "Deploying Netplan"
-sudo rm /etc/netplan/*
-sudo cp $SCRIPT_DIR/config/01-netplan-config.yaml /etc/netplan
-sudo netplan generate --debug
-sudo netplan apply
-
-echo -e "Deploying cyclonedds.xml"
-cp $SCRIPT_DIR/config/cyclonedds.xml $HOME
-
 echo -e "Deploying bashrc"
 cp $SCRIPT_DIR/config/.bashrc $HOME
 
 echo -e "Deploying udev rules"
 sudo cp $SCRIPT_DIR/config/rplidar_back.rules /etc/udev/rules.d
 sudo cp $SCRIPT_DIR/config/rplidar_front.rules /etc/udev/rules.d
-
-echo -e "Deploying dnsmasq configuration"
-sudo cp $SCRIPT_DIR/config/dnsmasq.conf /etc
-echo -e "Disabling systemd-resolved"
-sudo systemctl disable systemd-resolved.service
-sudo systemctl stop systemd-resolved.service
-sudo systemctl mask systemd-resolved.service
-sudo systemctl unmask dnsmasq.service 
-sudo systemctl enable dnsmasq.service 
-sudo systemctl start dnsmasq.service
 
 SERVICE_NAME=start-ros1-node
 echo -e "Deploying $SERVICE_NAME"

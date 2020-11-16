@@ -1,14 +1,15 @@
 openssh-server
 ssh-client
-python3-vcstools
 dnsmasq
 hostapd
 rfkill
 maven
 
-ros-noetic-desktop-full
-ros-noetic-move-base
-ros-noetic-dwa-local-planner
-ros-noetic-amcl
-ros-noetic-map-server
+ros-kinetic-move-base
+ros-kinetic-dwa-local-planner
+ros-kinetic-amcl
+ros-kinetic-map-server
+ros-kinetic-ira-laser-tools
 python3-catkin-tools
+python3-vcstool
+python3-rosdep

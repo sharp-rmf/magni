@@ -11,3 +11,7 @@ repositories:
     type: git
     url: https://github.com/Slamtec/rplidar_ros.git
     version: master
+  ira_laser_tools:
+    type: git
+    url: https://github.com/iralabdisco/ira_laser_tools.git
+    version: master
