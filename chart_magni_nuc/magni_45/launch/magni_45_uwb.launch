@@ -1,3 +1,0 @@
-<launch>
-    <include file="$(find magni_45_uwb)/launch/uwb.launch"/>
-</launch>
