@@ -1,7 +1,6 @@
 [Unit]
 Description=nuc_startup
 After=network.target
-StartLimitAction=reboot
 
 [Service]
 Type=simple
