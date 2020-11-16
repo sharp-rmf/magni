@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-sudo apt remove --purge --auto-remove cmake
+sudo apt remove --purge --auto-remove cmake -y
 version=3.18
 build=1
 mkdir ~/temp
