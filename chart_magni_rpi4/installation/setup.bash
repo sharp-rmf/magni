@@ -69,9 +69,9 @@ echo -e "Updating apt sources.."
 $SCRIPT_DIR/install-rmf-sources.bash
 echo -e "Sources installed. \n"
 
-######################################### INSTALL CMAKE 3.8  ############################################
+######################################### INSTALL CMAKE   ############################################
 echo -e "Install compatible version of CMAKE"
-$SCRIPT_DIR/install_cmake.sh
+sudo $SCRIPT_DIR/install_cmake.sh
 
 ######################################### INSTALLING APT DEPENDENCIES  ##############################################
 echo -e "Installing apt dependencies.."
