@@ -6,6 +6,7 @@ hostapd
 rfkill
 maven
 
+ros-kinetic-ros-base
 ros-kinetic-move-base
 ros-kinetic-dwa-local-planner
 ros-kinetic-amcl

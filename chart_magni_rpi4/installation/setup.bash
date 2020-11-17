@@ -157,6 +157,9 @@ echo -e "Deploying host files"
 sudo cp $SCRIPT_DIR/config/hostname /etc
 sudo cp $SCRIPT_DIR/config/hosts /etc
 
+echo -e "Deploying fix to get ssh up without timesync"
+sudo cp $SCRIPT_DIR/config/networking.service /etc/systemd/system/network-online.target.wants/
+
 echo -e "Configurations have been successfully deployed.\n"
 
 ######################################### CLEAN UP  ############################################
