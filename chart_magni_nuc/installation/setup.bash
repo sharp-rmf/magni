@@ -62,12 +62,12 @@ done < "$input"
 
 echo -e "Done.\n"
 
+#################################################### SET UP VNC SERVER ##########################################
+echo -e "Set up VNC Server on Boot."
 
+$SCRIPT_DIR/vnc-gnome-install
 
-######################################### INSTALLING BIN SOURCES #####################################################
-echo -e "Updating apt sources.."
-$SCRIPT_DIR/install-rmf-sources.bash
-echo -e "Sources installed. \n"
+echo -e "Done.\n"
 
 ######################################### INSTALLING APT DEPENDENCIES  ##############################################
 echo -e "Installing apt dependencies.."
@@ -91,37 +91,6 @@ done < "$input"
 
 echo -e "pip3 dependencies installed.\n"
 
-######################################### INSTALLING ROS1 DEPENDENCIES  ############################################
-echo -e "Installing ROS1 dependencies"
-cd $ROS1_WORKSPACE_PATH
-source $ROS1_PATH/setup.bash
-
-echo -e "Downloading ROS1 source packages"
-vcs import src < $SCRIPT_DIR/ros1-source-dependencies
-
-echo -e "Updating Rosdep.."
-sudo rm /etc/ros/rosdep/sources.list.d/*
-sudo rosdep init
-rosdep update
-echo -e "Downloading ROS1 binaries"
-rosdep install --from-paths src --ignore-src -yr || true
-
-echo -e "ROS1 dependencies installed.\n"
-
-######################################### INSTALLING ROS1 DEPENDENCIES  ############################################
-echo -e "Patching RPlidar Drivers"
-cd $ROS1_WORKSPACE_PATH/src
-$SCRIPT_DIR/patch_rplidar_driver.sh
-
-######################################### BUILD ROS1 PACKAGES  ###################################################
-echo -e "Building ROS1 Packages"
-
-cd $ROS1_WORKSPACE_PATH
-source $ROS1_PATH/setup.bash
-#catkin build -j 1 -p 1 --mem-limit 50% --cmake-args -DBUILD_IDLC=NO  # For low ram devices
-catkin build --cmake-args -DBUILD_IDLC=NO  
-
-echo -e "$REPOSITORY_NAME Workspace built.\n"
 
 #########################################  ONLY CONTINUE IF NOT IN DOCKER   ############################################
 if [[ $IN_DOCKER ]]; then echo 'Currently in Docker, not proceding to configuration installs.'; exit 0; fi
@@ -141,47 +110,17 @@ sudo cp $SCRIPT_DIR/config/01-netplan-config.yaml /etc/netplan
 sudo netplan generate --debug
 sudo netplan apply
 
-echo -e "Deploying cyclonedds.xml"
-cp $SCRIPT_DIR/config/cyclonedds.xml $HOME
-
 echo -e "Deploying bashrc"
 cp $SCRIPT_DIR/config/.bashrc $HOME
-
-echo -e "Deploying udev rules"
-sudo cp $SCRIPT_DIR/config/rplidar_back.rules /etc/udev/rules.d
-sudo cp $SCRIPT_DIR/config/rplidar_front.rules /etc/udev/rules.d
-
-echo -e "Deploying dnsmasq configuration"
-sudo cp $SCRIPT_DIR/config/dnsmasq.conf /etc
-echo -e "Disabling systemd-resolved"
-sudo systemctl disable systemd-resolved.service
-sudo systemctl stop systemd-resolved.service
-sudo systemctl mask systemd-resolved.service
-sudo systemctl unmask dnsmasq.service 
-sudo systemctl enable dnsmasq.service 
-sudo systemctl start dnsmasq.service
-
-SERVICE_NAME=start-ros1-node
-echo -e "Deploying $SERVICE_NAME"
-sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
-sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
 
 SERVICE_NAME=rfkill-unblock-wifi
 echo -e "Deploying $SERVICE_NAME"
 sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
 sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
 
-echo -e "Deploying startup script"
-cp $SCRIPT_DIR/start_device.bash $HOME
-
 echo -e "Deploying host files"
 sudo cp $SCRIPT_DIR/config/hostname /etc
 sudo cp $SCRIPT_DIR/config/hosts /etc
 
 echo -e "Configurations have been successfully deployed.\n"
-
-######################################### CLEAN UP  ############################################
-echo -e "Doing post setup tests."
-$SCRIPT_DIR/post-setup-tests.bash
-echo -e "Installation Complete.\n"
 

@@ -2,26 +2,14 @@ network:
   version: 2
   renderer: networkd 
 
-  ethernets:
-    eno1:
-      dhcp4: false
-      addresses:
-        - 10.42.0.1/24
-
   wifis:
     wlp58s0:
       dhcp4: false
-      gateway4: 10.233.29.1
+      gateway4: 10.42.0.1
       access-points:
-        'Pegasus':
-          password: 'pega2359'
+        'chart-magni-rpi49E33':
+          password: 'robotseverywhere'
       addresses:
-        - 10.233.29.64/24  
-      routes:
-        - to: 10.233.0.0/24
-          via: 10.233.29.1
+        - 10.42.0.2/24
       nameservers:
         addresses: [8.8.8.8]
-      dhcp4-overrides: 
-        use-routes: false # Prevent default route from DHCP server from being used
-        route-metric: 100 # Priority of this route in making routing decisions

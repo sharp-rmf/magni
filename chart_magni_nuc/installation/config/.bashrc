@@ -116,6 +116,4 @@ if ! shopt -oq posix; then
 fi
 
 source /opt/ros/noetic/setup.bash
-source $HOME/deployment_ws/devel/setup.bash
-#export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-#export CYCLONEDDS_URI=file://$HOME/cyclonedds.xml
+export ROS_MASTER_URI=http://chart-magni-rpi4.local:11311
