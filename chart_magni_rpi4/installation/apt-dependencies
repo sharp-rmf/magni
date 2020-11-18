@@ -13,6 +13,8 @@ ros-kinetic-amcl
 ros-kinetic-map-server
 ros-kinetic-ira-laser-tools
 ros-kinetic-teleop-twist-joy
+ros-kinetic-tf2-web-republisher
+ros-kinetic-diagnostic-aggregator
 python-catkin-tools
 python-vcstool
 python-rosdep
