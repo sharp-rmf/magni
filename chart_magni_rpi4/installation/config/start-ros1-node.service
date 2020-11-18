@@ -1,14 +1,15 @@
 [Unit]
-Description=nuc_startup
+Description=chart_magni_rpi4_startup
 After=network.target
 
 [Service]
 Type=simple
 Restart=always
 RestartSec=1
-User=ubuntu 
+User=ubuntu
 ExecStart= /home/ubuntu/start_device.bash
 KillMode=process
+ExecStop= /usr/bin/pkill roslaunch
 
 [Install]
 WantedBy=multi-user.target
