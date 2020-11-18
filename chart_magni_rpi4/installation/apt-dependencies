@@ -12,6 +12,7 @@ ros-kinetic-dwa-local-planner
 ros-kinetic-amcl
 ros-kinetic-map-server
 ros-kinetic-ira-laser-tools
+ros-kinetic-rosbridge-server
 python-catkin-tools
 python-vcstool
 python-rosdep
