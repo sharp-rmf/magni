@@ -1,6 +1,8 @@
 [Unit]
 Description=chart_magni_rpi4_startup
-After=network.target
+After=network.target time-sync.target roscore.service
+Requires=roscore.service
+PartOf=roscore.service
 
 [Service]
 Type=simple

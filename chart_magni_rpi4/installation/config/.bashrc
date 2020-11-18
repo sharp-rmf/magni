@@ -117,5 +117,6 @@ fi
 
 source /opt/ros/kinetic/setup.bash
 source $HOME/deployment_ws/devel/setup.bash
+source $HOME/catkin_ws/devel/setup.bash
 #export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 #export CYCLONEDDS_URI=file://$HOME/cyclonedds.xml

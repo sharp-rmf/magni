@@ -11,3 +11,7 @@ repositories:
     type: git
     url: https://github.com/Slamtec/rplidar_ros.git
     version: master
+  magni_robot:
+    type: git
+    url: https://github.com/UbiquityRobotics/magni_robot.git
+    version: master
