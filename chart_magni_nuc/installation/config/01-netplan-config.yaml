@@ -4,12 +4,15 @@ network:
 
   ethernets:
     usb0:
-      dhcp4: true
+      dhcp4: false
+      addresses:
+        - 192.168.42.105/24 
+      nameservers:
+        addresses: [8.8.8.8]
 
   wifis:
     wlp58s0:
       dhcp4: false
-      gateway4: 10.42.0.1
       access-points:
         'chart-magni-rpi49E33':
           password: 'robotseverywhere'

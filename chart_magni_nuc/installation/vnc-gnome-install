@@ -25,10 +25,9 @@ sudo systemctl unmask x0vncserver.service
 sudo systemctl enable x0vncserver.service
 sudo systemctl start x0vncserver.service
 
+echo "Set up dummy video server"
+sudo apt install xserver-xorg-video-dummy-lts-xenial -y
+sudo apt install xserver-xorg-video-dummy-hwe-16.04 -y
+sudo cp $CONFIG_DIR/dummy-1920-1080.conf /etc/X11/xorg.conf
+
 echo "Vncserver should be available now."
-
-echo "If using Raspberry Pi, edit config.txt with the following."
-echo "This allows X server to start without plugging in a monitor."
-echo "hdmi_force_hotplug=1 hdmi_drive=2 hdmi_mode=82"
-echo "Visit here for more options: https://www.raspberrypi.org/documentation/configuration/config-txt/"
-
