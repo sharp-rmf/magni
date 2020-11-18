@@ -5,6 +5,7 @@ dnsmasq
 hostapd
 rfkill
 maven
+tightvncserver
 
 ros-kinetic-ros-base
 ros-kinetic-move-base
