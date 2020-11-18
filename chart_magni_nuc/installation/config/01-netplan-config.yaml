@@ -2,6 +2,10 @@ network:
   version: 2
   renderer: networkd 
 
+  ethernets:
+    usb0:
+      dhcp4: true
+
   wifis:
     wlp58s0:
       dhcp4: false
