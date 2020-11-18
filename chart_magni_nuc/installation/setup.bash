@@ -122,5 +122,8 @@ echo -e "Deploying host files"
 sudo cp $SCRIPT_DIR/config/hostname /etc
 sudo cp $SCRIPT_DIR/config/hosts /etc
 
+echo -e "Deploying Rviz config"
+cp $SCRIPT_DIR/config/chart.rviz $HOME/chart.rviz
+
 echo -e "Configurations have been successfully deployed.\n"
 
