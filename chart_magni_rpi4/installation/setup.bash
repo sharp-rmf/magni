@@ -160,6 +160,9 @@ sudo cp $SCRIPT_DIR/config/hosts /etc
 echo -e "Deploying fix to get ssh up without timesync"
 sudo cp $SCRIPT_DIR/config/networking.service /etc/systemd/system/network-online.target.wants/
 
+echo -e "Deployment env configuration env.sh"
+sudo cp $SCRIPT_DIR/config/env.sh /etc/ubiquity
+
 echo -e "Configurations have been successfully deployed.\n"
 
 ######################################### CLEAN UP  ############################################

@@ -8,3 +8,4 @@ patch_rplidar_driver.sh
 install_cmake.bash
 config/rfkill-unblock-wifi.service
 config/start-ros1-node.service
+config/env.sh
