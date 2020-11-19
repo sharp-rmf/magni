@@ -10,7 +10,7 @@
 
     <rosparam command="load" file="$(find magni_45_rplidar)/param/amcl.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen">
-	<remap from="scan" to="scan_multi"/>
+	<!--<remap from="scan" to="scan_multi"/>-->
 </node>
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
