@@ -11,6 +11,7 @@ iface wlx58d56e91d24f inet static
 address 10.233.29.64
 netmask 255.255.255.0
 gateway 10.233.29.1
+dns-nameservers 8.8.8.8
 
 allow-hotplug eth0
 iface eth0 inet dhcp
