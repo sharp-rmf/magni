@@ -5,7 +5,7 @@ rfkill unblock all
 nmcli device set wlx58d56e91d24f managed off
 ifdown wlx58d56e91d24f
 ifup wlx58d56e91d24f
-sudo route add -net 10.233.0.0/24 gw 10.233.29.1
+route add -net 10.233.0.0/24 gw 10.233.29.1
 wpa_supplicant -B -i wlx58d56e91d24f -c /etc/wpa_supplicant/wpa_supplicant.conf 
 
 
