@@ -140,6 +140,21 @@ sudo systemctl stop pifi.service
 echo -e "Deploying bashrc"
 cp $SCRIPT_DIR/config/.bashrc $HOME
 
+echo -e "Deploying dnsmasq configuration"
+sudo cp $SCRIPT_DIR/config/dnsmasq.conf /etc
+echo -e "Disabling systemd-resolved"
+sudo systemctl disable systemd-resolved.service
+sudo systemctl stop systemd-resolved.service
+sudo systemctl mask systemd-resolved.service
+sudo systemctl unmask dnsmasq.service 
+sudo systemctl enable dnsmasq.service 
+sudo systemctl start dnsmasq.service
+
+echo -e "Deploying hostapd configuration"
+sudo cp $SCRIPT_DIR/config/hostapd.conf /etc/hostapd
+sudo systemctl unmask hostapd.service
+sudo systemctl start hostapd.service
+
 echo -e "Deploying udev rules"
 sudo cp $SCRIPT_DIR/config/rplidar_back.rules /etc/udev/rules.d
 sudo cp $SCRIPT_DIR/config/rplidar_front.rules /etc/udev/rules.d
