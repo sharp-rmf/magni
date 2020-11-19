@@ -1,14 +1,14 @@
 [Unit]
 Description=chart_magni_rpi4_startup
-After=network.target time-sync.target roscore.service
-Requires=roscore.service
+After=network.target time-sync.target roscore.service pifi.service
+Requires=roscore.service pifi.service
 PartOf=roscore.service
 
 [Service]
 Type=simple
 Restart=always
 RestartSec=1
-User=ubuntu
+User=root
 ExecStart= /home/ubuntu/start_device.bash
 KillMode=process
 ExecStop= /usr/bin/pkill roslaunch

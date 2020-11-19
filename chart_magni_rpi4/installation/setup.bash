@@ -163,6 +163,9 @@ sudo cp $SCRIPT_DIR/config/networking.service /etc/systemd/system/network-online
 echo -e "Deployment env configuration env.sh"
 sudo cp $SCRIPT_DIR/config/env.sh /etc/ubiquity
 
+echo -e "Deploying Pifi Configuration"
+sudo cp $SCRIPT_DIR/config/pifi.conf /etc/pifi
+
 echo -e "Deployment interfaces file"
 sudo cp $SCRIPT_DIR/config/interfaces /etc/network
 
