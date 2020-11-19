@@ -8,7 +8,7 @@
         <param name="scan_mode"           type="string" value="Sensitivity"/>
     </node>
 
-    <node name="front_laser_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 3.141592654 0 0 laser front_laser"/>
+    <node name="front_laser_rotate" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 3.141592654 0 0 laser front_laser"/>
     <node name="front_laser_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 base_link laser"/>
 </launch>
 
