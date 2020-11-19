@@ -152,6 +152,7 @@ sudo systemctl start dnsmasq.service
 
 echo -e "Deploying hostapd configuration"
 sudo cp $SCRIPT_DIR/config/hostapd.conf /etc/hostapd
+sudo cp $SCRIPT_DIR/config/hostapd /etc/default/hostapd
 sudo systemctl unmask hostapd.service
 sudo systemctl start hostapd.service
 
