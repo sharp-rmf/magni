@@ -186,6 +186,9 @@ sudo cp $SCRIPT_DIR/config/env.sh /etc/ubiquity
 echo -e "Deployment interfaces file"
 sudo cp $SCRIPT_DIR/config/interfaces /etc/network
 
+echo -e "Deployment interfaces file"
+sudo cp $SCRIPT_DIR/config/cyclonedds $HOME
+
 echo -e "Configurations have been successfully deployed.\n"
 
 ######################################### CLEAN UP  ############################################
