@@ -160,10 +160,15 @@ echo -e "Deploying udev rules"
 sudo cp $SCRIPT_DIR/config/rplidar_back.rules /etc/udev/rules.d
 sudo cp $SCRIPT_DIR/config/rplidar_front.rules /etc/udev/rules.d
 
-SERVICE_NAME=start-ros1-node
-echo -e "Deploying $SERVICE_NAME"
-sudo cp $SCRIPT_DIR/config/$SERVICE_NAME.service /etc/systemd/system
-sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && sudo systemctl enable $SERVICE_NAME.service && sudo systemctl restart $SERVICE_NAME.service
+service_name=start-ros1-node
+echo -e "deploying $service_name"
+sudo cp $script_dir/config/$service_name.service /etc/systemd/system
+sudo systemctl unmask $service_name.service && sudo systemctl daemon-reload && sudo systemctl enable $service_name.service && sudo systemctl restart $service_name.service
+
+service_name=start-magni-free-fleet-client
+echo -e "deploying $service_name"
+sudo cp $script_dir/config/$service_name.service /etc/systemd/system
+sudo systemctl unmask $service_name.service && sudo systemctl daemon-reload && sudo systemctl enable $service_name.service && sudo systemctl restart $service_name.service
 
 SERVICE_NAME=rfkill-unblock-wifi
 echo -e "Deploying $SERVICE_NAME"
@@ -172,6 +177,7 @@ sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && s
 
 echo -e "Deploying startup script"
 cp $SCRIPT_DIR/start_device.bash $HOME
+cp $SCRIPT_DIR/start_free_fleet.bash $HOME
 
 echo -e "Deploying host files"
 sudo cp $SCRIPT_DIR/config/hostname /etc
