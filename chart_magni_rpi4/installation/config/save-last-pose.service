@@ -7,7 +7,7 @@ PartOf=roscore.service start-ros1-node.service
 [Service]
 Type=simple
 Restart=always
-RestartSec=1
+RestartSec=4
 User=ubuntu
 ExecStart= /home/ubuntu/save_last_pose.bash
 KillMode=process
