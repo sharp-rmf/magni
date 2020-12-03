@@ -1,0 +1,16 @@
+[Unit]
+Description=chart_magni_save_last_pose
+After=network.target time-sync.target roscore.service pifi.service start_ros1_node.service
+Requires=roscore.service pifi.service start-ros1-node.service
+PartOf=roscore.service start-ros1-node.service
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=1
+User=ubuntu
+ExecStart= /home/ubuntu/restore_last_pose.bash
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
