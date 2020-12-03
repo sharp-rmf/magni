@@ -5,9 +5,6 @@
         <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/magni_chart_5cm.yaml"/>
     </include>
 
-    <include file="$(find magni_45)/launch/magni_45_free_fleet_client.launch">
-    </include>
-
     <rosparam command="load" file="$(find magni_45_rplidar)/param/amcl.yaml" />
 	<node pkg="amcl" type="amcl" name="amcl" output="screen" />
 
