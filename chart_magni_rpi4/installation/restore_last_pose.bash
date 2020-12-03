@@ -19,10 +19,10 @@ pose:
       y: `cat $HOME/last_pose | grep y -m 1 | cut -c 12-`
       z: 0.0
     orientation:
-      x: `cat $HOME/last_pose | grep x -tail -n1 | cut -c 12-`
-      y: `cat $HOME/last_pose | grep y -tail -n1 | cut -c 12-`
-      z: `cat $HOME/last_pose | grep z -tail -n1 | cut -c 12-`
-      w: `cat $HOME/last_pose | grep w -tail -n1 | cut -c 12-`
+      x: `cat $HOME/last_pose | grep x | tail -n1 | cut -c 12-`
+      y: `cat $HOME/last_pose | grep y | tail -n1 | cut -c 12-`
+      z: `cat $HOME/last_pose | grep z | tail -n1 | cut -c 12-`
+      w: `cat $HOME/last_pose | grep w | tail -n1 | cut -c 12-`
   covariance: [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]"""
 
 touch /home/ubuntu/.unlock_magni_save_pose

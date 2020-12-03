@@ -11,4 +11,9 @@ wpa_supplicant -B -i wlx58d56e91d24f -c /etc/wpa_supplicant/wpa_supplicant.conf
 
 source /opt/ros/kinetic/setup.bash
 source /home/ubuntu/deployment_ws/devel/setup.bash
+
+/home/ubuntu/restore_magni_pose.bash&
+
 roslaunch magni_45 magni_45_dual_laser.launch
+
+
