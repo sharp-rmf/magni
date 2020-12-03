@@ -1,7 +1,7 @@
 [Unit]
 Description=chart_magni_restore_last_pose
-After=network.target time-sync.target roscore.service pifi.service start_ros1_node.service
-Requires=roscore.service pifi.service start-ros1-node.service
+After=network.target time-sync.target roscore.service pifi.service start_ros1_node.service start-magni-free-fleet-client.service
+Requires=roscore.service pifi.service start-ros1-node.service start-magni-free-fleet-client.service
 PartOf=roscore.service start-ros1-node.service
 
 [Service]
