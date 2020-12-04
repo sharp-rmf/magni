@@ -5,7 +5,7 @@ DWAPlannerROS:
   max_vel_x:  1.2
   min_vel_x: -0.35
 
-  max_rot_vel: 0.3
+  max_rot_vel: 0.6
   min_rot_vel: 0.2
 
   max_vel_y: 0.0  # diff drive robot = can't strafe
