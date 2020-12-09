@@ -3,7 +3,7 @@ repositories:
     type: git
     url: https://github.com/eclipse-cyclonedds/cyclonedds.git
     version: master
-  free_fleet_client/free_fleet:
+  free_fleet_client/free_fleet: ooo
     type: git
     url: https://github.com/osrf/free_fleet.git
     version: master
@@ -14,4 +14,4 @@ repositories:
   magni_robot:
     type: git
     url: https://github.com/UbiquityRobotics/magni_robot.git
-    version: master
+    version: indigo-devel
