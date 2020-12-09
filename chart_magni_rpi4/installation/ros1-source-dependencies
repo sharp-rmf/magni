@@ -3,7 +3,7 @@ repositories:
     type: git
     url: https://github.com/eclipse-cyclonedds/cyclonedds.git
     version: master
-  free_fleet_client/free_fleet: ooo
+  free_fleet_client/free_fleet:
     type: git
     url: https://github.com/osrf/free_fleet.git
     version: master
