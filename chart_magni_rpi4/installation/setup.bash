@@ -188,12 +188,13 @@ sudo systemctl unmask $SERVICE_NAME.service && sudo systemctl daemon-reload && s
 echo -e "Deploying startup script"
 cp $SCRIPT_DIR/start_device.bash $HOME
 cp $SCRIPT_DIR/start_free_fleet.bash $HOME
-cp $SCRIPT_DIR/save_last_pose.bash $HOME
+cp $SCRIPT_DIR/save_pose_pose.bash $HOME
 cp $SCRIPT_DIR/restore_last_pose.bash $HOME
 
 echo -e "Deploying host files"
 sudo cp $SCRIPT_DIR/config/hostname /etc
 sudo cp $SCRIPT_DIR/config/hosts /etc
+sudo cp $SCRIPT_DIR/config/wpa_supplicant.conf /etc/wpa_supplicant
 
 echo -e "Deploying fix to get ssh up without timesync"
 sudo cp $SCRIPT_DIR/config/networking.service /etc/systemd/system/network-online.target.wants/
