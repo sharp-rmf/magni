@@ -68,11 +68,6 @@ echo -e "Done.\n"
 echo -e "Updating apt sources.."
 $SCRIPT_DIR/install-rmf-sources.bash
 echo -e "Sources installed. \n"
-
-######################################### INSTALL CMAKE   ############################################
-echo -e "Install compatible version of CMAKE"
-$SCRIPT_DIR/install_cmake.bash
-
 ######################################### INSTALLING APT DEPENDENCIES  ##############################################
 echo -e "Installing apt dependencies.."
 
@@ -83,6 +78,10 @@ do
 done < "$input"
 
 echo -e "apt dependencies installed.\n"
+
+######################################### INSTALL CMAKE   ############################################
+echo -e "Install compatible version of CMAKE"
+$SCRIPT_DIR/install_cmake.bash
 
 ######################################### INSTALLING PIP3 DEPENDENCIES  #############################################
 echo -e "Installing pip3 dependencies"
