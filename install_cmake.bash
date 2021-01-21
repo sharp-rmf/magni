@@ -10,7 +10,6 @@ if [[ `cmake --version | grep $version.$build` ]]; then
 fi
 
 echo "Target cmake version not found. Installing.."
-sudo apt remove --purge --auto-remove cmake -y || true
 mkdir ~/temp
 cd ~/temp
 wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
