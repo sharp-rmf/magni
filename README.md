@@ -18,7 +18,7 @@ sudo apt install git -y
 git clone git@github.com:sharp-rmf/ward45_magni_stack.git $HOME/ward45_magni_stack
 
 # Install CMake for CycloneDDS
-$HOME/ward45_magni_stack/install_cmake.bash
+source $HOME/ward45_magni_stack/install_cmake.bash
 
 # Install apt dependencies
 sudo apt install python-catkin-tools python-vcstool -y
@@ -45,4 +45,5 @@ catkin build --cmake-args -DBUILD_IDLC=NO
 # Copy launch files to $HOME
 cp $HOME/chart_magni_stack/start_device.bash $HOME
 cp $HOME/chart_magni_stack/start_free_fleet.bash $HOME
+chmod +x {start_device, start_free_fleet}.bash
 ```
