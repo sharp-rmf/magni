@@ -47,7 +47,7 @@ source /opt/ros/kinetic/setup.bash
 catkin build --cmake-args -DBUILD_IDLC=NO  
 
 # Copy launch files to $HOME
-cp $HOME/chart_magni_stack/start_device.bash $HOME
-cp $HOME/chart_magni_stack/start_free_fleet.bash $HOME
+cp $HOME/ward45_magni_stack/start_device.bash $HOME
+cp $HOME/ward45_magni_stack/start_free_fleet.bash $HOME
 chmod +x {start_device, start_free_fleet}.bash
 ```
