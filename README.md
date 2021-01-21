@@ -49,5 +49,5 @@ catkin build --cmake-args -DBUILD_IDLC=NO
 # Copy launch files to $HOME
 cp $HOME/ward45_magni_stack/start_device.bash $HOME
 cp $HOME/ward45_magni_stack/start_free_fleet.bash $HOME
-chmod +x {start_device, start_free_fleet}.bash
+chmod +x {start_device,start_free_fleet}.bash
 ```
