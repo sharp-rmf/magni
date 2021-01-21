@@ -21,8 +21,7 @@ git clone git@github.com:sharp-rmf/ward45_magni_stack.git $HOME/ward45_magni_sta
 $HOME/ward45_magni_stack/install_cmake.bash
 
 # Install apt dependencies
-python-catkin-tools
-python-vcstool
+sudo apt install python-catkin-tools python-vcstool -y
 
 # Create Workspace
 mkdir -p $HOME/deployment_ws/src
