@@ -11,6 +11,10 @@ sudo vim /ec/NetworkManager/NetworkManager.conf                                 
 sudo nmtui                                                                                  # Connect to Pegasus 
       # Set static route 10.233.0.0/24 via 10.233.29.1
       # Set DNS 8.8.8.8
+
+# Configure Hostname
+sudo vim /etc/hosts
+sudo vim /etc/hostname                                                                      
 sudo apt update && sudo apt upgrade 
 
 # Get this package on the pi4
