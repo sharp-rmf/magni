@@ -36,7 +36,7 @@ cd $HOME/deployment_ws
 vcs import src < depend.repos
 
 # Install dependencies
-rosdep install
+rosdep install --from-paths src --ignore-src --rosdistro kinetic -yr
 
 # Patch RPlidar Driver
 sed -i s/#define\ DEFAULT_MOTOR_PWM\ *660/#define\ DEFAULT_MOTOR_PWM\ 1000/ src/rplidar_ros/sdk/include/rplidar_cmd.h
