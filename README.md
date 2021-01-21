@@ -15,7 +15,7 @@ sudo apt update && sudo apt upgrade
 
 # Get this package on the pi4
 sudo apt install git -y
-git clone git@github.com:sharp-rmf/ward45_magni_stack.git $HOME
+git clone git@github.com:sharp-rmf/ward45_magni_stack.git $HOME/ward45_magni_stack
 
 # Install CMake for CycloneDDS
 $HOME/ward45_magni_stack/install_cmake.bash
