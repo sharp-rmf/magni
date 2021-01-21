@@ -1,5 +1,5 @@
 # ward45_magni_stack
-Flash https://ubiquity-pi-image.sfo2.cdn.digitaloceanspaces.com/2020-11-07-ubiquity-xenial-lxde-raspberry-pi.img.xz to SD card
+Flash https://downloads.ubiquityrobotics.com/pi.html to SD card
 
 Insert into Raspberry Pi 4.
 
