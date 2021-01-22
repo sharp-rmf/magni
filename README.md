@@ -50,4 +50,7 @@ catkin build --cmake-args -DBUILD_IDLC=NO
 cp $HOME/ward45_magni_stack/start_device.bash $HOME
 cp $HOME/ward45_magni_stack/start_free_fleet.bash $HOME
 chmod +x {start_device,start_free_fleet}.bash
+
+# Copy udev rules, remember to change ENV{ID_PATH} based on the output from `sudo udevadm info /dev/ttyUSB*` based on your lidar device id
+sudo cp $HOME/ward45_magni_stack/*.rules /etc/udev/rules.d
 ```

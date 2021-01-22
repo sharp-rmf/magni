@@ -11,3 +11,12 @@ repositories:
     type: git
     url: https://github.com/Slamtec/rplidar_ros.git
     version: master
+  magni_lidar_launch:
+    type: git
+    url: https://github.com/sharp-rmf/magni_lidar_launch.git
+    version: master
+  magni_lidar_maps:
+    type: git
+    url: git@github.com:sharp-rmf/magni_lidar_maps.git
+    version: master
+ 
