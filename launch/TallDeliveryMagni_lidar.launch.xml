@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find magni_lidar_launch)/launch/TallDeliveryMagni/TallDeliveryMagni_top_right_rplidar.launch.xml"/>
+    <include file="$(find magni_lidar_launch)/launch/TallDeliveryMagni/TallDeliveryMagni_bottom_left_rplidar.launch.xml"/>
+</launch>
+
