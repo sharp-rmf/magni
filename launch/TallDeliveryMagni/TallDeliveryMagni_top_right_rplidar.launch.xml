@@ -1,0 +1,17 @@
+<launch>
+    <!-- Top right is defined with "forwards" vector defined as the direction from the magni center towards the controller board -->
+    <node name="TallDeliveryRobot_top_right_rplidar"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+
+	<remap from="scan" to="top_right_rplidar_scan"/>
+
+        <param name="scan_topic_name"     type="string" value="top_right_rplidar_scan"/>         
+        <param name="serial_port"         type="string" value="/dev/rplidar_top_right"/>  
+        <param name="serial_baudrate"     type="int"    value="256000"/><!--A3 -->
+        <param name="frame_id"            type="string" value="top_right_rplidar_laser"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+        <param name="scan_mode"           type="string" value="Sensitivity"/>
+    </node>
+
+</launch>
+
