@@ -4,6 +4,8 @@ Flash https://downloads.ubiquityrobotics.com/pi.html to SD card
 Insert into Raspberry Pi 4.
 
 Connect to HDMI monitor, keyboard and mouse.
+
+For reference, the forward direction for this robot is defined as the vector from the robot center towards the motor controller board.
 ```
 # Set up networking
 sudo systemctl disable pifi.service && sudo systemctl stop pifi.service
