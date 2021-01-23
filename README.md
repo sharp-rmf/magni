@@ -5,7 +5,7 @@ Insert into Raspberry Pi 4.
 
 Connect to HDMI monitor, keyboard and mouse.
 
-For reference, the forward direction for this robot is defined as the vector from the robot center towards the motor controller board.
+For reference, the forward direction for the Magni is defined as the vector from the robot center towards the motor controller board.
 ```
 # Set up networking
 sudo systemctl disable pifi.service && sudo systemctl stop pifi.service
