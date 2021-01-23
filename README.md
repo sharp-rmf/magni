@@ -58,3 +58,8 @@ sudo udevadm trigger
 # Add deployment_ws environment to .bashrc
 echo "source $HOME/deployment_ws/devel/setup.bash" >> ~/.bashrc
 ```
+
+# Useful Links
+* https://github.com/sharp-rmf/magni_lidar_launch
+* https://github.com/sharp-rmf/magni_lidar_maps
+* https://github.com/sharp-rmf/magni_lidar_mapping
