@@ -4,6 +4,8 @@ Flash https://downloads.ubiquityrobotics.com/pi.html to SD card
 Insert into Raspberry Pi 4.
 
 Connect to HDMI monitor, keyboard and mouse.
+
+For reference, the forward direction for the Magni is defined as the vector from the robot center towards the motor controller board.
 ```
 # Set up networking
 sudo systemctl disable pifi.service && sudo systemctl stop pifi.service
@@ -54,4 +56,12 @@ chmod +x {start_device,start_free_fleet}.bash
 # Copy udev rules, remember to change ENV{ID_PATH} based on the output from `sudo udevadm info /dev/ttyUSB*` based on your lidar device id
 sudo cp $HOME/ward45_magni_stack/*.rules /etc/udev/rules.d
 sudo udevadm trigger
+
+# Add deployment_ws environment to .bashrc
+echo "source $HOME/deployment_ws/devel/setup.bash" >> ~/.bashrc
 ```
+
+# Useful Links
+* https://github.com/sharp-rmf/magni_lidar_launch
+* https://github.com/sharp-rmf/magni_lidar_maps
+* https://github.com/sharp-rmf/magni_lidar_mapping
