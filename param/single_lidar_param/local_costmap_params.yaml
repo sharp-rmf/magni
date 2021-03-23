@@ -15,16 +15,10 @@ local_costmap:
 
   obstacle_layer:
     enabled: true
-    observation_sources: front_scan_sensor back_scan_sensor
-    front_scan_sensor:
-      sensor_frame: front_right_scan
+    observation_sources: laser_scan_sensor
+    laser_scan_sensor:
+      sensor_frame: front_laser
       data_type: LaserScan
-      topic: /front_right_scan
-      marking: true
-      clearing: true
-    back_scan_sensor:
-      sensor_frame: back_left_scan
-      data_type: LaserScan
-      topic: /back_left_scan
+      topic: /scan
       marking: true
       clearing: true
