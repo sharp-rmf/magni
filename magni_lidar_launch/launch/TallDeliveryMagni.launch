@@ -1,0 +1,54 @@
+<launch>
+
+   	<!-- Back is defined as the Magni's controller board area, the Front is defined as the opposite of the board area -->
+    <node name="back_left_scan"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+
+        <remap from="scan" to="back_left_scan"/>
+
+        <param name="scan_topic_name"     type="string" value="back_left_scan"/>         
+        <param name="serial_port"         type="string" value="/dev/rplidar_top_right"/>  
+        <param name="serial_baudrate"     type="int"    value="256000"/>
+        <param name="frame_id"            type="string" value="back_left_scan"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+        <param name="scan_mode"           type="string" value="Sensitivity"/>
+    </node>
+    <node name="back_left_scan_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0.2 0 0 0 0 base_link back_left_scan"/>
+
+    <node name="front_right_scan"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+
+        <remap from="scan" to="front_right_scan"/>
+
+        <param name="scan_topic_name"     type="string" value="front_right_scan"/>
+        <param name="serial_port"         type="string" value="/dev/rplidar_bottom_left"/>
+        <param name="serial_baudrate"     type="int"    value="256000"/>
+        <param name="frame_id"            type="string" value="front_right_scan"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+        <param name="scan_mode"           type="string" value="Sensitivity"/>
+    </node>
+    <node name="front_right_scan_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0.38 -0.2 0 3.1 0 0 /base_link /front_right_scan"/>
+
+    <include file="$(find magni_lidar_launch)/launch/TallDeliveryMagni/hokuyo.launch.xml"/>
+    <node name="laser_base_link_static_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 base_link laser"/> 
+
+    <include file="$(find magni_lidar_launch)/launch/map_server.launch">
+        <arg name="map_yaml" value="$(find magni_lidar_launch)/param/maps/magni_chart_5cm.yaml"/>
+    </include>
+
+    <rosparam command="load" file="$(find magni_lidar_launch)/param/amcl.yaml" />
+    
+    <node pkg="amcl" type="amcl" name="amcl" output="screen" />
+
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/local_costmap_params.yaml" />
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/global_costmap_params.yaml" />
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/dwa_local_planner_params.yaml"/>
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/base_local_planner_params.yaml"/>
+        <rosparam command="load" file="$(find magni_lidar_launch)/param/single_lidar_param/move_base_params.yaml"/>
+    </node>
+
+</launch>
+

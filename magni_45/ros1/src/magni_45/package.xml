@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>magni_45</name>
+  <version>0.0.0</version>
+  <description>Launch files for magni_45 package</description>
+
+  <maintainer email="cnboonhan94@gmail.com">Charayaphan Nakorn Boon Han</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <export>
+  </export>
+</package>

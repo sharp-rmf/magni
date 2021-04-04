@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>magni_lidar_launch</name>
+  <version>0.0.0</version>
+  <description>Various Launch files for various magni configurations for use in CHART</description>
+
+  <maintainer email="charayaphan.nakorn.boon.han@gmail.com">Charayaphan Nakorn Boon Han</maintainer>
+
+  <license>Apache 2.0 License</license>
+
+  <depend>magni_lidar_maps</depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

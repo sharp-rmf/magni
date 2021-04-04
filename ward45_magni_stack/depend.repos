@@ -1,0 +1,29 @@
+repositories:
+  free_fleet_client/cyclonedds:
+    type: git
+    url: https://github.com/eclipse-cyclonedds/cyclonedds.git
+    version: master
+  free_fleet_client/free_fleet:
+    type: git
+    url: https://github.com/osrf/free_fleet.git
+    version: master
+  rplidar_ros:
+    type: git
+    url: https://github.com/Slamtec/rplidar_ros.git
+    version: master
+  magni_lidar_launch:
+    type: git
+    url: https://github.com/sharp-rmf/magni_lidar_launch.git
+    version: master
+  magni_lidar_maps:
+    type: git
+    url: git@github.com:sharp-rmf/magni_lidar_maps.git
+    version: master
+  urg_node:
+    type: git
+    url: https://github.com/ros-drivers/urg_node.git
+  magni_lidar_mapping:
+    type: git
+    url: git@github.com:sharp-rmf/magni_lidar_mapping.git
+    version: master
+ 
