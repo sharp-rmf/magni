@@ -1,0 +1,23 @@
+<launch>
+  <arg name="map_yaml" />
+  <arg name="magni_serial_port" />
+  <arg name="rplidar_serial_port" />
+
+  <include file="$(find magni_rplidar_nav)/launch/amcl.launch">
+    <arg name="rplidar_serial_port" value="$(arg rplidar_serial_port)" />
+    <arg name="map_yaml" value="$(arg map_yaml)" />
+  </include>
+
+  <include file="$(find magni_rplidar_nav)/launch/magni.launch">
+    <arg name="magni_serial_port" value="$(arg magni_serial_port)" />
+  </include>
+
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="autorepeat_rate" value="20" />
+  </node>
+
+  <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
+    <rosparam command="load" file="$(find magni_rplidar_nav)/param/teleop.yaml" />
+  </node>
+
+</launch> 
