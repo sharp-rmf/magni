@@ -1,4 +1,0 @@
-apt-dependencies
-pip3-dependencies
-config/01-netplan-config.yaml
-config/rfkill-unblock-wifi.service
