@@ -23,3 +23,7 @@ ros1/logs
 ros2/log
 ros2/install
 ros2/build
+
+rsbpearl_ws/build
+rsbpearl_ws/devel
+

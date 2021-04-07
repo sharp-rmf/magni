@@ -1,0 +1,3 @@
+[submodule "rsbpearl_ws/src/ros_rslidar"]
+	path = rsbpearl_ws/src/ros_rslidar
+	url = https://github.com/RoboSense-LiDAR/ros_rslidar.git
