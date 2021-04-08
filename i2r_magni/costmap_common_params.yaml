@@ -1,0 +1,68 @@
+# Added by Nur and Jian Le
+# Robot Related and Other Params
+# ==============================
+# url: http://wiki.ros.org/costmap_2d/layered
+# =======================
+# robot_radius: 0.3
+footprint: [ [0.4, 0.0], [0.37, -0.25], [-0.13, -0.25], [-0.13, 0.25], [-0.37, 0.5] ]
+transform_tolerance: 5.0 
+map_type: costmap
+
+# Static Layer Params
+# ===================
+# url: http://wiki.ros.org/costmap_2d/hydro/staticmap
+# =======================
+static_layer:
+  map_topic: /map
+
+# Inflation Radius Params
+# =======================
+# url: http://wiki.ros.org/costmap_2d/hydro/inflation
+# =======================
+inflation_layer: 
+  inflation_radius: 0.9 #1.05 #tune for new robot #1.05 #0.55 # 0.55 #---0.35
+
+# Obstacle Layer Params (Laser)
+# =====================
+# url: http://wiki.ros.org/costmap_2d/hydro/obstacles
+# =====================
+obstacle_layer_hokuyo_laser:                                
+  obstacle_range: 3.0    #2.5
+  raytrace_range: 5.5    #5.0
+  observation_sources: scan_hokuyo # laser_scan_sick_FR laser_scan_sick_BL 
+  scan_hokuyo: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, expected_update_rate: 0.8} # inf_is_valid: true
+  # laser_scan_sick_FR: {sensor_frame: sick_FR, data_type: LaserScan, topic: sick_front/scan, marking: true, clearing: true, expected_update_rate: 0.8} # inf_is_valid: true
+  # laser_scan_sick_BL: {sensor_frame: sick_BL, data_type: LaserScan, topic: sick_back/scan, marking: true, clearing: true, expected_update_rate: 0.8} # inf_is_valid: true
+
+
+# Obstacle Layer Params (Depth Camera)
+# =====================
+# url: http://wiki.ros.org/costmap_2d/hydro/obstacles
+# =====================
+# "inf_is_valid: true" is used to represent the cases when the depth camera does not see anything, this way inf values are converted to laser maximum range (it seems so)
+# Check "/scan_RGBDDOWN" in safety_3d.launch, and make true "use_inf" parameter. This way "/scan_RGBDDOWN" publishes inf values  
+obstacle_layer_rp_merged:
+  obstacle_range: 3.0    #2.5
+  raytrace_range: 5.5    #5.0
+  observation_sources: scan_rp_merged #laser_scan_sensor2 #rgbd_pointcloud
+  scan_rp_merged: {sensor_frame: merged_center_lidar, data_type: LaserScan, topic: scan_rp_merged, marking: true, clearing: true, expected_update_rate: 0.8, inf_is_valid: true}  
+  # laser_scan_sensor2: {sensor_frame: merged_laser, data_type: LaserScan, topic: scan_filtered, marking: false, clearing: true, expected_update_rate: 0.8} # inf_is_valid: true always_send_full_costmap: true
+  # rgbd_pointcloud: { data_type: PointCloud2, topic: /outlier_removal_RGBDDOWN/output, marking: true, clearing: true,  max_obstacle_height: 1.2, min_obstacle_height: 0.1, expected_update_rate: 0.8, observation_persistence: 0.0}
+
+# # Obstacle Layer Params (Depth Camera)
+# # =====================
+# # url: http://wiki.ros.org/costmap_2d/hydro/obstacles
+# # =====================
+# # "inf_is_valid: true" is used to represent the cases when the depth camera does not see anything, this way inf values are converted to laser maximum range (it seems so)
+# # Check "/scan_RGBDDOWN" in safety_3d.launch, and make true "use_inf" parameter. This way "/scan_RGBDDOWN" publishes inf values  
+obstacle_layer_rs_pearl_merged:
+  obstacle_range: 4.0    #2.5
+  raytrace_range: 5.5    #5.0
+  observation_sources: scan_rspearl #laser_scan_sensor2 #rgbd_pointcloud
+  scan_rspearl: {sensor_frame: base_link, data_type: LaserScan, topic: scan_rslidar_flattened, marking: true, clearing: true, expected_update_rate: 0.8}  #inf_is_valid: true
+  # laser_scan_sensor2: {sensor_frame: merged_laser, data_type: LaserScan, topic: scan_filtered, marking: false, clearing: true, expected_update_rate: 0.8} # inf_is_valid: true always_send_full_costmap: true
+  # rgbd_pointcloud: { data_type: PointCloud2, topic: /outlier_removal_RGBDDOWN/output, marking: true, clearing: true,  max_obstacle_height: 1.2, min_obstacle_height: 0.1, expected_update_rate: 0.8, observation_persistence: 0.0}
+
+
+
+

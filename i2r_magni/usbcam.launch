@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="framerate" default="15"/>
+    <arg name="image_width" default="640" />
+    <arg name="image_height" default="480" />
+    <arg name="video_device" default="/dev/video0" />
+
+    <!-- the usb_cam package is used to open USB web cams, more stable than openni2, settings below for Logitech c920 -->
+    <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+        
+        <!-- default "/dev/video0" -->
+        <param name="video_device" value="$(arg video_device)" />
+        
+        <!-- default 640 -->
+        <param name="image_width" value="$(arg image_width)" />
+        
+        <!-- default 480 -->
+        <param name="image_height" value="$(arg image_height)" />
+        
+        <!-- default 30 -->
+        <param name="framerate" value="$(arg framerate)" />
+        
+        <!-- default "head_camera" -->
+        <param name="camera_frame_id" value="usb_cam" />
+        
+        <!-- 0-255, -1 "leave alone" (default) -->
+        <!-- param name="brightness" value="-1"/-->
+        
+        <!-- 0-255, -1 "leave alone" (default) -->
+        <!-- param name="contrast" value="-1"/-->
+        
+        <!-- 0-255, -1 "leave alone" (default)  -->
+        <!-- param name="saturation" value="-1"/-->
+        
+        <!-- 0-255, -1 "leave alone" (default)  -->
+        <!-- param name="sharpness" value="-1"/ -->
+        
+        <!-- possible values: mmap (default), read, userptr -->
+        <!--param name="io_method" value="mmap"/-->
+        
+        <!-- possible values: yuyv, uyvy, mjpeg (default), yuvmono10, rgb24 -->
+        <param name="pixel_format" value="yuyv" />
+        
+        <!-- default false  -->
+        <!-- param name="autofocus" value="false"/-->
+        
+        <!-- 0-255, -1 "leave alone" (default)  -->
+        <!-- param name="focus" value="-1"/-->
+        
+        <!-- default true  -->
+        <!-- param name="autoexposure" value="true"/-->
+        
+        <!-- default 100  -->
+        <!-- param name="exposure" value="100"/-->
+        
+        <!-- 0-100?, -1 "leave alone" (default)  -->
+        <!-- param name="gain" value="100"/-->
+        
+        <!-- default true  -->
+        <!-- param name="auto_white_balance" value="true"/ -->
+        
+        <!-- default 4000  -->
+        <!-- param name="white_balance" value="4000"/ -->
+        
+    </node>
+    
+    <!-- testing only, for viewing camera image 
+    <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+        <remap from="image" to="/usb_cam/image_raw"/>
+        <param name="autosize" value="true" />
+    </node --> 
+
+</launch>

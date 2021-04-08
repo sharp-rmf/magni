@@ -1,9 +1,0 @@
-<launch>
-    <node pkg="magni_45_uwb" type="uwb_node.py" name="uwb_node" output="screen" />
-    <node pkg="magni_45_uwb" type="trigger_update.py" name="trigger_update" output="screen" />
-    <node pkg="magni_45_uwb" type="DecawaveAdapter.py" name="update_node" output="screen">
-		<param name="sensor_1_topic" type="string" value="decawave" />
-	    <param name="stream_name" type="string" value="initialpose" />
-	    <param name="stream_rate" type="double" value="1.0" />
-    </node>
-</launch>

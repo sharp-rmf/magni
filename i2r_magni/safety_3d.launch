@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- set if using RBPearl, else will use VLP16 -->
+  <arg name="use_rbpearl" default="true" />
+
+  <node pkg="nodelet" type="nodelet" name="pointcloud_to_laserscan_nodelet"
+        args="load pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet pcl_manager">
+    <!-- ======== input topics name ======== -->  
+    <remap from="/cloud_in" to="/outlier_removal/output"/>
+    <!-- ======== output topics name ======== -->  
+    <remap from="/scan" to="/scan_rslidar_flattened"/>
+
+    <!-- ======== min, max param is with respect to target frame ======== -->
+    <!-- if using RBPearl -->
+    <param if="$(arg use_rbpearl)" name = "min_height"   value = "0.0"/>
+    <param if="$(arg use_rbpearl)" name = "max_height"   value = "1.35"/> 
+    <param if="$(arg use_rbpearl)" name = "target_frame" value = "base_link"/> 
+    
+    <!-- if using VLP16 -->
+    <!-- <param unless="$(arg use_rbpearl)" name = "min_height"   value = "-1.5"/>
+    <param unless="$(arg use_rbpearl)" name = "max_height"   value = "0.1"/> 
+    <param unless="$(arg use_rbpearl)" name = "target_frame" value = "velodyne_straight"/>  -->
+
+    <param name = "angle_min" value = "-1.5707"/>
+    <param name = "angle_max" value = "1.5707"/> 
+    <param name = "angle_increment" value = "0.004363"/>
+    <param name = "scan_time" value = "1.0/10.0"/> 
+    <param name = "range_min" value = "0.21"/>
+    <param name = "range_max" value = "5"/> 
+    <param name = "use_inf" value = "false"/> 
+  </node>
+
+
+ 
+
+</launch>

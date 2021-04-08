@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- true if using new system indicator buttons, false if using older i2r_util_buttons -->
+    <arg name="system_indicator_buttons" default="false" />
+    
+    <!-- utility for handling external buttons -->
+    <include if="$(arg system_indicator_buttons)" file="$(find i2r_system_indicator_buttons)/launch/start.launch" >
+        <arg name="robotname" value="iserared" />
+    </include>
+
+    <!-- utility for displaying robot state -->
+    <node unless="$(arg system_indicator_buttons)" pkg="i2r_util_robot_state_indicator" name="i2r_util_robot_state_indicator" type="i2r_util_robot_state_indicator_node" output="screen">
+
+        <!-- we expect the following ROS messages, remap if required
+         From Merlin
+            estop          : /emergencystate
+            battery voltage: /merlin/battery_voltage
+
+            For some Merlin robots, the emergencystate message is not working as the STM is not publishing the E-STOP state to ROS.
+            As such, an Arduino is connected directly to read the E-STOP pin directly.
+            estop_arduino  : /emergency_stop
+
+         From RosAria
+            estop          : /RosAria/motors_state
+            battery voltage: /RosAria/battery_voltage
+        -->
+
+        <!-- MERLIN ONLY: true will listen to arduino emergency_stop signal, false will listen to hostbot emergencystate signal -->
+        <param name="use_merlin_arduino_estop" value="false" type="bool" />
+
+        <!-- time to show the current battery level in seconds -->
+        <param name="show_battery_level_time" value="5.0" type="double" />
+
+    </node>
+
+    <!-- use anon so that multiple nodes can be generated -->
+    <node pkg="i2r_util_hardware_status" name="$(anon i2r_util_hardware_status)" type="i2r_util_hardware_status_node" output="screen">
+
+        <!-- timer interval to publish data in seconds, best leave at 1.0s for CPU load calculation -->
+        <param name="timer_interval_sec" value="1.0" type="double" />
+
+        <!-- path where temperature data is stored -->
+        <!-- for ubuntu 14/16 -->
+        <param name="thermal_directory" value="/sys/class/thermal/" type="str" />
+
+        <!-- for ubuntu Nvidia TX2 -->
+        <!-- param name="thermal_directory" value="/sys/devices/virtual/thermal/" type="str" /-->
+
+        <!-- we expect the following ROS messages, remap if required
+         From Merlin
+            estop          : /emergencystate
+
+            For some Merlin robots, the emergencystate message is not working as the STM is not publishing the E-STOP state to ROS.
+            As such, an Arduino is connected directly to read the E-STOP pin directly.
+            estop_arduino  : /emergency_stop
+
+         From RosAria
+            estop          : /RosAria/motors_state
+        -->
+
+        <!-- MERLIN ONLY: true will listen to arduino emergency_stop signal, false will listen to hostbot emergencystate signal -->
+        <param name="use_merlin_arduino_estop" value="false" type="bool" />
+
+    </node>
+
+</launch>

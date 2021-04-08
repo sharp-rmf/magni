@@ -1,0 +1,31 @@
+obstacle_range: 3.0    #2.5
+raytrace_range: 5.5    #5.0
+inflation_radius: 1.05 #tune for new robot #1.05 #0.55 # 0.55 #---0.35
+robot_radius: 0.25 #tune for new robot #0.25 #0.27    #0.30 seems ok
+
+#---standard pioneer footprint---
+
+#---(in inches)---
+#footprint: [ [10, -2], [7, -2], [7, -7], [-7.5, -7], [-10, 0], [-7.5, 7], [7, 7], [7, 2], [10, 2] ]
+
+#---(in meters)---original
+#footprint: [ [0.254, -0.0508], [0.1778, -0.0508], [0.1778, -0.1778], [-0.1905, -0.1778], [-0.254, 0], [-0.1905, 0.1778], [0.1778, 0.1778], [0.1778, 0.0508], [0.254, 0.0508] ]
+#footprint: [ [0.25, -0.22], [-0.25, -0.22], [-0.25, 0.22], [0.25, 0.22]]
+
+#---pioneer AT footprint:---
+
+#---(in inches)---
+#footprint: [ [13, -2], [10, -2], [10, -10], [-10, -10], [-10, 10], [10, 10], [10, 2], [13, 2] ]
+
+#---(in meters)---
+#footprint: [ [0.3302, -0.0508], [0.254, -0.0508], [0.254, -0.254], [-0.254, -0.254], [-0.254, 0.254], [0.254, 0.254], [0.254, 0.0508], [0.3302, 0.0508] ]
+
+transform_tolerance: 5.0 
+map_type: costmap
+
+observation_sources: laser_scan_sensor
+
+laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, expected_update_rate: 0.8}
+
+#point_cloud_sensor: {data_type: PointCloud2, topic: camera_orbbec/depth/points, marking: true, clearing: true, max_obstacle_height: 0.35 , expected_update_rate: 0.8}
+#point_cloud_sensor: {data_type: PointCloud2, topic: softkinetic_camera/depth/points, marking: true, clearing: true,expected_update_rate: 0.8}

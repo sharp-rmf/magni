@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robotname" default="sml"/>
+    <arg name="range_min" value="0.1"/>
+    <!-- combines the virtual_laser scan topics into one topic -->
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 2.0; $0 $@' " >
+        <param name="destination_frame" value="/merged_center_lidar"/>
+        <param name="cloud_destination_topic" value="/merged_cloud"/>
+        <param name="scan_destination_topic" value="/scan_rp_merged" />
+        
+        <param name="laserscan_topics" value ="/front_right_scan /back_left_scan" />
+
+        <param name="angle_min" value="-3.14"/>
+		<param name="angle_max" value="3.14"/>
+		<param name="angle_increment" value="0.0057595865"/>
+		<param name="scan_time" value="1/20"/> <!-- 1.0/15.0 -->
+        <param name="range_min" value="1"/>
+        <param name="range_max" value="15.0"/>
+    
+    </node>
+    
+     <!-- combines the virtual_laser scan topics into one topic -->
+    <!-- <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar_hokuyo" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 8.0; $0 $@' ">
+        <param name="destination_frame" value="/merged_center_lidar"/>
+        <param name="cloud_destination_topic" value="/merged_all"/>
+        <param name="scan_destination_topic" value="/scan_rp_merged_hokuyo" />
+        
+        <param name="laserscan_topics" value ="/scan_rp_merged /scan" />
+
+        <param name="angle_min" value="-3.14"/>
+		<param name="angle_max" value="3.14"/>
+		<param name="angle_increment" value="0.0058"/>
+		<param name="scan_time" value="0.0333333"/>
+        <param name="range_min" value="$(arg range_min)"/>
+        <param name="range_max" value="15.0"/>
+    
+    </node> -->
+
+
+     <!-- combines the virtual_laser scan topics into one topic -->
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar_hokuyo_rsbpearl" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 8.0; $0 $@' ">
+        <param name="destination_frame" value="/merged_center_lidar"/>
+        <param name="cloud_destination_topic" value="/merged_all"/>
+        <param name="scan_destination_topic" value="/scan_safety_high" />
+        
+        <param name="laserscan_topics" value ="/scan_rp_merged /scan_rslidar_flattened" />
+
+        <param name="angle_min" value="-3.14"/>
+		<param name="angle_max" value="3.14"/>
+		<param name="angle_increment" value="0.0058"/>
+		<param name="scan_time" value="0.0333333"/>
+        <param name="range_min" value="$(arg range_min)"/>
+        <param name="range_max" value="15.0"/>
+    
+    </node>
+ 
+
+  <!-- <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter" launch-prefix="bash -c 'sleep 12.0; $0 $@' ">
+    <remap from="/scan" to="/scan_RGBDDOWN" />
+    <remap from="/scan_filtered" to="/scan_RGBDDOWN_filtered" />
+    <rosparam command="load" file="$(find sliding_autonomy)/launch/$(arg robotname)/my_laser_config.yaml" />
+  </node> -->
+
+</launch>

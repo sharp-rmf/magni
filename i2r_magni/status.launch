@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- true will use commandpub2/statuspub2 mechanism which allows multi-task execution
+         false will use original commandpub/statuspub single-task running at any time
+    -->
+    <arg name="use_commandpub2" default="true"/>
+
+    <node pkg="sliding_autonomy" type="status" name="status" output="screen">
+
+        <param name="use_commandpub2" value="$(arg use_commandpub2)" />
+
+    </node>
+
+</launch>

@@ -1,0 +1,25 @@
+# no longer needed as it will be calculated automatically from laser scan message
+#m_bearing_delta: 540
+
+m_vel_fleeing3: 1.2
+m_vel_fleeing2: 1.2
+m_vel_fleeing1: 1.2
+m_turn_fleeing3: 0.8
+m_turn_fleeing2: 1
+m_turn_fleeing1: 1
+m_vel_neutral3: 1.2
+m_vel_neutral2: 0.6
+m_vel_neutral1: 0.3
+m_turn_neutral3: 0.8
+m_turn_neutral2: 1
+m_turn_neutral1: 1
+m_vel_approaching3: 1
+m_vel_approaching2: 0.4
+m_vel_approaching1: 0.2
+m_turn_approaching3: 0.8
+m_turn_approaching2: 1
+m_turn_approaching1: 1.2
+m_small_turn: 0.1
+m_forward_vel_for_turn_lim: 0.9
+m_turn_on_forward_lim: 0.6
+

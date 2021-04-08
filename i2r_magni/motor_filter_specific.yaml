@@ -1,0 +1,96 @@
+#==== declaration of safety sensor. value 1 means if that sensor callback not received for more than threshold period, robot cant move. Value 0 means robot can still move even if callback not received ==========
+m_proximity_sensor: 0
+m_high_proximity_sensor: 1
+m_low_proximity_sensor: 0
+m_sensor_time_diff_threshold: 1
+m_high_sensor_time_diff_threshold: 1
+m_low_sensor_time_diff_threshold: 1
+
+#==== safety dimensions for forward and backward (m)==========
+#=== inner limits of all bumpers, calculated from each sensor frame. positive value will make the inner limit to be on the inner side of the sensors. Default value is 0.05.
+m_bumper_inner_limit: 0.05
+#=== forward safety calculated from front sensor frame
+m_bumper_slowing_near_arc: 1.0
+m_bumper_slowing_near: 1.05
+m_bumper_slowing_far_arc: 1.05
+m_bumper_slowing_far: 2
+m_bumper_stopping_arc: 0.45
+m_bumper_stopping: 0.45
+#=== backward safety calculated from high sensor frame
+m_rear_bumper_slowing_far: 1.4
+m_rear_bumper_slowing_near: 1.2
+m_rear_bumper_stopping: 0.6
+
+#==== forward safety width should be half of the robot size + extra clearance of about 0.1-0.2m =======
+m_proximity_clearance_width: 0.28
+m_high_proximity_clearance_width: 0.28
+m_wide_clearance_width: 0.3
+
+#==== safety dimensions for sideway (m)==========
+m_side_bumper_slowing_far: 1.2
+m_side_bumper_slowing_near: 1
+m_side_bumper_stopping: 0.7
+
+#==== distance from front sensor to the robot bow and stern used for sideway safety=======
+m_distance_to_bow: 0.28
+m_distance_to_stern: -0.28
+
+#==== distance between "high sensor" and "front sensor" to calculate forward safety dimensions of high sensor ========
+m_high_proximity_stopping_bias: 0.135
+
+#==== Turn safety. distance for turning repulsive force ================
+m_sideway_safe_distance: 0.4
+m_turn_area_safety_min: -0.1
+m_turn_area_safety_max: 0.2
+#=== Turn safety using high sensor, for frontal wheel area. Distance calculated from high sensor frame)
+m_high_turn_area_safety_min: 0.0
+m_high_turn_area_safety_max: 0.27
+#=== Turn safety using high sensor, for rear wheel area. Distance calculated from high sensor frame)
+m_high_rear_turn_area_safety_min: -0.25
+m_high_rear_turn_area_safety_max: 0.0
+
+#==== speed limit when obstacle is within range of "far" and "near" =======
+slowing_near_speedlim: 0.2
+slowing_far_speedlim: 0.5
+side_slowing_near_speedlim: 0.2
+side_slowing_far_speedlim: 0.4
+
+#==== maximum speed limit at all condition =======
+forward_velocity_lim: 1.0
+sideway_velocity_lim: 0.0
+backward_velocity_lim: -0.5
+turn_velocity_lim: 1
+
+#==== maximum acceleration and deceleration limit at all condition =======
+linear_acceleration_lim: 0.5
+linear_deceleration_lim: 0.9
+linear_sideway_acceleration_lim: 0.1
+linear_sideway_deceleration_lim: 0.3
+linear_gentle_deceleration_lim: 0.3
+turn_acceleration_lim: 0.5
+turn_deceleration_lim: 0.5
+
+#==== a gentler deceleration when there is no obstacle ahead ==========
+m_vel_gentle_threshold: 0.08
+
+#==== scaling for speed and turn =======
+vel_scale: 1
+turn_scale: 1
+
+#==== to run at constant turbo mode ====
+m_always_turbo_mode: 0
+
+#==== maximum linear velocity that can be excecuted when robot is turning more than "skid_turn_lim"
+m_skid_linear_lim: 1
+m_skid_turn_lim: 1
+
+#==== fall prevention parameters ======================
+m_pitfall_save_threshold: 5
+m_pitfall_detected_threshold: 2
+m_low_ground_range: 3
+
+#==== filter from sun glare ========
+m_MPA_count_threshold: 3
+m_MPA1_slowing_count_threshold: 3
+m_SPA_count_threshold: 3 
+m_RPA_count_threshold: 3

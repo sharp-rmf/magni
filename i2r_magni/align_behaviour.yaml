@@ -1,0 +1,134 @@
+#=============== setting the default docking target ======================
+
+#=============== important settings =================
+
+#== docking target min and max based on observation by line segmentation
+m_length_min: 0.25
+m_length_max: 0.54
+
+#== final stopping distance from laser to docking board
+m_docking_stopping_range: 0.18
+
+#== near waypoint set about 0.05m away from final stopping range
+m_xNear: 0.4
+m_yNear: 0
+
+#== far waypoint set about 0.75*body length away from near waypoint
+m_xFar: 0.8
+m_yFar: 0
+
+#set normal navigation point about 2*body length away from far waypoint
+
+#== dock direction ===
+m_dock_forward: 1
+#== undock direction ===
+m_undock_backward: 1
+
+#================ less important settings =================
+
+#== postive value means target in y axis is compensated further away from normal line based on approach angle
+#== negative value means target in y axis is compensated closer from normal line based on approach angle
+m_compensate_y_constant: 0
+
+#== zero means docking perpendicular with target
+m_LNd: 0
+
+#== timer when undocking
+m_undock_period: 60
+
+#== timer after reaching near waypoint 
+m_forward_timer: 0
+#== velocity for the last forward motion
+m_last_forward: 0.05
+
+#== timer when retrying
+m_backward_timer: 60 
+
+#== minimum distance to nearby objects for the line segmentation
+m_D_min: 0.1 
+
+#== zero is straight line target
+m_line_type: 0
+
+#== max search area 
+m_search_area_max_init: 3
+ 
+#== tolerance for orientation final adjustment
+m_align3_tolerance: 0.035 
+
+#== final positioning accuracy tolerance
+m_TPy_accuracy_tolerance: 0.05 #0.06
+m_TPx_accuracy_tolerance: 0.03
+
+#=============== setting the docking behaviour ======================
+
+#== maximum forward and turn velocity
+m_align_max_vel: 0.2
+m_align_max_turn: 0.2
+
+m_align_max_strafe: 0.2
+m_strafe_constant: 1
+
+#== bearing when robot will start to turn on the spot at 1 meter range. m_cut_off_bearing2 will be larger
+m_cut_off_bearing2: 0.2
+
+#== at 0 range, this is m_cut_off_bearing2 value
+m_cut_off_bearing2_max: 1.3
+
+#== if bearing is larger than m_turn_angle2, the turn will use max turn
+m_turn_angle2: 1
+
+#== additional gain for skid steering robot. Differential drive robot dont really need it
+m_turn_gain2: 0
+
+#== if forward vel is smaller than this threshold, the additional gain will be used
+m_turn_bias_vel_threshold2: 0.1
+
+#== if bearing is smaller than this threshold, the robot will not turn
+m_soft_turn_threshold2: 0.01
+
+#== if approach angle is larger than this, the robot will slow down
+m_align_slowing_angle_threshold: 0.2 
+
+#== if the robot need to slow down, it will start slowing down within this range from target
+m_align_slowing_range: 0.15
+
+#== if approach angle is larger than this, min slowing down speed will be used
+m_align_turn_angle_cut_off: 1.57
+
+#== minimum slowing down speed factor
+m_align_turn_vel_min: 0.3
+
+#== final orientation adjustment turn vel
+m_align3_slow_turn: 0.06
+
+m_slowing_dock: 0.15
+m_target_close_alignvel: 0.1
+m_target_close_alignturn: 0.1
+
+m_move_whisker_range: 0.25
+m_whisker_offset: 50
+m_whisker_delta_tolerance: 0.02
+
+m_retry_allowed: 2
+m_last_approach_dostate: 4
+
+#== poles segmentation and docking 
+m_c_cluster_size_max: 0.12
+m_c_cluster_size_min: 0.06
+m_avg_size_desired: 0.1
+
+m_length_separation: 0.8
+m_width_separation: 0.4
+
+#== Used when only 2 leg seen, width_bias will shift table mid point towards center of 4 legs
+m_width_bias: 0
+
+m_diagonal_separation: 0.92
+m_dotproduct_desired: 0.707
+m_delta_tolerance: 0.1
+m_dotproduct_tolerance: 0.02
+m_data_collection_phase: 0
+
+
+

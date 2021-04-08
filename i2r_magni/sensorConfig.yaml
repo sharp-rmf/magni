@@ -1,0 +1,173 @@
+%YAML 1.2
+---
+# Configuration
+sensor_pointcloud:
+    pointcloudFrame: map
+
+# List of sensors
+sensors:
+    - sensor0
+#srf10    - sensor1
+#srf10    - sensor2
+#srf10    - sensor3
+    - sensor4
+    - tera0
+    - tera1
+    - tera2
+    - tera3
+    - tera4
+    - tera5
+
+
+sensor0:
+    topic: sensor_hub/range
+    device:
+        type: SRF05
+        pin: 14
+        timeout: 60000
+    transform:
+        frame: sensor0
+        posX: 0.03
+        posY: -0.07
+        posZ: 0.05
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(-90)
+sensor1:
+    topic: sensor_hub/range
+    device:
+        type: SRF10
+        addr: 0xE2
+        timeout: 60000
+    transform:
+        frame: sensor1
+        posX: 0.08
+        posY: -0.05
+        posZ: 0.05
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(-45)
+sensor2:
+    topic: sensor_hub/range
+    device:
+        type: SRF10
+        addr: 0xE4
+        timeout: 60000
+    transform:
+        frame: sensor2
+        posX: 0.10
+        posY: 0.0
+        posZ: 0.05
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(0)
+sensor3:
+    topic: sensor_hub/range
+    device:
+        type: SRF10
+        addr: 0xE6
+        timeout: 60000
+    transform:
+        frame: sensor3
+        posX: 0.08
+        posY: 0.05
+        posZ: 0.05
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(45)
+sensor4:
+    topic: sensor_hub/range
+    device:
+        type: SRF05
+        pin: 16
+        timeout: 60000
+    transform:
+        frame: sensor4
+        posX: 0.03
+        posY: 0.07
+        posZ: 0.05
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(90)
+
+tera0:
+    topic: teraranger_hub
+    transform:
+        frame: base_range0
+        posX: 0.0
+        posY: 0.115
+        posZ: 0.02
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(-20)
+
+tera1:
+    topic: teraranger_hub
+    transform:
+        frame: base_range1
+        posX: 0.0
+        posY: 0.035
+        posZ: 0.02
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(0)
+
+tera2:
+    topic: teraranger_hub
+    transform:
+        frame: base_range2
+        posX: 0.0
+        posY: -0.035
+        posZ: 0.02
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(0)
+
+tera3:
+    topic: teraranger_hub
+    transform:
+        frame: base_range3
+        posX: 0.0
+        posY: -0.125
+        posZ: 0.02
+        roll: deg(0)
+        pitch: deg(0)
+        yaw: deg(20)
+
+tera4:
+    topic: teraranger_hub
+    transform:
+        frame: base_range4
+        posX: 0.0
+        posY: 0.035
+        posZ: -0.03
+        roll: deg(0)
+        pitch: deg(30)
+        yaw: deg(0)
+
+tera5:
+    topic: teraranger_hub
+    transform:
+        frame: base_range5
+        posX: 0.0
+        posY: -0.035
+        posZ: -0.03
+        roll: deg(0)
+        pitch: deg(30)
+        yaw: deg(0)
+
+tera6:
+    topic: teraranger_hub
+    transform:
+        frame: base_range6
+        posX: 0.0
+        posY: 3.0
+        posZ: 0.0
+
+tera7:
+    topic: teraranger_hub
+    transform:
+        frame: base_range7
+        posX: 0.0
+        posY: 3.5
+        posZ: 0.0

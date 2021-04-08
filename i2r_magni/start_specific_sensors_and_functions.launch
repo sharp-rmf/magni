@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<launch>
+    
+  <arg name="robotname" />    
+   
+   	<!-- Back is defined as the Magni's controller board area, the Front is defined as the opposite of the board area -->
+    <node name="back_left_scan"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+        <remap from="scan" to="back_left_scan"/>
+        <param name="scan_topic_name"     type="string" value="back_left_scan"/>         
+        <param name="serial_port"         type="string" value="/dev/rplidar_top_right"/>  
+        <param name="serial_baudrate"     type="int"    value="256000"/>
+        <param name="frame_id"            type="string" value="back_left_scan"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+        <param name="scan_mode"           type="string" value="Sensitivity"/>
+    </node>
+
+    <node name="front_right_scan"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+        <remap from="scan" to="front_right_scan"/>
+        <param name="scan_topic_name"     type="string" value="front_right_scan"/>
+        <param name="serial_port"         type="string" value="/dev/rplidar_bottom_left"/>
+        <param name="serial_baudrate"     type="int"    value="256000"/>
+        <param name="frame_id"            type="string" value="front_right_scan"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+        <param name="scan_mode"           type="string" value="Sensitivity"/>
+    </node>
+
+  <node name="urg_node" pkg="urg_node" type="urg_node" output="screen">
+    <param name="ip_address" value="192.168.1.150"/>
+    <param name="serial_port" value=""/>
+    <param name="serial_baud" value="115200"/>
+    <param name="frame_id" value="laser"/>
+    <param name="calibrate_time" value="true"/>
+    <param name="publish_intensity" value="false"/>
+    <param name="publish_multiecho" value="false"/>
+    <param name="angle_min" value="-3.14"/>
+    <param name="angle_max" value="3.14"/>
+  </node>
+
+  <include file="$(find rslidar_pointcloud)/launch/rs_bpearl.launch">
+    <!-- <arg name="device_ip" value="192.168.1.200" />
+    <arg name="msop_port" value="6699" />
+    <arg name="dfop_port" value="7788" />
+    <arg name="frame_id" value="rslidar" /> -->
+  </include>
+  
+  
+
+   <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
+
+    <!-- Run a VoxelGrid filter to clean NaNs and downsample the data -->
+    <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
+        <remap from="~input" to="/rslidar_points" />
+        <rosparam>
+        filter_field_name: z
+        filter_limit_min: -1
+        filter_limit_max: 5
+        filter_limit_negative: False
+        leaf_size: 0.05
+        </rosparam>
+    </node>
+
+    <!-- Run a StatisticalOutlierRemoval filter to clean out the noise points (ghost) -->
+    <!-- The input is the output from VoxelGrid -->
+    <node pkg="nodelet" type="nodelet" name="outlier_removal" args="load pcl/StatisticalOutlierRemoval pcl_manager" output="screen">
+        <remap from="~input" to="/voxel_grid/output" />
+        <rosparam>
+            mean_k: 5
+            stddev: 2       <!-- The smaller this value, the more powerful the filter will clear out noise points-->
+            negative: False
+        </rosparam>
+    </node>
+
+    <include file="$(find sliding_autonomy)/launch/$(arg robotname)/safety_3d.launch" >
+    </include>
+ 
+</launch>

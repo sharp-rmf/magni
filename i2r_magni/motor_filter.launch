@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <arg name="robotname" />  
+    
+    <node pkg="sliding_autonomy" type="motor_filter" name="motor_filter" output="screen">
+        
+        <!-- Remap cmd vel -->
+        <remap from="RosAria/cmd_vel" to ="/magni/cmd_vel"/>
+
+        <!-- common motor filter parameters -->
+        <rosparam command="load" file="$(find sliding_autonomy)/launch/common/motor_filter.yaml" />
+        
+        <!-- safety limits -->
+        <rosparam command="load" file="$(find sliding_autonomy)/launch/$(arg robotname)/motor_filter_specific.yaml" />
+        
+    </node>
+ 
+ </launch>
+ 

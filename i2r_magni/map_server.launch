@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="yaml_map" />
+
+    <!-- original map_server has been replaced by i2r_map_server for support of map switching -->
+    <include file="$(find sliding_autonomy)/launch/i2r_map_server.launch" >
+        <arg name="yaml_map" value="$(arg yaml_map)"/>
+    </include>
+    
+    <!-- ========== AMCL ========== -->
+    <include file="$(find sliding_autonomy)/launch/amcl.launch" />
+
+    <!-- ========== QMCL ========== -->
+    <!--<include file="$(find qmcl_i2r)/launch/mcl_run.launch" />-->
+
+</launch>

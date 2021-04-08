@@ -1,0 +1,53 @@
+#===== task handler pursuit ===============
+#===== pursuit mode 1: continue to pursue for duration of time.
+#== example of input: rostopic pub -r 10 /Detector/people_following std_msgs/Float32MultiArray '{data: [1, 1, 0.2, 0]}'
+#===== pursuit mode 2: pursue until target pose & orientation is reached.
+#== example of input: rostopic pub /target_pose geometry_msgs/Pose '{position: {x: 1.0, y: 0.0, z: 0.0}, orientation: {x: 0, y: 0, z: 0, w: 1.0}}'
+
+
+#=== mission params===============
+m_pursuit_mode: 1
+
+m_pursuit_max_vel: 1
+m_pursuit_max_side_vel: 0.5 
+m_pursuit_max_turn_vel: 0.5
+
+m_pursuit_timer_threshold: -1
+
+m_range_to_target_desired_zone: 0.5
+m_range_to_target_too_near_zone: 0.3
+m_backtrack_vel: -0.1
+m_pose_angle_accuracy: 0.05
+
+#== watchdogs ======
+m_tf_time_diff_threshold: 0.5
+m_watchdog_guard: 1
+
+#== when range to desired zone is m_slowing_distance(m), speed is constant at m_close_vel(m/s)
+m_slowing_distance: 0.4
+m_close_vel: 0.2
+
+#== 1: Differential drive, 2: Ackermann, 3: Omni
+m_steering_mode: 3
+
+#== if bearing is larger than cut off bearing, forward velocity is zero
+m_cut_off_bearing: 0.3
+
+#== if fabs(bearing) is larger than m_strafe_bearing_max, side velocity is max
+m_strafe_bearing_max: 1.2
+#== if fabs(bearing) is smaller than m_strafe_bearing_min, side velocity zero
+m_strafe_bearing_min: 0.3
+
+#=== if bearing is larger than m_turn_angle, turn vel is max
+m_turn_angle: 1
+#=== additional turn vel 
+m_turn_gain: 0.1
+#=== if bearing is smaller than m_soft_turn_threshold, turn vel is zero
+m_soft_turn_threshold: 0.1
+
+#=== tf frames definition ====
+fixed_frame: /odom
+base_link: /base_link
+
+#=== number of completion signal needed before task is declared done.
+m_number_of_completion_required: -1

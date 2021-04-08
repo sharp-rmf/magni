@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+   <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
+        args="0.15 0 0.1397 0 0 0 base_link laser 100" />
+
+   <node pkg="tf" type="static_transform_publisher" name="base_link_to_drive_point"
+        args="0.1 0 0.1397 0 0 0 base_link drive_point 100" />
+
+   <node pkg="tf" type="static_transform_publisher" name="base_link_to_rear_laser"
+        args="-0.1 0 0.1397 0 0 3.142857 base_link rear_laser 100" />
+
+   <node pkg="tf" type="static_transform_publisher" name="base_link_to_rear_drive_point"
+        args="-0.1 0 0.1397 0 0 0 base_link rear_drive_point 100" />      -->
+
+    <node name="back_left_scan_static_transform" pkg="tf" type="static_transform_publisher" 
+          args="-0.085 0.2 0 0 0 0 base_link back_left_scan 100"/>
+    
+    <node name="front_right_scan_static_transform" pkg="tf" type="static_transform_publisher" 
+          args="0.315 -0.2 0 3.1 0 0 base_link front_right_scan 100"/>
+
+      <node name="base_link_to_merged_lidar_center" pkg="tf" type="static_transform_publisher" 
+          args="0.115 0 0 0 0 0 base_link merged_center_lidar 100"/>
+    
+    <node name="laser_base_link_static_transform" pkg="tf" type="static_transform_publisher" 
+          args="0.25 0 1.21 0 0 0 base_link laser 100"/> 
+
+     <node name="pearl_base_link_static_transform" pkg="tf" type="static_transform_publisher" 
+          args="0.21 0 1.11 0 -1.5707 3.14159 base_link rslidar 100"/> 
+
+</launch>

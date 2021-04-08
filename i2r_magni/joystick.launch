@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robotname" />
+    
+    <include file="$(find tele_joy)/launch/single_joy.launch">
+        <arg name="robotname" value="$(arg robotname)"/>
+        <arg name="joy_device" value="/dev/input/js0"/>
+    </include>
+
+</launch>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+    <rosparam command="load" file="$(find sliding_autonomy)/launch/$(arg robotname)/sensorConfig.yaml" />
+    <include file="$(find sensor_hub)/launch/sensor_hub.launch">
+				    <arg name="device" value="/dev/ttySensorHub0" />				
+				</include>
+				<node name="teraranger_hub_node" pkg="teraranger_hub" type="teraranger_hub_node" args="_portname:=/dev/ttyTeraRangerHub0"/>
+    <node name="sensor_pointcloud_node" pkg="sensor_pointcloud" type="sensor_pointcloud_node" />
+    
+</launch>
+
