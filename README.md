@@ -1,4 +1,4 @@
-# ward45_magni_stack
+# Magni
 Flash https://downloads.ubiquityrobotics.com/pi.html to SD card
 
 Insert into Raspberry Pi 4.
@@ -19,21 +19,26 @@ sudo vim /etc/hosts
 sudo vim /etc/hostname                                                                      
 sudo apt update && sudo apt upgrade 
 
+# Create a workspace
+mkdir -p $HOME/magni_ws/src
+
 # Get this package on the pi4
 sudo apt install git -y
-git clone git@github.com:sharp-rmf/ward45_magni_stack.git $HOME/ward45_magni_stack
+cd $HOME/magni_ws/src
+git clone git@github.com:sharp-rmf/magni.git
 
 # Install CMake for CycloneDDS
-source $HOME/ward45_magni_stack/install_cmake.bash
+source $HOME/magni_ws/src/magni/magni/scripts/install_cmake.bash
 
 # Install apt dependencies
 sudo apt install python-catkin-tools python-vcstool -y
 
-# Create Workspace
-mkdir -p $HOME/deployment_ws/src
-cp $HOME/ward45_magni_stack/depend.repos $HOME/deployment_ws
 
-# Clone ROS1 dependencies
+# Create Workspace (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
+mkdir -p $HOME/deployment_ws/src
+cp $HOME/magni/depend.repos $HOME/deployment_ws
+
+# Clone ROS1 dependencies (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
 cd $HOME/deployment_ws
 vcs import src < depend.repos
 
@@ -43,28 +48,28 @@ rosdep install --from-paths src --ignore-src --rosdistro kinetic -yr
 # Patch RPlidar Driver
 sed -i s/#define\ DEFAULT_MOTOR_PWM\ *660/#define\ DEFAULT_MOTOR_PWM\ 1000/ src/rplidar_ros/sdk/include/rplidar_cmd.h
 
-# Build
+# Build (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
 cd $HOME/deployment_ws
 source /opt/ros/kinetic/setup.bash
 catkin build --cmake-args -DBUILD_IDLC=NO  
 
-# Copy launch files to $HOME
-cp $HOME/ward45_magni_stack/start_device.bash $HOME
-cp $HOME/ward45_magni_stack/start_free_fleet.bash $HOME
+# Copy launch files to $HOME (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
+cp $HOME/magni/start_device.bash $HOME
+cp $HOME/magni/start_free_fleet.bash $HOME
 chmod +x {start_device,start_free_fleet}.bash
 
-# Copy udev rules, remember to change ENV{ID_PATH} based on the output from `sudo udevadm info /dev/ttyUSB*` based on your lidar device id
-sudo cp $HOME/ward45_magni_stack/*.rules /etc/udev/rules.d
+# Copy udev rules, remember to change ENV{ID_PATH} based on the output from `sudo udevadm info /dev/ttyUSB*` based on your lidar device id 
+sudo cp $HOME/magni/*.rules /etc/udev/rules.d # (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
 sudo udevadm trigger
 
 # Add deployment_ws environment to .bashrc
 echo "source $HOME/deployment_ws/devel/setup.bash" >> ~/.bashrc
 ```
 
-# Useful Links
-* https://github.com/sharp-rmf/magni_lidar_launch
-* https://github.com/sharp-rmf/magni_lidar_maps
-* https://github.com/sharp-rmf/magni_lidar_mapping
+# Useful Links (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
+* https://github.com/sharp-rmf/magni_lidar_launch <-- deleted
+* https://github.com/sharp-rmf/magni_lidar_maps <-- deleted
+* https://github.com/sharp-rmf/magni_lidar_mapping <-- deleted
 
 # magni_45 package installation
 Download the .repos files
