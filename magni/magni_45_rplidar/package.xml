@@ -8,10 +8,7 @@
   <author email="Charayaphan_Nakorn_Boon_Han@cgh.com.sg">Charayaphan Nakorn Boon Han</author>
 
 	<buildtool_depend>catkin</buildtool_depend>
-	<exec_depend>move_base</exec_depend>
-	<exec_depend>amcl</exec_depend>
-	<exec_depend>rplidar_ros</exec_depend>
-
+  
   <export>
   </export>
 </package>
