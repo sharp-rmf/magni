@@ -119,3 +119,6 @@ After loading the "stock" parameter file from Ubiquity Robotics, we then
 overlay our own parameter to clobber the stock value with what is passed
 in by our launch file, so that we can configure the Magni serial port in
 our own site- and robot-specific launch files.
+
+# Rplidar reference for setting up udev rules
+https://github.com/robopeak/rplidar_ros/wiki
