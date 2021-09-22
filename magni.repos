@@ -6,7 +6,7 @@ repositories:
   free_fleet:
     type: git
     url: https://github.com/open-rmf/free_fleet.git
-    version: fix/clearer-movebase-errors
+    version: main
   ira_laser_tools:
     type: git
     url: git@github.com:iralabdisco/ira_laser_tools.git
