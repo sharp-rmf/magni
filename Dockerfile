@@ -5,7 +5,8 @@ FROM ros:melodic
 
 # install build tools
 RUN apt-get update && apt-get install -y \
-      python-catkin-tools \
+    python-catkin-tools \
+    git cmake python3-vcstool \
     && rm -rf /var/lib/apt/lists/*
 
 # clone ros package repo
@@ -13,7 +14,8 @@ ENV ROS_WS /opt/ros_ws
 RUN mkdir -p $ROS_WS/src
 WORKDIR $ROS_WS
 RUN git -C src clone \
-      https://github.com/sharp-rmf/magni.git
+    https://github.com/sharp-rmf/magni.git && \
+    vcs import src < src/magni/magni.repos
 
 # install ros package dependencies
 RUN apt-get update && \
