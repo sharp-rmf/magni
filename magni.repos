@@ -11,10 +11,6 @@ repositories:
     type: git
     url: git@github.com:iralabdisco/ira_laser_tools.git
     version: master
-  magni:
-    type: git
-    url: git@github.com:sharp-rmf/magni.git
-    version: main
   ros_rslidar:
     type: git
     url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
