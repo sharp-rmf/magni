@@ -10,7 +10,7 @@ repositories:
   ira_laser_tools:
     type: git
     url: https://github.com/iralabdisco/ira_laser_tools.git
-    version: master
+    version: melodic
   ros_rslidar:
     type: git
     url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
