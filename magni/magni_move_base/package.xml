@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>magni_45_rplidar</name>
+  <name>magni_move_base</name>
   <version>0.0.0</version>
   <description>A Magni navstack configuration for RPLIDAR-A3</description>
   <maintainer email="cnboonhan94@gmail.com">Boon Han</maintainer>

@@ -1,5 +1,4 @@
 <launch>
-    <include file="$(find magni_45_rplidar)/launch/front_rplidar.launch"/>
-    <include file="$(find magni_45_rplidar)/launch/back_rplidar.launch"/>
+    <include file="$(find magni_move_base)/launch/front_rplidar.launch"/>
+    <include file="$(find magni_move_base)/launch/back_rplidar.launch"/>
 </launch>
-

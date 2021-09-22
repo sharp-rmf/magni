@@ -105,24 +105,23 @@
     
     </node>
 
-    <include file="$(find magni_45_rplidar)/launch/map_server_tall.launch">
-        <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/chart_map.yaml"/>
+    <include file="$(find magni_move_base)/launch/map_server_tall.launch">
+        <arg name="map_yaml" value="$(find magni_move_base)/maps/chart_map.yaml"/>
     </include>
 
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/tall/amcl.yaml" />
+    <rosparam command="load" file="$(find magni_move_base)/param/tall/amcl.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' ">
         <remap from="scan" to="scan_rplidar"/>
     </node>
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" launch-prefix="bash -c 'sleep 15.0; $0 $@' ">
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/costmap_common_params.yaml" ns="local_costmap" />
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/costmap_common_params.yaml" ns="global_costmap" />
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/local_costmap_params.yaml" />
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/global_costmap_params.yaml" />
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/dwa_local_planner_params.yaml"/>
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/base_local_planner_params.yaml"/>
-    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/move_base_params.yaml"/>
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/costmap_common_params.yaml" ns="local_costmap" />
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/costmap_common_params.yaml" ns="global_costmap" />
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/local_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/global_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/dwa_local_planner_params.yaml"/>
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/base_local_planner_params.yaml"/>
+    <rosparam command="load" file="$(find magni_move_base)/param/romio/move_base_params.yaml"/>
   </node>
 
 </launch>
-

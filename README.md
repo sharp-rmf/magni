@@ -1,4 +1,11 @@
 # Magni
+## This repo is used for Magni and it's associated robots.
+
+# Setup
+VCS is used for the setup because it's easier to work with:
+https://github.com/dirk-thomas/vcstool/issues/221
+
+## Magni
 Flash https://downloads.ubiquityrobotics.com/pi.html to SD card
 
 Insert into Raspberry Pi 4.
@@ -9,15 +16,29 @@ For reference, the forward direction for the Magni is defined as the vector from
 ```
 # Set up networking
 sudo systemctl disable pifi.service && sudo systemctl stop pifi.service
-sudo vim /ec/NetworkManager/NetworkManager.conf                                             # Change managed=false to managed=true
-sudo nmtui                                                                                  # Connect to Pegasus 
-      # Set static route 10.233.0.0/24 via 10.233.29.1
-      # Set DNS 8.8.8.8
+
+
+### To be changed to use nmcli #####################################
+# sudo vim /ec/NetworkManager/NetworkManager.conf                                             # Change managed=false to managed=true
+# sudo nmtui                                                                                  # Connect to Pegasus 
+#      # Set static route 10.233.0.0/24 via 10.233.29.1
+#      # Set DNS 8.8.8.8
+####################################################################
 
 # Configure Hostname
 sudo vim /etc/hosts
 sudo vim /etc/hostname                                                                      
 sudo apt update && sudo apt upgrade 
+```
+## Romio
+```
+mkdir -p ~/rmf_ws/src
+cd ~/rmf_ws
+wget https://raw.githubusercontent.com/sharp-rmf/magni/main/magni.repos
+vcs import src < rmf.repos
+```
+
+```
 
 # Create a workspace
 mkdir -p $HOME/magni_ws/src
