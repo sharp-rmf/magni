@@ -9,7 +9,7 @@ repositories:
     version: main
   ira_laser_tools:
     type: git
-    url: git@github.com:iralabdisco/ira_laser_tools.git
+    url: https://github.com:iralabdisco/ira_laser_tools.git
     version: master
   ros_rslidar:
     type: git
