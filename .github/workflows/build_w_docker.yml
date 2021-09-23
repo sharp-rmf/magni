@@ -1,0 +1,7 @@
+# action.yml
+name: 'build_w_docker'
+description: 'build this repo with docker'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
