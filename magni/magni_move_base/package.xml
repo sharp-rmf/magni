@@ -2,10 +2,10 @@
 <package format="2">
   <name>magni_move_base</name>
   <version>0.0.0</version>
-  <description>A Magni navstack configuration for RPLIDAR-A3</description>
-  <maintainer email="cnboonhan94@gmail.com">Boon Han</maintainer>
+  <description>A Magni navstack configuration</description>
+  <maintainer email="jun_hao_chng@cgh.com.sg">Boon Han</maintainer>
   <license>Apache 2.0</license>
-  <author email="Charayaphan_Nakorn_Boon_Han@cgh.com.sg">Charayaphan Nakorn Boon Han</author>
+  <author email="jun_hao_chng@cgh.com.sg">Charayaphan Nakorn Boon Han</author>
 
 	<buildtool_depend>catkin</buildtool_depend>
   
