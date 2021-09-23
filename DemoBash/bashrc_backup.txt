@@ -1,0 +1,322 @@
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+[[ $- == *i* ]] && tabs -4
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+## MY COMMANDS ## 
+## TMUX
+#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  #exec tmux
+#fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# I-search
+[[ $- == *i* ]] && stty -ixon
+
+# Git pull all
+alias git-pull-all="find . -maxdepth 3 -name .git -type d | rev | cut -c 6- | rev | xargs -I {} git -C {} pull"
+
+# Git fetch all
+alias git-fetch-all="find . -maxdepth 3 -name .git -type d | rev | cut -c 6- | rev | xargs -I {} git -C {} fetch"
+
+# Git get hashes
+alias git-get-status='for f in *; do
+    if [ -d "$f" ] && [ -d "$f/.git" ] ; then
+        cd $f
+        echo -e "\033[36m$f:\033[0m" 
+        echo "$f:"
+        echo -n "branch:"
+        git rev-parse --abbrev-ref HEAD
+        echo -n "hash:"
+        git rev-parse HEAD
+        echo -n "status:"
+        git status
+        cd ..
+        echo ""
+    fi
+done'
+
+# Get current working directory in system clipboard
+alias gpwd="pwd | xargs echo -n | xclip -selection clipboard"
+
+# ROS 
+alias ros1_melodic="source /opt/ros/melodic/setup.bash"
+alias ros2_eloquent="source /opt/ros/eloquent/setup.bash"
+
+set -o vi
+
+#alias vim='nvim'
+
+# FZF
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND="find -L"
+export FZF_COMPLETION_TRIGGER="**"
+
+# Edit file from fzf grep search
+function fzgrep(){
+    out=$(grep -rnw . -e "$1" | fzf)
+    if [[ -z "$out" ]]; then
+        return
+    fi
+    target_file=$(echo $out | cut -d':' -f1)
+    target_line=$(echo $out | cut -d':' -f2)
+    vim +$target_line $target_file
+}
+
+
+# fzf from a specified directory
+function fz(){
+    if [[ -z "$1" ]]; then
+        fzf
+        return
+    fi
+    find -L $1 | fzf
+}
+
+# FZF Helper function to copy selection to clipboard
+function fzclip(){
+    if [[ -z "$1" ]]; then
+        fzf | xclip -sel c
+        return
+
+    fi
+    (find -L $1 | fzf) | xclip -sel c
+}
+
+# Run command on a list of fuzzy-completed paths
+function fzcmd(){
+    if [ $# -lt 1 ]; then
+        echo "fzcmd [cmd] [path]*"
+        return
+    else
+        fzargs=""
+        for t in "${@:2}"; do
+            fzargs=$fzargs" \$(fz $t)"
+        done
+        cmd="$1 $fzargs"
+        eval $cmd
+    fi
+}
+
+# Autorun specified comand on file update
+function watchcmd()
+{
+    if [ -z "$1" ]
+      then
+        echo "Enter path of file to watch!"
+        return
+    fi
+
+    if [ -z "$2" ]
+      then
+        echo "Enter command to execute!"
+        return
+    fi
+
+    while :
+    do
+      inotifywait -e close_write $1 | eval $2
+    done
+}
+
+# Formats all c+= files in current directory recursively to enforce a consistent coding style
+# Place a .clang-format file in directory to customize coding style
+
+alias clang-format-all="find . -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i"
+
+# Set default editor
+export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
+
+# source $HOME/ros2_fastrtps_ws/install/setup.bash
+#export FASTRTPS_DEFAULT_PROFILES_FILE="$HOME/client_config.xml"
+#source $HOME/rmf_integration_step/step_trials_workspace/install/setup.bash
+#source $HOME/rmf_integration_step/setup/setup.bash
+#step_env
+
+#alias ros2_load='source $HOME/ros2_fastrtps_ws/install/setup.bash && source $HOME/bbraun_ws/install/setup.bash'
+
+#BBraun Shortcuts
+#alias braun_bcc='ros2_load; ros2 run b_braun_infusion_pump bcc_receiving_server_node --ros-args --params-file /home/ubuntu/bbraun_ws/src/b_braun_infusion_pump/b_braun_infusion_pump/params/bcc_receiving_server_params.yaml'
+#alias braun_sql='ros2_load; ros2 run b_braun_infusion_pump sql_connector_node &'
+
+#function activate_dds_env()
+#{
+#	export FASTRTPS_DEFAULT_PROFILES_FILE="$HOME/client_config.xml"
+#	source $HOME/ros2_fastrtps_ws/install/setup.bash
+#	source $HOME/bbraun_ws/install/setup.bash
+#	pkill -9 bcc
+#	pkill -9 sql
+#	ros2 daemon stop
+#	ros2 daemon start
+#}
+
+#Add ROS master
+# source /opt/ros/melodic/setup.bash
+#export ROS_MASTER_URI=http://localhost:11311/
+#export ROS_HOSTNAME=192.168.1.102
+#export ROS_HOSTNAME=`hostname`.local
+export ROS_IP=192.168.1.102
+
+source /usr/share/gazebo/setup.sh
+# source ~/isera2base_1.8.1-3/robot/devel/setup.bash
+#source ~/dev_ws/devel/setup.bash
+
+#Xnergy Wireless Charger
+alias xnergy_start='ros1_melodic && source ~/xnergy_ws/devel/setup.bash; roslaunch xnergy_charger_rcu xnergy_charger_modbus.launch'
+alias xnergy_charge='ros1_melodic && source ~/xnergy_ws/devel/setup.bash; rosservice call /xnergy_charger_rcu/trigger_charging "{}"'
+alias xnergy_monitor='source ~/xnergy_ws/devel/setup.bash; rostopic echo /xnergy_charger_rcu/rcu_status'
+
+alias start_compartment='source ~/compartment_ws/devel_isolated/setup.bash && rosrun magni_compartment compartment_node'
+
+alias start_nav_stack='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_3_lidar.launch'
+alias start_nav_stack_new='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_3_lidar_new.launch'
+alias start_nav_stack_scm_to_highway='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_scm_to_highway.launch'
+
+alias start_rplidar_nav_stack='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_rplidar_nav.launch'
+alias start_free_fleet='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_free_fleet_client.launch'
+
+alias start_free_fleet_mb='ros1_melodic && source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_free_fleet_client_mb.launch'
+alias start_mock_battery_pub="ros1_melodic && source ~/devop_ws/devel/setup.bash && rosrun mock_battery_state mock_battery_state.py"
+
+alias start_docking_vision='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni dock_hough.py'
+alias start_docking_movement='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni magni_move_slow.py'
+alias start_docking_server='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni docking_service_server.py'
+
+alias start_docking_vision_new_station='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni dock_hough_new_station.py'
+alias start_docking_server_new_station='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni docking_service_server_new_station.py'
+
+# dpm
+alias sauce='source ~/devop_ws/devel/setup.bash'
+alias keyz='sauce; rosrun teleop_twist_keyboard teleop_twist_keyboard.py'
+alias tmuxk='tmux kill-server'
+alias clearip='sudo ip route del default via 192.168.1.1; sudo wg-quick up wg0'
+
+export RMW_IMPLMENTATION=rmw_cyclonedds_cpp
+# export CYCLONEDDS_URI=file://$HOME/cyclonedds_local.xml
+export CYCLONEDDS_URI=file://$HOME/cyclonedds.xml
+
+#sudo ip route del default via 192.168.1.1
+alias latest_script='start_rplidar_nav_stack'
+alias demo='cd ~/DemoBash; ./tmux_dp3_demo.bash'
+
+# Trying to do start_vnc on startup following this reference https://newbedev.com/automatically-start-vnc-server-on-startup
+alias start_vnc='vncserver -localhost no -depth 32 -geometry 1680x1050'
+alias kill_vnc='vncserver -kill :*'

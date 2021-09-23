@@ -48,7 +48,7 @@ sudo apt-get update && \
 ### Additional files (optional)
 
 ```
-# Patch RPlidar Driver
+# Patch RPlidar Driver # This might not be neccessary
 sed -i s/#define\ DEFAULT_MOTOR_PWM\ *660/#define\ DEFAULT_MOTOR_PWM\ 1000/ src/rplidar_ros/sdk/include/rplidar_cmd.h
 
 # Copy launch files to $HOME (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
@@ -70,6 +70,9 @@ Generally, the idea is to use bash + tmux to automate the launch sequence of eve
 ## Important configurations
 
 ### TODO: Tuning navigation (move_base parameters)
+
+The latest bash script would be DemoBash/latest.bash, I will try my best to keep this the latest bash script, but who knows what fate has in store. 
+
 
 
 ### Time synchronization

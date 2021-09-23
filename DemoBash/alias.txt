@@ -1,0 +1,53 @@
+List of aliases
+
+# enable color support of ls and also add handy aliases
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+# Add an "alert" alias for long running commands.  Use like so:
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# ~/.bash_aliases, instead of adding them here directly.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+alias git-pull-all="find . -maxdepth 3 -name .git -type d | rev | cut -c 6- | rev | xargs -I {} git -C {} pull"
+alias git-fetch-all="find . -maxdepth 3 -name .git -type d | rev | cut -c 6- | rev | xargs -I {} git -C {} fetch"
+alias git-get-status='for f in *; do
+alias gpwd="pwd | xargs echo -n | xclip -selection clipboard"
+alias ros1_melodic="source /opt/ros/melodic/setup.bash"
+alias ros2_eloquent="source /opt/ros/eloquent/setup.bash"
+#alias vim='nvim'
+alias clang-format-all="find . -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i"
+#alias ros2_load='source $HOME/ros2_fastrtps_ws/install/setup.bash && source $HOME/bbraun_ws/install/setup.bash'
+#alias braun_bcc='ros2_load; ros2 run b_braun_infusion_pump bcc_receiving_server_node --ros-args --params-file /home/ubuntu/bbraun_ws/src/b_braun_infusion_pump/b_braun_infusion_pump/params/bcc_receiving_server_params.yaml'
+#alias braun_sql='ros2_load; ros2 run b_braun_infusion_pump sql_connector_node &'
+alias xnergy_start='ros1_melodic && source ~/xnergy_ws/devel/setup.bash; roslaunch xnergy_charger_rcu xnergy_charger_modbus.launch'
+alias xnergy_charge='ros1_melodic && source ~/xnergy_ws/devel/setup.bash; rosservice call /xnergy_charger_rcu/trigger_charging "{}"'
+alias xnergy_monitor='source ~/xnergy_ws/devel/setup.bash; rostopic echo /xnergy_charger_rcu/rcu_status'
+alias start_compartment='source ~/compartment_ws/devel_isolated/setup.bash && rosrun magni_compartment compartment_node'
+alias start_nav_stack='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_3_lidar.launch'
+alias start_nav_stack_new='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_3_lidar_new.launch'
+alias start_nav_stack_scm_to_highway='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_scm_to_highway.launch'
+alias start_rplidar_nav_stack='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_rplidar_nav.launch'
+alias start_free_fleet='source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_free_fleet_client.launch'
+alias start_free_fleet_mb='ros1_melodic && source ~/devop_ws/devel/setup.bash && roslaunch magni_45 magni_45_free_fleet_client_mb.launch'
+alias start_mock_battery_pub="ros1_melodic && source ~/devop_ws/devel/setup.bash && rosrun mock_battery_state mock_battery_state.py"
+alias start_docking_vision='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni dock_hough.py'
+alias start_docking_movement='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni magni_move_slow.py'
+alias start_docking_server='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni docking_service_server.py'
+alias start_docking_vision_new_station='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni dock_hough_new_station.py'
+alias start_docking_server_new_station='ros1_melodic && source ~/docking_ws/devel/setup.bash && rosrun docking_magni docking_service_server_new_station.py'
+alias sauce='source ~/devop_ws/devel/setup.bash'
+alias keyz='sauce; rosrun teleop_twist_keyboard teleop_twist_keyboard.py'
+alias tmuxk='tmux kill-server'
+alias clearip='sudo ip route del default via 192.168.1.1; sudo wg-quick up wg0'
+alias latest_script='start_rplidar_nav_stack'
+alias demo='cd ~/DemoBash; ./tmux_dp3_demo.bash'
+alias start_vnc='vncserver -localhost no -depth 32 -geometry 1680x1050'
+alias kill_vnc='vncserver -kill :*'

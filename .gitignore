@@ -1,29 +1,10 @@
 tags
 *.swp
 *.swo
-ros1/src/*/
-ros2/src/*/
-
-!ros1/src/magni.repos
-!ros2/src/rmf_server.repos
-
-!ros1/src/magni_move_base
-!ros1/src/magni_45_uwb
-!ros1/src/magni_45
-!ros1/src/magni_45_mapping
 
 *.swp
 tags
 .vscode
 .catkin_tools
 
-ros1/build
-ros1/devel
-ros1/logs
-ros2/log
-ros2/install
-ros2/build
-
-rsbpearl_ws/build
-rsbpearl_ws/devel
-
+magni/maps/*
