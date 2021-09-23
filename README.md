@@ -36,7 +36,7 @@ Pull the repo, install the dependencies and build the repo.
 mkdir -p ~/magni_ws/src
 cd ~/magni_ws
 wget https://raw.githubusercontent.com/sharp-rmf/magni/main/magni.repos
-vcs import src < rmf.repos
+vcs import src < magni.repos
 sudo apt-get update && \
     rosdep update && \
     rosdep install -y \
@@ -117,3 +117,15 @@ our own site- and robot-specific launch files.
 
 ### Rplidar reference for setting up udev rules
 https://github.com/robopeak/rplidar_ros/wiki
+
+## Dockerfile
+Instructions to use dockerfile:
+```
+cd ~/magni_ws/src/magni
+# If you are running docker build for the first time, 
+# this might take awhile as it needs to grab all the dependencies to build the docker image.
+docker build -t romio . && docker run -it 
+```
+After running docker run, you should enter a mock-up container of your complete magni workspace with functioning ROS packages.
+
+### TODO: Github action with Dockerfile to automate build testing for incoming code changes
