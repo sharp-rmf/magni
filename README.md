@@ -28,51 +28,28 @@ sudo systemctl disable pifi.service && sudo systemctl stop pifi.service
 # Configure Hostname
 sudo vim /etc/hosts
 sudo vim /etc/hostname                                                                      
-sudo apt update && sudo apt upgrade 
+# sudo apt update && sudo apt upgrade # Might not be necessary.
 ```
 ## Romio
+Pull the repo, install the dependencies and build the repo.
 ```
-mkdir -p ~/rmf_ws/src
-cd ~/rmf_ws
+mkdir -p ~/magni_ws/src
+cd ~/magni_ws
 wget https://raw.githubusercontent.com/sharp-rmf/magni/main/magni.repos
 vcs import src < rmf.repos
+sudo apt-get update && \
+    rosdep update && \
+    rosdep install -y \
+      --from-paths \
+        src \
+      --ignore-src -r \
+    && catkin build --cmake-args -DBUILD_IDLC=NO
 ```
+Additional files (optional)
 
 ```
-
-# Create a workspace
-mkdir -p $HOME/magni_ws/src
-
-# Get this package on the pi4
-sudo apt install git -y
-cd $HOME/magni_ws/src
-git clone git@github.com:sharp-rmf/magni.git
-
-# Install CMake for CycloneDDS
-source $HOME/magni_ws/src/magni/magni/scripts/install_cmake.bash
-
-# Install apt dependencies
-sudo apt install python-catkin-tools python-vcstool -y
-
-
-# Create Workspace (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
-mkdir -p $HOME/deployment_ws/src
-cp $HOME/magni/depend.repos $HOME/deployment_ws
-
-# Clone ROS1 dependencies (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
-cd $HOME/deployment_ws
-vcs import src < depend.repos
-
-# Install dependencies
-rosdep install --from-paths src --ignore-src --rosdistro kinetic -yr
-
 # Patch RPlidar Driver
 sed -i s/#define\ DEFAULT_MOTOR_PWM\ *660/#define\ DEFAULT_MOTOR_PWM\ 1000/ src/rplidar_ros/sdk/include/rplidar_cmd.h
-
-# Build (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
-cd $HOME/deployment_ws
-source /opt/ros/kinetic/setup.bash
-catkin build --cmake-args -DBUILD_IDLC=NO  
 
 # Copy launch files to $HOME (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
 cp $HOME/magni/start_device.bash $HOME
@@ -87,34 +64,7 @@ sudo udevadm trigger
 echo "source $HOME/deployment_ws/devel/setup.bash" >> ~/.bashrc
 ```
 
-# Useful Links (OUTDATED, TO BE CHANGED 15 Sep 2021, jun_hao_chng@cgh.com.sg)
-* https://github.com/sharp-rmf/magni_lidar_launch <-- deleted
-* https://github.com/sharp-rmf/magni_lidar_maps <-- deleted
-* https://github.com/sharp-rmf/magni_lidar_mapping <-- deleted
-
-# magni_45 package installation
-Download the .repos files
-
-# Download the dependencies
-ros-kinetic-move-base  
-ros-kinetic-dwb-local-planner  
-ros-kinetic-dwa-local-planner  
-ros-kinetic-acml  
-ros-kinetic-map-planner  
-maven  
-
-# Dependencies mentioned for Cycloneic DDS
-https://github.com/eclipse-cyclonedds/cyclonedds  
-C compiler (most commonly GCC on Linux, Visual Studio on Windows, Xcode on macOS);  
-GIT version control system;  
-CMake, version 3.7 or later;  
-OpenSSL, preferably version 1.1 or later if you want to use TLS over TCP.  You can explicitly disable it by setting ENABLE_SSL=NO, which is very useful for reducing the footprint or when the FindOpenSSL CMake script gives you trouble;  
-Java JDK, version 8 or later, e.g., OpenJDK;  
-Apache Maven, version 3.5 or later.  
-On Ubuntu apt install maven default-jdk  
-python3-catkin-tools #for catkin build
-
-# catkin build settings
+# catkin build settings when building on raspberry pi
 ```
 echo 'alias magni_build="catkin build -j 1 -p 1 --mem-limit 50% --cmake-args -DBUILD_IDLC=NO' >> ~/.bashrc
 cd ~/catkin_ws 
