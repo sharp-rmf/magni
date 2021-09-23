@@ -18,10 +18,10 @@ RUN apt-get update && apt-get install -y \
 ENV ROS_WS /opt/ros_ws
 RUN mkdir -p $ROS_WS/src
 WORKDIR $ROS_WS
-RUN git -C src clone https://github.com/eclipse-cyclonedds/cyclonedds.git
-RUN git -C src clone https://github.com/open-rmf/free_fleet.git
-# RUN git -C src clone https://github.com/sharp-rmf/magni.git && \
-#     vcs import src < src/magni/magni.repos
+# RUN git -C src clone https://github.com/eclipse-cyclonedds/cyclonedds.git
+# RUN git -C src clone https://github.com/open-rmf/free_fleet.git
+RUN git -C src clone https://github.com/sharp-rmf/magni.git && \
+    vcs import src < src/magni/magni.repos
 
 # install ros package dependencies
 RUN apt-get update && \
