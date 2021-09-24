@@ -65,7 +65,7 @@
         </rosparam>
     </node>
 
-    <include file="$(find magni)/launch/safety_3d.launch" >
+    <include file="$(find sliding_autonomy)/launch/magni/safety_3d.launch" >
     </include>
   
   
@@ -84,7 +84,7 @@
 
   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
       name="laser_filter" launch-prefix="bash -c 'sleep 6.0; $0 $@' ">
-    <rosparam command="load" file="$(find magni)/config/my_hokuyo_laser_config.yaml" />
+    <rosparam command="load" file="$(find urg_node)/my_hokuyo_laser_config.yaml" />
     <remap from="scan" to="scan_hokuyo_raw" />
     <remap from="scan_filtered" to="scan"/>
   </node>
@@ -105,24 +105,24 @@
     
     </node>
 
-    <include file="$(find magni)/launch/map_server.launch">
-        <arg name="map_yaml" value="$(find magni)/maps/chart/chart_map.yaml"/>
+    <include file="$(find magni_45_rplidar)/launch/map_server_tall.launch">
+        <arg name="map_yaml" value="$(find magni_45_rplidar)/maps/scm_to_highway/scm_to_highway.yaml"/>
     </include>
 
-    <rosparam command="load" file="$(find magni)/param/romio/amcl.yaml" />
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/tall/amcl.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' ">
         <remap from="scan" to="scan_rplidar"/>
     </node>
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" launch-prefix="bash -c 'sleep 15.0; $0 $@' ">
-    <rosparam command="load" file="$(find magni)/param/romio/costmap_common_params.yaml" ns="local_costmap" />
-    <rosparam command="load" file="$(find magni)/param/romio/costmap_common_params.yaml" ns="global_costmap" />
-alias start_nav_stack_scm_to_highway='source ~/magni_ws/devel/setup.bash && roslaunch magni_45 magni_45_scm_to_highway.launch'
-    <rosparam command="load" file="$(find magni)/param/romio/local_costmap_params.yaml" />
-    <rosparam command="load" file="$(find magni)/param/romio/global_costmap_params.yaml" />
-    <rosparam command="load" file="$(find magni)/param/romio/dwa_local_planner_params.yaml"/>
-    <rosparam command="load" file="$(find magni)/param/romio/base_local_planner_params.yaml"/>
-    <rosparam command="load" file="$(find magni)/param/romio/move_base_params.yaml"/>
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/costmap_common_params.yaml" ns="local_costmap" />
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/costmap_common_params.yaml" ns="global_costmap" />
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/local_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/global_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/dwa_local_planner_params.yaml"/>
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/base_local_planner_params.yaml"/>
+    <rosparam command="load" file="$(find magni_45_rplidar)/param/romio/move_base_params.yaml"/>
   </node>
 
 </launch>
+

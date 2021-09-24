@@ -1,0 +1,23 @@
+# This is the region you want to keep :)
+scan_filter_chain:
+- name: angle1
+  type: laser_filters/LaserScanAngularBoundsFilter
+  params:
+    lower_angle: -1.57   # change this value to tune the FOV, increase the param, larger FOV
+    upper_angle: 1.57  
+    
+    
+# - name: shadows_filter 
+#   type: laser_filters/ScanShadowsFilter
+#   params:
+#     min_angle: 10
+#     max_angle: 170
+#     neighbors: 1
+#     window: 1
+# - name: speckle_filter
+#   type: laser_filters/LaserScanSpeckleFilter
+#   params:
+#     filter_type: 0
+#     max_range: 5.0
+#     max_range_difference: 0.5
+#     filter_window: 2 # 2

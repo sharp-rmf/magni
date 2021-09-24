@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>magni_move_base</name>
+  <name>magni</name>
   <version>0.0.0</version>
   <description>A Magni navstack configuration</description>
   <maintainer email="jun_hao_chng@cgh.com.sg">Boon Han</maintainer>
