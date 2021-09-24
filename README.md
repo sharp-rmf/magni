@@ -36,7 +36,7 @@ Pull the repo, install the dependencies and build the repo.
 mkdir -p ~/magni_ws/src
 cd ~/magni_ws
 wget https://raw.githubusercontent.com/sharp-rmf/magni/main/magni.repos
-vcs import src < magni.repos
+vcs import src < magni.repos # Note this would cause a duplicate magni.repos in ~/magni_ws/src/magni/magni.repos
 sudo apt-get update && \
     rosdep update && \
     rosdep install -y \
