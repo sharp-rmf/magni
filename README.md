@@ -149,4 +149,29 @@ docker build -t romio . && docker run -it
 ```
 After running docker run, you should enter a mock-up container of your complete magni workspace with functioning ROS packages.
 
+## VNC setup
+VNC is a useful tool for troubleshooting, here is how to set it up quickly
+### Dependencies (for the GNOME landing page on your robot hosting the vncserver i.e. the magni)
+```
+sudo apt update && sudo apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal vnc4server
+```
+### Setup your password
+```
+vncpasswd
+```
+Reference: https://computingforgeeks.com/how-to-install-vnc-server-on-ubuntu/
+### Edit the vnc startup file
+This part really depends on your system, please follow this guide.
+Reference: https://askubuntu.com/questions/475023/how-to-make-vnc-server-work-with-ubuntu-desktop-without-xfce.
+### Start vncserver 
+```
+vncserver :1 -localhost no -geometry 800x600 -depth 24 
+```
+### Connect to the vncserver
+I use tigervnc for this, simply connect to IP_ADDRESS:PORT_NUMBER with your password
+```
+# Check your ip and port number of the vncserver
+lsof -i | grep vnc # For the port number
+ip a # For the ip address
+```
 ### TODO: Github action with Dockerfile to automate build testing for incoming code changes
