@@ -163,9 +163,12 @@ Reference: https://computingforgeeks.com/how-to-install-vnc-server-on-ubuntu/
 ### Edit the vnc startup file
 This part really depends on your system, please follow this guide.
 Reference: https://askubuntu.com/questions/475023/how-to-make-vnc-server-work-with-ubuntu-desktop-without-xfce.
-### Start vncserver 
+### Start/ Kill vncserver 
 ```
+# Start
 vncserver :1 -localhost no -geometry 800x600 -depth 24 
+# Kill
+vncserver -kill :1
 ```
 ### Connect to the vncserver
 I use tigervnc for this, simply connect to IP_ADDRESS:PORT_NUMBER with your password
