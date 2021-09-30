@@ -27,17 +27,17 @@ if [ $? != 0 ]; then
     tmux select-layout tiled
 
     tmux split-window -v -t tmux_run
-    tmux send-keys -t tmux_run 'ros1_melodic; sleep 8; start_nav_stack_new' C-m
+    tmux send-keys -t tmux_run 'ros1_melodic; sleep 8; source ~/magni_ws/devel/setup.bash && roslaunch magni magni_45_3_lidar_new.launch' C-m
     tmux select-layout tiled
 
     tmux split-window -h -t tmux_run
-    tmux send-keys -t tmux_run 'ros1_melodic; sleep 25; start_free_fleet' C-m
+    tmux send-keys -t tmux_run 'ros1_melodic; sleep 25; source ~/magni_ws/devel/setup.bash && roslaunch magni magni_45_free_fleet_client.launch' C-m
     tmux select-layout tiled
 
     # Rviz
     tmux new-window -a
     tmux select-window -t tmux_run:2.0
-    tmux send-keys 'ros1_melodic; sleep 22; rviz -d $HOME/dev_ws/src/dp3.rviz' C-m
+    tmux send-keys 'ros1_melodic; sleep 22; rviz -d $HOME/magni_ws/src/magni/magni/config/dp3.rviz' C-m
 
     # Ping 
     tmux new-window -a
