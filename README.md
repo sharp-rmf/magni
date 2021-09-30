@@ -32,7 +32,7 @@ sudo vim /etc/hostname
 ```
 ### Romio
 Pull the repo, install the dependencies and build the repo.
-## Install dependencies
+### Install dependencies
 ```
 apt-get update && apt-get install -y \
     python3-catkin-tools \
@@ -42,6 +42,7 @@ apt-get update && apt-get install -y \
     # For rslidar
     libpcap-dev 
 ```
+### Pull the repo
 ```
 source /opt/ros/melodic/setup.bash
 mkdir -p ~/magni_ws/src
