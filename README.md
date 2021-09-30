@@ -45,6 +45,8 @@ sudo apt-get update && \
       --ignore-src -r \
     && catkin build --cmake-args -DBUILD_IDLC=NO
 ```
+### Important note after build completes
+For obvious reason, the maps used by romio/magni is not committed to the repo. At this point it would be good to grab the maps from whoever has it.
 ### Additional files (optional)
 
 ```

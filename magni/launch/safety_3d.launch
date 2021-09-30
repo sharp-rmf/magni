@@ -34,14 +34,14 @@
 
    <node pkg="laser_filters" type="scan_to_scan_filter_chain"
       name="rb_laser_range_filter">
-    <rosparam command="load" file="$(find urg_node)/my_rbpearl_laser_config.yaml" />
+    <rosparam command="load" file="$(find magni)/config/my_rbpearl_laser_config.yaml" />
     <remap from="scan" to="scan_rslidar_flattened" />
     <remap from="scan_filtered" to="scan_rslidar_flattened_new"/>
   </node>
      
   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
       name="rp_laser_range_filter">
-    <rosparam command="load" file="$(find urg_node)/my_rp_laser_config.yaml" />
+    <rosparam command="load" file="$(find magni)/config/my_rp_laser_config.yaml" />
     <remap from="scan" to="scan_rplidar" />
     <remap from="scan_filtered" to="scan_rplidar_new"/>
   </node>
