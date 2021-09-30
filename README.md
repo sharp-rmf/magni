@@ -32,6 +32,16 @@ sudo vim /etc/hostname
 ```
 ### Romio
 Pull the repo, install the dependencies and build the repo.
+## Install dependencies
+```
+apt-get update && apt-get install -y \
+    python3-catkin-tools \
+    git python3-vcstool \
+    wget qt5-default \
+    python3-colcon-common-extensions \
+    # For rslidar
+    libpcap-dev 
+```
 ```
 source /opt/ros/melodic/setup.bash
 mkdir -p ~/magni_ws/src
