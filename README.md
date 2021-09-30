@@ -34,13 +34,13 @@ sudo vim /etc/hostname
 Pull the repo, install the dependencies and build the repo.
 ### Install dependencies
 ```
-apt-get update && apt-get install -y \
+apt-get update && sudo apt-get install -y \
     python3-catkin-tools \
     git python3-vcstool \
     wget qt5-default \
     python3-colcon-common-extensions \
-    # For rslidar
     libpcap-dev 
+    
 ```
 ### Pull the repo
 ```
