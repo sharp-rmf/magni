@@ -33,6 +33,7 @@ sudo vim /etc/hostname
 ### Romio
 Pull the repo, install the dependencies and build the repo.
 ```
+source /opt/ros/melodic/setup.bash
 mkdir -p ~/magni_ws/src
 cd ~/magni_ws
 wget https://raw.githubusercontent.com/sharp-rmf/magni/main/magni.repos
