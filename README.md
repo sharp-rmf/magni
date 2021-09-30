@@ -37,6 +37,10 @@ mkdir -p ~/magni_ws/src
 cd ~/magni_ws
 wget https://raw.githubusercontent.com/sharp-rmf/magni/main/magni.repos
 vcs import src < magni.repos # Note this would cause a duplicate magni.repos in ~/magni_ws/src/magni/magni.repos
+
+# Patch Rplidar
+./magni/magni/scripts/patch_rplidar_driver.sh 
+
 sudo apt-get update && \
     rosdep update && \
     rosdep install -y \
