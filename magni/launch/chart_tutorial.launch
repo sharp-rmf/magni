@@ -1,0 +1,40 @@
+<launch>
+    <include file="$(find magni)/launch/missy_front_rplidar.launch"/>
+    <include file="$(find magni)/launch/missy_back_sick_lidar.launch"/>
+
+ <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="rp_laser_filter" launch-prefix="bash -c 'sleep 6.0; $0 $@' ">
+    <rosparam command="load" file="$(find magni)/config/missy/missy_rp_laser_config.yaml" />
+    <remap from="scan" to="front_scan" />
+    <remap from="scan_filtered" to="front_scan_filtered"/>
+  </node>
+  
+  
+   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="sick_laser_filter" launch-prefix="bash -c 'sleep 6.0; $0 $@' ">
+    <rosparam command="load" file="$(find magni)/config/missy/missy_sick_laser_config.yaml" />
+    <remap from="scan" to="back_scan" />
+    <remap from="scan_filtered" to="back_scan_filtered"/>
+  </node>
+
+    <include file="$(find magni)/launch/map_server.launch">
+        <arg name="map_yaml" value="$(find magni)/maps/magni_chart_oct27/magni_chart_5cm.yaml"/>
+    </include>
+
+    <rosparam command="load" file="$(find magni)/param/magni_separate_lidar/amcl_improved.yaml" />
+    
+    <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 12.0; $0 $@'">
+       <remap from="scan" to="back_scan" />
+    </node>
+
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" launch-prefix="bash -c 'sleep 17.0; $0 $@'">
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/costmap_common_params.yaml" ns="local_costmap" />
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/costmap_common_params.yaml" ns="global_costmap" />
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/local_costmap_params.yaml" />
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/global_costmap_params.yaml" />
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/dwa_local_planner_params.yaml"/>
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/base_local_planner_params.yaml"/>
+    	<rosparam command="load" file="$(find magni)/param/magni_separate_lidar/move_base_params.yaml"/>
+    </node>
+
+</launch>
