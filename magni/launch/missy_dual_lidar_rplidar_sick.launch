@@ -1,0 +1,58 @@
+<launch>
+    <include file="$(find magni)/launch/missy_front_rplidar.launch"/>
+    <include file="$(find magni)/launch/missy_back_sick_lidar.launch"/>
+
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 5.0; $0 $@' ">
+        	<param name="destination_frame" value="laser"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan"/>
+                <param name="laserscan_topics" value ="/front_scan /back_scan" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+
+                <param name="angle_min" value="-6.28"/>
+                <param name="angle_max" value="6.28"/>
+                <param name="angle_increment" value="0.0058"/>
+                <param name="scan_time" value="0.0333333"/>
+                <param name="range_min" value="0.3"/>
+                <param name="range_max" value="50.0"/>
+
+	</node>
+ 
+ 
+ <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="rp_laser_filter" launch-prefix="bash -c 'sleep 6.0; $0 $@' ">
+    <rosparam command="load" file="$(find magni)/config/missy/missy_rp_laser_config.yaml" />
+    <remap from="scan" to="front_scan" />
+    <remap from="scan_filtered" to="front_scan_filtered"/>
+  </node>
+  
+
+  
+   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+      name="sick_laser_filter" launch-prefix="bash -c 'sleep 6.0; $0 $@' ">
+    <rosparam command="load" file="$(find magni)/config/missy/missy_sick_laser_config.yaml" />
+    <remap from="scan" to="back_scan" />
+    <remap from="scan_filtered" to="back_scan_filtered"/>
+    
+  </node>
+
+    <include file="$(find magni)/launch/map_server.launch">
+        <arg name="map_yaml" value="$(find magni)/maps/chart_01_Nov_2021/map.yaml"/>
+    </include>
+
+    <rosparam command="load" file="$(find magni)/param/magni_separate_lidar/amcl_improved.yaml" />
+    
+    <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 12.0; $0 $@'">
+       <!--remap from="scan" to="back_scan" /-->
+    </node>
+
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" launch-prefix="bash -c 'sleep 17.0; $0 $@'">
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/costmap_common_params.yaml" ns="local_costmap" />
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/costmap_common_params.yaml" ns="global_costmap" />
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/local_costmap_params.yaml" />
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/global_costmap_params.yaml" />
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/dwa_local_planner_params.yaml"/>
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/base_local_planner_params.yaml"/>
+    	<rosparam command="load" file="$(find magni)/param/chart_ward_param/move_base_params.yaml"/>
+    </node>
+
+</launch>
