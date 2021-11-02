@@ -11,10 +11,10 @@ repositories:
     type: git
     url: https://github.com/iralabdisco/ira_laser_tools.git
     version: 1.0.4
-  ros_rslidar:
-    type: git
-    url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
-    version: master
+  # ros_rslidar:
+    # type: git
+    # url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
+    # version: master
   rplidar_ros:
     type: git
     url: https://github.com/Slamtec/rplidar_ros.git
@@ -23,7 +23,7 @@ repositories:
     type: git
     url: https://github.com/sharp-rmf/magni.git
     version: main
-  urg_node:
-    type: git
-    url: https://github.com/ros-drivers/urg_node.git 
-    version: 0.1.15 
+  # urg_node:
+    # type: git
+    # url: https://github.com/ros-drivers/urg_node.git 
+    # version: 0.1.15 
