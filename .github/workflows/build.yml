@@ -10,9 +10,6 @@ on:
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -24,18 +21,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
-      - name: Setup ROS environment
-        # You may pin to the exact commit or the version.
-        # uses: ros-tooling/setup-ros@4a84c396ce7d91588206bbd01fe37f1320439ec4
-        uses: ros-tooling/setup-ros@0.2.1
+      - uses: ros-tooling/setup-ros@v0.2
         with:
-          # Enable use of the ROS2 pre-release testing debs.
-
-          #use-ros2-testing: # optional, default is false
-          # Install RTI Connext (and by default accept non-commercial license).
-
-          #install-connext: # optional, default is false
-          # List of binary ROS distributions to be installed.
-
-          required-ros-distributions: melodic # optional, default is 
+          required-ros-distributions: melodic
+      - uses: ros-tooling/action-ros2-ci@v0.2
+        with:
+          package-name: magni
+          target-ros1-distro: melodic
+          # If there are no private dependencies, no need to create a PAT or add a secret
+          import-token: ${{ secrets.GITHUB_TOKEN }}
+          # If there are private dependencies (e.g., in a file provided through vcs-repo-file-url), a PAT is required
+          # import-token: ${{ secrets.REPO_TOKEN }}
