@@ -8,3 +8,6 @@ tags
 .catkin_tools
 
 magni/maps/*
+
+*.log
+

@@ -161,8 +161,10 @@ vncpasswd
 ```
 Reference: https://computingforgeeks.com/how-to-install-vnc-server-on-ubuntu/
 ### Edit the vnc startup file
-This part really depends on your system, please follow this guide.
+
+#### A suitable vncserver for kinetic could not be found: https://packages.ubuntu.com/search?keywords=tigervnc-standalone-server
 Reference: https://askubuntu.com/questions/475023/how-to-make-vnc-server-work-with-ubuntu-desktop-without-xfce.
+https://www.teknotut.com/en/install-vnc-server-with-gnome-display-on-ubuntu-18-04/
 ```
 #!/bin/sh
 
@@ -181,7 +183,7 @@ dbus-launch --exit-with-session gnome-session &
 ### Start/ Kill vncserver 
 ```
 # Start
-vncserver :1 -localhost no -geometry 800x600 -depth 24 
+vncserver :1 -localhost=no -geometry 800x600 -depth 24 
 # Kill
 vncserver -kill :1
 ```
