@@ -32,3 +32,4 @@ jobs:
           import-token: ${{ secrets.GITHUB_TOKEN }}
           # If there are private dependencies (e.g., in a file provided through vcs-repo-file-url), a PAT is required
           # import-token: ${{ secrets.REPO_TOKEN }}
+          vcs-repo-file-url: https://raw.githubusercontent.com/sharp-rmf/magni/romio/magni.repos
