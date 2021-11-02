@@ -26,7 +26,7 @@ jobs:
           required-ros-distributions: melodic
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
-          package-name: magni
+          # package-name: magni
           target-ros1-distro: melodic
           # If there are no private dependencies, no need to create a PAT or add a secret
           import-token: ${{ secrets.GITHUB_TOKEN }}
