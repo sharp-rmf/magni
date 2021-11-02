@@ -1,5 +1,5 @@
 # Magni
-This repo is used for Magni and it's associated robots.
+This repo is used for Magni (from Ubiquity Robotics) and it's associated robots. For a simple Magni setup please checkout main or missybot branch, the romio branch uses an additional intel NUC on top of the base Raspberry Pi4 (connected via ethernet) as the roscore.
 
 ## Setup
 VCS is used for the setup because it's easier to work with:
