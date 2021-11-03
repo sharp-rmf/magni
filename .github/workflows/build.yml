@@ -23,11 +23,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ros-tooling/setup-ros@v0.2
         with:
-          required-ros-distributions: melodic
+          required-ros-distributions: eloquent
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
           package-name: magni
-          target-ros2-distro: melodic
+          target-ros2-distro: eloquent
           # If there are no private dependencies, no need to create a PAT or add a secret
           import-token: ${{ secrets.GITHUB_TOKEN }}
           # If there are private dependencies (e.g., in a file provided through vcs-repo-file-url), a PAT is required
