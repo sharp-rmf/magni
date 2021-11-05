@@ -169,11 +169,9 @@ Reference: https://askubuntu.com/questions/475023/how-to-make-vnc-server-work-wi
 # Sample file from RoMio
 
 # Start Gnome 3 Desktop 
-#[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
-#[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
-#vncconfig -iconic &
-#dbus-launch --exit-with-session gnome-session &
-
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+vncconfig -iconic &
 xrdb $HOME/.Xresources
 xsetroot -solid black
 dbus-launch --exit-with-session gnome-session &
