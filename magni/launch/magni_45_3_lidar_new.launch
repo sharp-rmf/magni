@@ -39,7 +39,6 @@
   <include file="$(find magni)/launch/rs_bpearl.launch">
   </include>
   
-  
    <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
 
     <!-- Run a VoxelGrid filter to clean NaNs and downsample the data -->
@@ -90,9 +89,9 @@
   </node>
 
     <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 8.0; $0 $@' " >
-        <param name="destination_frame" value="/merged_center_lidar"/>
-        <param name="cloud_destination_topic" value="/merged_all"/>
-        <param name="scan_destination_topic" value="/scan_rplidar" />
+        <param name="destination_frame" value="merged_center_lidar"/>
+        <param name="cloud_destination_topic" value="merged_all"/>
+        <param name="scan_destination_topic" value="scan_rplidar" />
         
         <param name="laserscan_topics" value ="/front_right_scan /back_left_scan" />
 

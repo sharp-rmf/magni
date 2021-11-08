@@ -13,7 +13,7 @@ map_type: costmap
 # url: http://wiki.ros.org/costmap_2d/hydro/staticmap
 # =======================
 static_layer:
-  map_topic: /map
+  map_topic: map
 
 # Inflation Radius Params
 # =======================
