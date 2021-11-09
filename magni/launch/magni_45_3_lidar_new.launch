@@ -78,15 +78,15 @@
     <param name="publish_multiecho" value="false"/>
     <param name="angle_min" value="-3.14"/>
     <param name="angle_max" value="3.14"/>
-    <remap from="scan" to="scan_hokuyo_raw" />
+    <!-- <remap from="scan" to="scan_hokuyo_raw" /> -->
   </node>
 
-  <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+  <!-- <node pkg="laser_filters" type="scan_to_scan_filter_chain"
       name="laser_filter" launch-prefix="bash -c 'sleep 6.0; $0 $@' ">
     <rosparam command="load" file="$(find magni)/config/my_hokuyo_laser_config.yaml" />
     <remap from="scan" to="scan_hokuyo_raw" />
     <remap from="scan_filtered" to="scan"/>
-  </node>
+  </node> -->
 
     <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 8.0; $0 $@' " >
         <param name="destination_frame" value="merged_center_lidar"/>
@@ -110,7 +110,7 @@
 
     <rosparam command="load" file="$(find magni)/param/romio/amcl.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' ">
-        <remap from="scan" to="scan_rplidar"/>
+        <!-- <remap from="scan" to="scan_rplidar"/> -->
     </node>
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" launch-prefix="bash -c 'sleep 15.0; $0 $@' ">
