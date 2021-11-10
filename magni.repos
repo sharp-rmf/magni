@@ -2,28 +2,29 @@ repositories:
   cyclonedds:
     type: git
     url: https://github.com/eclipse-cyclonedds/cyclonedds
-    version: master
+    version: e0fe9f3a39e40da2b7bc8ae8328b1a980dc2ca75
   free_fleet:
     type: git
     url: https://github.com/open-rmf/free_fleet.git
-    version: main
+    version: 111406318fec5c8dcc1d7510e93d847010c71d2c
   ira_laser_tools:
     type: git
     url: https://github.com/iralabdisco/ira_laser_tools.git
     version: 1.0.4
-  ros_rslidar:
-    type: git
-    url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
-    version: master
-  rplidar_ros:
-    type: git
-    url: https://github.com/Slamtec/rplidar_ros.git
-    version: master
   magni:
     type: git
     url: https://github.com/sharp-rmf/magni.git
-    version: main
+    version: e4396e8370f0ae2c4d2b3345e032de86ff5e8d5a
+  ros_rslidar:
+    type: git
+    url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
+    version: 726eacca94560c4e40e679b899f2b2c43b8a229f
+  rplidar_ros:
+    type: git
+    url: https://github.com/Slamtec/rplidar_ros.git
+    version: 4f899e670bec2c9e1f26b0969f2de36d23618ef3
   urg_node:
     type: git
-    url: https://github.com/ros-drivers/urg_node.git 
-    version: 0.1.15 
+    url: https://github.com/ros-drivers/urg_node.git
+    version: 0.1.15
+
