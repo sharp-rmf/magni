@@ -37,7 +37,7 @@ if [ $? != 0 ]; then
     # Rviz
     tmux new-window -a
     tmux select-window -t tmux_run:2.0
-    tmux send-keys 'ros1_melodic; sleep 22; rviz -d $HOME/dev_ws/src/dp3.rviz' C-m
+    tmux send-keys 'ros1_melodic; sleep 22; rviz -d $HOME/devop_ws/src/dp3.rviz' C-m
 
     # Ping 
     tmux new-window -a

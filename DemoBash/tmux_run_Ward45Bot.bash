@@ -35,7 +35,7 @@ if [ $? != 0 ]; then
     tmux bind-key -t vi-copy 'y' copy-pipe "xclip -sel clip -i"
     
     # roscore
-    tmux send-keys -t tmux_run 'roscore' C-m
+    tmux send-keys -t tmux_run 'source /opt/ros/melodic/setup.bash && roscore' C-m
     tmux select-layout tiled
 
     #force chrony to sync on pi, launch base node on pi
@@ -48,23 +48,32 @@ if [ $? != 0 ]; then
 
     # nav stack
     tmux split-window -v -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 20; start_nav_stack' C-m
+    tmux send-keys -t tmux_run 'sleep 20; source /opt/ros/melodic/setup.bash && source ~/magni_ws/devel/setup.bash && roslaunch magni magni_45_3_lidar_new.launch' C-m
     tmux select-layout tiled
 
+    tmux split-window -h -t tmux_run
+    tmux send-keys -t tmux_run 'sleep 20; rviz -d ~/magni_ws/src/magni/magni/config/dp3.rviz' C-m
+    tmux select-layout tiled
+
+    # safety_layer
+    tmux split-window -v -t tmux_run
+    tmux send-keys -t tmux_run 'sleep 20; source /opt/ros/melodic/setup.bash && source ~/magni_ws/devel/setup.bash && roslaunch safety_layer safety_layer.launch' C-m
+    tmux select-layout tiled
+   
     # docking vision
-    tmux split-window -h -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 35; start_docking_vision' C-m
-    tmux select-layout tiled
+    # tmux split-window -h -t tmux_run
+    # tmux send-keys -t tmux_run 'sleep 35; start_docking_vision' C-m
+    # tmux select-layout tiled
 
-    # docking service server
-    tmux split-window -h -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 36; start_docking_server' C-m
-    tmux select-layout tiled
+    # # docking service server
+    # tmux split-window -h -t tmux_run
+    # tmux send-keys -t tmux_run 'sleep 36; start_docking_server' C-m
+    # tmux select-layout tiled
 
-    # free fleet
-    tmux split-window -h -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 37; start_free_fleet' C-m
-    tmux select-layout tiled
+    # # free fleet
+    # tmux split-window -h -t tmux_run
+    # tmux send-keys -t tmux_run 'sleep 37; start_free_fleet' C-m
+    # tmux select-layout tiled
 
     # line following
     #tmux split-window -h -t tmux_run

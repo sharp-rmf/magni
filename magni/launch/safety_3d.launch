@@ -13,7 +13,7 @@
 
     <!-- ======== min, max param is with respect to target frame ======== -->
     <!-- if using RBPearl -->
-    <param if="$(arg use_rbpearl)" name = "min_height"   value = "0.0"/>
+    <param if="$(arg use_rbpearl)" name = "min_height"   value = "0.1"/>
     <param if="$(arg use_rbpearl)" name = "max_height"   value = "1.35"/> 
     <param if="$(arg use_rbpearl)" name = "target_frame" value = "base_link"/> 
     
