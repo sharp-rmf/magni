@@ -88,6 +88,8 @@
     <remap from="scan_filtered" to="scan"/>
   </node> -->
 
+    <!--TODO: Seperate front_right_scan /back_left_scan, and apply a laser filter -->>
+
     <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 8.0; $0 $@' " >
         <param name="destination_frame" value="merged_center_lidar"/>
         <param name="cloud_destination_topic" value="merged_all"/>

@@ -48,7 +48,7 @@ if [ $? != 0 ]; then
 
     # nav stack
     tmux split-window -v -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 20; source /opt/ros/melodic/setup.bash && source ~/magni_ws/devel/setup.bash && roslaunch magni magni_45_3_lidar_new.launch' C-m
+    tmux send-keys -t tmux_run 'sleep 20; source ~/magni_ws/devel/setup.bash && roslaunch magni romio.launch' C-m
     tmux select-layout tiled
 
     tmux split-window -h -t tmux_run
@@ -57,9 +57,14 @@ if [ $? != 0 ]; then
 
     # safety_layer
     tmux split-window -v -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 25; source /opt/ros/melodic/setup.bash && source ~/magni_ws/devel/setup.bash && roslaunch safety_layer safety_layer.launch' C-m
+    tmux send-keys -t tmux_run 'sleep 30; source ~/magni_ws/devel/setup.bash && roslaunch safety_layer safety_layer.launch' C-m
     tmux select-layout tiled
    
+    # Hybrid
+    tmux split-window -h -t tmux_run
+    tmux send-keys -t tmux_run 'sleep 20; source ~/magni_ws/devel/setup.bash && rosrun rosrun hybrid_mode hybrid_nav_node.py' C-m
+    tmux select-layout tiled
+
     # docking vision
     # tmux split-window -h -t tmux_run
     # tmux send-keys -t tmux_run 'sleep 35; start_docking_vision' C-m
