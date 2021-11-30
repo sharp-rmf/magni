@@ -3,6 +3,10 @@ repositories:
     type: git
     url: https://github.com/eclipse-cyclonedds/cyclonedds
     version: e0fe9f3a39e40da2b7bc8ae8328b1a980dc2ca75
+  dynamic_docking:
+    type: git
+    url: https://github.com/sharp-rmf/dynamic_docking.git
+    version: d1861e46e1e4ead0d706ad809779fea52868e8fe
   free_fleet:
     type: git
     url: https://github.com/open-rmf/free_fleet.git
@@ -14,7 +18,11 @@ repositories:
   magni:
     type: git
     url: https://github.com/sharp-rmf/magni.git
-    version: e4396e8370f0ae2c4d2b3345e032de86ff5e8d5a
+    version: 2dee5d6ae43c4b480b2625a9f04e6658b4496e74
+  romio_new_navigation_feature:
+    type: git
+    url: https://github.com/sharp-rmf/romio_new_navigation_feature.git
+    version: 17f06d1730dd5c1e739f5354bfba7f971b1ba960
   ros_rslidar:
     type: git
     url: https://github.com/RoboSense-LiDAR/ros_rslidar.git
@@ -23,8 +31,11 @@ repositories:
     type: git
     url: https://github.com/Slamtec/rplidar_ros.git
     version: 4f899e670bec2c9e1f26b0969f2de36d23618ef3
+  safety_layer:
+    type: git
+    url: https://github.com/sharp-rmf/safety_layer.git
+    version: c4fe29b13fcf21dd11857138fc1124e2a1d27541
   urg_node:
     type: git
     url: https://github.com/ros-drivers/urg_node.git
     version: 0.1.15
-

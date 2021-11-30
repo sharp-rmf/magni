@@ -1,7 +1,11 @@
-# Magni
+# Romio
 This repo is used for Magni and it's associated robots.
 
-## Setup
+## Latest bash script
+For spinning everything up, use the romio.bash script in DemoBash folder at the root of this repo.
+DemoBash folder is usually symlinked to the root of the workspace for easy access.
+
+# Setup
 VCS is used for the setup because it's easier to work with:
 https://github.com/dirk-thomas/vcstool/issues/221
 
@@ -81,19 +85,12 @@ sudo udevadm trigger
 # Add deployment_ws environment to .bashrc
 echo "source $HOME/deployment_ws/devel/setup.bash" >> ~/.bashrc
 ```
-## Launching the Romio/ Magni
-The files to launch everything required for a demo can be found in the DemoBash folder.
-Generally, the idea is to use bash + tmux to automate the launch sequence of everything required to run a demo.
 
 ## Important configurations
 
 ### TODO: Tuning navigation (move_base parameters)
 
-The latest bash script would be DemoBash/latest.bash, I will try my best to keep this the latest bash script, but who knows what fate has in store. 
-
-
-
-### Time synchronization
+# Time synchronization
 If you are commanding the movement of the magni (/cmd_vel subscriber on the raspberry Pi) with another PC (/cmd_vel publisher on a NUC linked via ethernet to the Pi), then time synchronization is required. The Romio uses chronyc to synchronise the time. The two scripts can be found at magni/chrony_config.
 
 To use these files, the client and server both needs to have the chrony.service running. So 'sudo apt install chrony' on both, and check that it is up by running 'systemctl list-units chrony.service'. Make sure to change the Ip addresses in the config files to match.
@@ -139,7 +136,7 @@ our own site- and robot-specific launch files.
 ### Rplidar reference for setting up udev rules
 https://github.com/robopeak/rplidar_ros/wiki
 
-## Dockerfile
+# Dockerfile
 Instructions to use dockerfile:
 ```
 cd ~/magni_ws/src/magni
@@ -149,7 +146,7 @@ docker build -t romio . && docker run -it
 ```
 After running docker run, you should enter a mock-up container of your complete magni workspace with functioning ROS packages.
 
-## VNC setup
+# VNC setup
 VNC is a useful tool for troubleshooting, here is how to set it up quickly
 ### Dependencies (for the GNOME landing page on your robot hosting the vncserver i.e. the magni)
 ```
@@ -194,6 +191,3 @@ I use tigervnc for this, simply connect to IP_ADDRESS:PORT_NUMBER with your pass
 lsof -i | grep vnc # For the port number
 ip a # For the ip address
 ```
-### TODO: Github action with Dockerfile to automate build testing for incoming code changes
-haha
-
