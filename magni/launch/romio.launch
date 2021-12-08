@@ -1,119 +1,129 @@
 <launch>
-  <node name="back_left_scan"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
-      <remap from="scan" to="back_left_scan"/>
-      <param name="scan_topic_name"     type="string" value="back_left_scan"/>         
-      <param name="serial_port"         type="string" value="/dev/rplidar_top_right"/>  
-      <param name="serial_baudrate"     type="int"    value="256000"/>
-      <param name="frame_id"            type="string" value="back_left_scan"/>
-      <param name="inverted"            type="bool"   value="false"/>
-      <param name="angle_compensate"    type="bool"   value="true"/>
-      <param name="scan_mode"           type="string" value="Sensitivity"/>
-  </node>
 
-  <node name="front_right_scan"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
-      <remap from="scan" to="front_right_scan"/>
-      <param name="scan_topic_name"     type="string" value="front_right_scan"/>
-      <param name="serial_port"         type="string" value="/dev/rplidar_bottom_left"/>
-      <param name="serial_baudrate"     type="int"    value="256000"/>
-      <param name="frame_id"            type="string" value="front_right_scan"/>
-      <param name="inverted"            type="bool"   value="false"/>
-      <param name="angle_compensate"    type="bool"   value="true"/>
-      <param name="scan_mode"           type="string" value="Sensitivity"/>
-  </node>
+    <!-- ======== TFs ======== -->
+    <node name="back_left_scan_static_transform" pkg="tf" type="static_transform_publisher" args="-0.1 0.2 0 0.02 0 0 base_link back_left_scan 100" />
 
-  <node name="base_link_to_merged_lidar_center" pkg="tf" type="static_transform_publisher" 
-        args="0.115 0 0 0 0 0 base_link merged_center_lidar 100"/>
-        
-  <node name="back_left_scan_static_transform" pkg="tf" type="static_transform_publisher" 
-        args="-0.2 0.2 0 0 0 0 merged_center_lidar back_left_scan 100"/>
+    <node name="front_right_scan_static_transform" pkg="tf" type="static_transform_publisher" args="0.315 -0.2 0 3.14 0 0 base_link front_right_scan 100" />
 
-  <node name="front_right_scan_static_transform" pkg="tf" type="static_transform_publisher" 
-        args="0.2 -0.2 0 3.14 0 0 merged_center_lidar front_right_scan 100"/>
+    <node name="laser_base_link_static_transform" pkg="tf" type="static_transform_publisher" args="0.268 0 1.19 0 0 0 base_link laser 100" />
 
-  <node name="laser_base_link_static_transform" pkg="tf" type="static_transform_publisher" 
-        args="0.268 0 1.19 0 0 0 base_link laser 100"/> 
-    
-  <node name="pearl_base_link_static_transform" pkg="tf" type="static_transform_publisher" 
-        args="0.21 0 1.11 0 -1.82 3.14159 base_link rslidar 100"/> 
-          
-  <include file="$(find magni)/launch/rs_bpearl.launch">
-  </include>
-  
-   <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
+    <node name="pearl_base_link_static_transform" pkg="tf" type="static_transform_publisher" args="0.21 0 1.11 0 -1.82 3.14159 base_link rslidar 100" />
+    <!-- ======== TFs ======== -->
+
+    <!-- ======== RS Bpearl ======== -->
+    <include file="$(find magni)/launch/rs_bpearl.launch"></include>
+
+    <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
 
     <!-- Run a VoxelGrid filter to clean NaNs and downsample the data -->
-    <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
-        <remap from="~input" to="/rslidar_points" />
-        <rosparam>
+    <!-- <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
+      <remap from="~input" to="/rslidar_points" />
+      <rosparam>
         filter_field_name: z
-        filter_limit_min: -1
-        filter_limit_max: 5
+        filter_limit_min: 0.01
+        filter_limit_max: 1.5
         filter_limit_negative: False
-        leaf_size: 0.05
-        </rosparam>
+        leaf_size: 0.01
+      </rosparam>
+    </node> -->
+
+    <!-- <node pkg="nodelet" type="nodelet" name="pointcloud_to_laserscan_nodelet" args="load pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet pcl_manager"> -->
+        <!-- ======== input topics name ======== -->
+        <!-- <remap from="/cloud_in" to="/rslidar_points" /> -->
+        <!-- ======== output topics name ======== -->
+        <!-- <remap from="/scan" to="/scan_rslidar_flattened" />
+
+        <param name="min_height" value="0.05" />
+        <param name="max_height" value="1.50" />
+        <param name="target_frame" value="base_link" />
+
+        <param name="angle_min" value="-1.5707" />
+        <param name="angle_max" value="1.5707" />
+        <param name="angle_increment" value="0.004363" />
+        <param name="scan_time" value="1.0/10.0" />
+        <param name="range_min" value="0.4" />
+        <param name="range_max" value="5" />
+        <param name="use_inf" value="false" />
     </node>
 
-    <!-- Run a StatisticalOutlierRemoval filter to clean out the noise points (ghost) -->
-    <!-- The input is the output from VoxelGrid -->
-    <node pkg="nodelet" type="nodelet" name="outlier_removal" args="load pcl/StatisticalOutlierRemoval pcl_manager" output="screen">
-        <remap from="~input" to="/voxel_grid/output" />
-        <rosparam>
-            mean_k: 5
-            stddev: 2       <!-- The smaller this value, the more powerful the filter will clear out noise points-->
-            negative: False
-        </rosparam>
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="rb_laser_range_filter">
+        <rosparam command="load" file="$(find magni)/config/my_rbpearl_laser_config.yaml" />
+        <remap from="scan" to="scan_rslidar_flattened" />
+        <remap from="scan_filtered" to="scan_rslidar_flattened_new" />
+    </node> -->
+    <!-- ======== RS Bpearl ======== -->
+
+    <!-- ======== Rplidars ======== -->
+    <node name="back_left_scan" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <remap from="scan" to="back_left_scan" />
+        <param name="scan_topic_name" type="string" value="back_left_scan" />
+        <param name="serial_port" type="string" value="/dev/rplidar_top_right" />
+        <param name="serial_baudrate" type="int" value="256000" />
+        <param name="frame_id" type="string" value="back_left_scan" />
+        <param name="inverted" type="bool" value="false" />
+        <param name="angle_compensate" type="bool" value="true" />
+        <param name="scan_mode" type="string" value="Sensitivity" />
     </node>
 
-    <include file="$(find magni)/launch/safety_3d.launch" >
-    </include>
-  
-  
-  <node name="urg_node" pkg="urg_node" type="urg_node" output="screen" launch-prefix="bash -c 'sleep 3.0; $0 $@' ">
-    <param name="ip_address" value="192.168.1.150"/>
-    <param name="serial_port" value=""/>
-    <param name="serial_baud" value="115200"/>
-    <param name="frame_id" value="laser"/>
-    <param name="calibrate_time" value="true"/>
-    <param name="publish_intensity" value="false"/>
-    <param name="publish_multiecho" value="false"/>
-    <param name="angle_min" value="-3.14"/>
-    <param name="angle_max" value="3.14"/>
-  </node>
-
-    <!--TODO: Seperate front_right_scan /back_left_scan, and apply a laser filter -->>
-
-    <node pkg="ira_laser_tools" name="laserscan_multi_merger_rplidar" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 8.0; $0 $@' " >
-        <param name="destination_frame" value="merged_center_lidar"/>
-        <param name="cloud_destination_topic" value="merged_all"/>
-        <param name="scan_destination_topic" value="scan_rplidar" />
-        
-        <param name="laserscan_topics" value ="/front_right_scan /back_left_scan" />
-
-        <param name="angle_min" value="-3.14"/>
-		<param name="angle_max" value="3.14"/>
-		<param name="angle_increment" value="0.0057595865"/>
-		<param name="scan_time" value="1/20"/>
-        <param name="range_min" value="0.3"/>
-        <param name="range_max" value="15.0"/>
-    
+    <node name="front_right_scan" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <remap from="scan" to="front_right_scan" />
+        <param name="scan_topic_name" type="string" value="front_right_scan" />
+        <param name="serial_port" type="string" value="/dev/rplidar_bottom_left" />
+        <param name="serial_baudrate" type="int" value="256000" />
+        <param name="frame_id" type="string" value="front_right_scan" />
+        <param name="inverted" type="bool" value="false" />
+        <param name="angle_compensate" type="bool" value="true" />
+        <param name="scan_mode" type="string" value="Sensitivity" />
     </node>
 
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="left_rp_laser_filter">
+        <rosparam command="load" file="$(find magni)/config/left_rplidar_laser.yaml" />
+        <remap from="scan" to="back_left_scan" />
+        <remap from="scan_filtered" to="back_left_scan_filtered" />
+    </node>
+
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="right_rp_laser_filter">
+        <rosparam command="load" file="$(find magni)/config/right_rplidar_laser.yaml" />
+        <remap from="scan" to="front_right_scan" />
+        <remap from="scan_filtered" to="front_right_scan_filtered" />
+    </node>
+    <!-- ======== Rplidars ======== -->
+
+    <!-- ======== Hokuyo ======== -->
+    <node name="urg_node" pkg="urg_node" type="urg_node" output="screen" launch-prefix="bash -c 'sleep 3.0; $0 $@' ">
+        <param name="ip_address" value="192.168.1.150" />
+        <param name="serial_port" value="" />
+        <param name="serial_baud" value="115200" />
+        <param name="frame_id" value="laser" />
+        <param name="calibrate_time" value="true" />
+        <param name="publish_intensity" value="false" />
+        <param name="publish_multiecho" value="false" />
+        <param name="angle_min" value="-3.14" />
+        <param name="angle_max" value="3.14" />
+    </node>
+    <!-- ======== Hokuyo ======== -->
+
+    <!-- ======== Map server ======== -->
     <include file="$(find magni)/launch/map_server.launch">
-        <arg name="map_yaml" value="$(find magni)/maps/chart/map.yaml"/>
+        <arg name="map_yaml" value="$(find magni)/maps/chart/map.yaml" />
     </include>
+    <!-- ======== Map server ======== -->
 
+    <!-- ======== Amcl ======== -->
     <rosparam command="load" file="$(find magni)/param/romio/amcl.yaml" />
-    <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' ">
-    </node>
+    <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' "></node>
+    <!-- ======== Amcl ======== -->
 
-    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen" launch-prefix="bash -c 'sleep 15.0; $0 $@' ">
+    <!-- ======== Move base ======== -->
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
         <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/costmap_common_params.yaml" ns="local_costmap" />
         <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/costmap_common_params.yaml" ns="global_costmap" />
         <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/local_costmap_params.yaml" />
         <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/global_costmap_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/dwa_local_planner_params.yaml"/>
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/base_local_planner_params.yaml"/>
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/move_base_params.yaml"/>
+        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/move_base_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/dwa_local_planner_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/base_local_planner_params.yaml" />
     </node>
+    <!-- ======== Move base ======== -->
 
 </launch>

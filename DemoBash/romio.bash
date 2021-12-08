@@ -41,8 +41,16 @@ if [ $? != 0 ]; then
    
     # Hybrid
     tmux split-window -h -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 30; hybrid_nav_core' C-m
+    tmux send-keys -t tmux_run 'sleep 30; source ~/magni_ws/devel/setup.bash && roslaunch hybrid_mode hybrid_nav_mode.launch' C-m
     tmux select-layout tiled    
+
+    # FF
+    #tmux new-window -n ff
+    #tmux send-keys -t ff 'sleep 30; source ~/magni_ws/devel/setup.bash && roslaunch magni free_fleet.launch' C-m
+    #tmux select-layout tiled
+
+    # Go back to main page
+    #tmux last-window  
 
 fi
 tmux attach -t tmux_run
