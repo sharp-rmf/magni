@@ -1,5 +1,5 @@
 <launch>
-  <arg name="param_directory" value="/home/jh/Repos/magni/magni"/>
+  <arg name="param_directory" value="/home/jh/Repos/magni/magni" />
 
   <!-- ======== Move base ======== -->
   <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
@@ -11,7 +11,7 @@
     <rosparam command="load" file="$(arg param_directory)/param/dwa_local_planner_params.yaml" />
     <rosparam command="load" file="$(arg param_directory)/param/base_local_planner_params.yaml" />
 
-    <remap from="/move_base/global_costmap/costmap" to="/move_base/global_costmap/dummy_costmap"/>
+    <remap from="/move_base/global_costmap/costmap" to="/move_base/global_costmap/dummy_costmap" />
   </node>
   <!-- ======== Move base ======== -->
 </launch>

@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- Remember to run "export TURTLEBOT3_MODEL=burger " before launching files -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch" />
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="map_file" value="$(find magni)/test/map.yaml" />
+  </include>
+</launch>
