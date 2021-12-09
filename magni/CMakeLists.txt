@@ -8,3 +8,5 @@ catkin_package()
 install(DIRECTORY launch maps
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+
+install(PROGRAMS scripts/exportBurger.sh DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

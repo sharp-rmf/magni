@@ -28,10 +28,10 @@
     </node> -->
 
     <!-- <node pkg="nodelet" type="nodelet" name="pointcloud_to_laserscan_nodelet" args="load pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet pcl_manager"> -->
-        <!-- ======== input topics name ======== -->
-        <!-- <remap from="/cloud_in" to="/rslidar_points" /> -->
-        <!-- ======== output topics name ======== -->
-        <!-- <remap from="/scan" to="/scan_rslidar_flattened" />
+    <!-- ======== input topics name ======== -->
+    <!-- <remap from="/cloud_in" to="/rslidar_points" /> -->
+    <!-- ======== output topics name ======== -->
+    <!-- <remap from="/scan" to="/scan_rslidar_flattened" />
 
         <param name="min_height" value="0.05" />
         <param name="max_height" value="1.50" />
@@ -110,19 +110,19 @@
     <!-- ======== Map server ======== -->
 
     <!-- ======== Amcl ======== -->
-    <rosparam command="load" file="$(find magni)/param/romio/amcl.yaml" />
+    <rosparam command="load" file="$(find magni)/param/amcl.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' "></node>
     <!-- ======== Amcl ======== -->
 
     <!-- ======== Move base ======== -->
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/costmap_common_params.yaml" ns="local_costmap" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/costmap_common_params.yaml" ns="global_costmap" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/local_costmap_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/global_costmap_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/move_base_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/dwa_local_planner_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/nav_mode_changing_param/base_local_planner_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find magni)/param/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find magni)/param/local_costmap_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/global_costmap_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/move_base_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/dwa_local_planner_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/base_local_planner_params.yaml" />
     </node>
     <!-- ======== Move base ======== -->
 
