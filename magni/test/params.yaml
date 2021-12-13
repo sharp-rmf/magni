@@ -1,0 +1,47 @@
+global_frame: map
+robot_base_frame: base_link
+update_frequency: 10.0
+publish_frequency: 10.0
+
+#set to true if you want to initialize the costmap from a static map
+# static_map: false
+
+#begin - COMMENT these lines if you set static_map to true
+rolling_window: true
+width: 6.0
+height: 6.0
+resolution: 0.025
+#end - COMMENT these lines if you set static_map to true
+
+plugins:
+  - { name: voxel_layer, type: "costmap_2d::VoxelLayer" }
+
+voxel_layer:
+  z_voxels: 16
+  z_resolution: 0.1
+  publish_voxel_map: true # For debugging
+  sensor_frame: base_link
+  data_type: PointCloud2
+  observation_sources: scan_mark_rspearl # scan_clear_rspearl
+  scan_mark_rspearl: 
+    topic: /rslidar_points
+    max_obstacle_height: 1.5
+    min_obstacle_height: 0.1
+    obstacle_max_range: 2.5
+    obstacle_min_range: 0.0
+    raytrace_max_range: 4.8
+    raytrace_min_range: 0.0
+    clearing: True
+    marking: True
+    data_type: "PointCloud2"
+  # scan_clear_rspearl:
+  #   topic: /rslidar_points
+  #   max_obstacle_height: 1.5
+  #   min_obstacle_height: 0.3
+  #   obstacle_max_range: 2.5
+  #   obstacle_min_range: 0.0
+  #   raytrace_max_range: 4.8
+  #   raytrace_min_range: 0.0
+  #   clearing: True
+  #   marking: False
+  #   data_type: "PointCloud2"

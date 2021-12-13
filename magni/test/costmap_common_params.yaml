@@ -1,0 +1,86 @@
+# Robot Related and Other Params
+# ==============================
+# url: http://wiki.ros.org/costmap_2d/layered
+# =======================
+# robot_radius is 0.3
+footprint: [ [0.3255, 0.0], [0.2, -0.255], [-0.2, -0.255], [-0.325, 0.0], [-0.2, 0.255], [0.2, 0.255] ]
+transform_tolerance: 5.0 
+map_type: costmap
+
+# Static Layer Params
+# ===================
+# url: http://wiki.ros.org/costmap_2d/hydro/staticmap
+# =======================
+static_layer:
+  map_topic: /map
+
+# Inflation Radius Params
+# =======================
+# url: http://wiki.ros.org/costmap_2d/hydro/inflation
+# =======================
+inflation_layer: 
+  inflation_radius: 0.3 #DP3 ->0.15 # NTU demo -> 0.9
+  cost_scaling_factor: 10.0
+
+# Obstacle Layer Params (Laser)
+# =====================
+# url: http://wiki.ros.org/costmap_2d/hydro/obstacles
+# =====================
+obstacle_layer_hokuyo_laser:                                
+  obstacle_range: 2.0    #NTU demo -> 3.03.0 #2.5
+  raytrace_range: 5.5    #5.0
+  observation_sources: scan_hokuyo # laser_scan_sick_FR laser_scan_sick_BL 
+  scan_hokuyo: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, expected_update_rate: 0.8, observation_persistence: 0.0, inf_is_valid: true}
+
+obstacle_layer_rp_right:
+  obstacle_range: 5.0    
+  raytrace_range: 19.0   
+  observation_sources: front_right_scan
+  front_right_scan: {sensor_frame: front_right_scan, data_type: LaserScan, topic: front_right_scan, marking: true, clearing: true, expected_update_rate: 0.8, inf_is_valid: true, observation_persistence: 0.0}  
+
+obstacle_layer_rp_left:
+  obstacle_range: 5.0    
+  raytrace_range: 19.0   
+  observation_sources: back_left_scan
+  back_left_scan: {sensor_frame: back_left_scan, data_type: LaserScan, topic: back_left_scan, marking: true, clearing: true, expected_update_rate: 0.8, inf_is_valid: true, observation_persistence: 0.0}  
+
+# obstacle_layer_robosense_rbpearl:
+#   obstacle_range: 4.49   
+#   raytrace_range: 4.5 #5.5
+#   max_obstacle_height: 1.5 # Already defined in pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet
+#   min_obstacle_height: 0.1    
+#   observation_sources: scan_rspearl
+#   scan_rspearl: {sensor_frame: base_link, data_type: LaserScan, topic: scan_rslidar_flattened_new, marking: true, clearing: true, expected_update_rate: 0.8, inf_is_valid: true, observation_persistence: 0.0} 
+
+# =====================
+# Refrence url: https://navigation.ros.org/configuration/packages/costmap-plugins/voxel.html
+# =====================
+voxel_grid_robosense_rbpearl:
+  z_voxels: 16
+  z_resolution: 0.2
+  publish_voxel_map: true
+  sensor_frame: base_link
+  data_type: PointCloud2
+  observation_sources: scan_mark_rspearl scan_clear_rspearl
+  scan_mark_rspearl: 
+    topic: /rslidar_points
+    max_obstacle_height: 1.5
+    min_obstacle_height: 0.1
+    obstacle_max_range: 2.5
+    obstacle_min_range: 0.0
+    raytrace_max_range: 4.8
+    raytrace_min_range: 0.0
+    clearing: False
+    marking: True
+    data_type: "PointCloud2"
+  scan_clear_rspearl:
+    topic: /rslidar_points
+    max_obstacle_height: 1.5
+    min_obstacle_height: 0.3
+    obstacle_max_range: 2.5
+    obstacle_min_range: 0.0
+    raytrace_max_range: 4.8
+    raytrace_min_range: 0.0
+    clearing: True
+    marking: False
+    data_type: "PointCloud2"
