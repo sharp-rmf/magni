@@ -1,6 +1,6 @@
 amcl:
     odom_model_type: diff
-    transform_tolerance: 0.1
+    transform_tolerance: 0.5
     gui_publish_rate: 5.0
     laser_max_beams: 60
     min_particles: 500

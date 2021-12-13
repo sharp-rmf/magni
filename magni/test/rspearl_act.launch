@@ -1,0 +1,78 @@
+<launch>
+
+    <!-- ======== TFs ======== -->
+    <node name="laser_base_link_static_transform" pkg="tf" type="static_transform_publisher" args="0.268 0 1.19 0 0 0 base_link laser 100" />
+
+    <node name="pearl_base_link_static_transform" pkg="tf" type="static_transform_publisher" args="0.21 0 1.11 0 -1.82 3.14159 base_link rslidar 100" />
+    <!-- ======== TFs ======== -->
+
+    <!-- ======== RS Bpearl ======== -->
+    <include file="$(find magni)/launch/rs_bpearl.launch"></include>
+
+    <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
+
+    <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
+        <remap from="~input" to="/rslidar_points" />
+        <rosparam>
+          filter_field_name: z
+          filter_limit_min: 0.01
+          filter_limit_max: 5.0
+          filter_limit_negative: False
+          leaf_size: 0.1
+        </rosparam>
+
+    </node>
+
+    <!-- Run a StatisticalOutlierRemoval filter to clean out the noise points (ghost) -->
+    <!-- The input is the output from VoxelGrid -->
+    <node pkg="nodelet" type="nodelet" name="outlier_removal" args="load pcl/StatisticalOutlierRemoval pcl_manager" output="screen">
+        <remap from="~input" to="/voxel_grid/output" />
+        <rosparam>
+            mean_k: 5
+            stddev: 2
+            <!-- The smaller this value, the more powerful the filter will clear out noise points-->
+            negative: False
+        </rosparam>
+    </node>
+    <!-- ======== RS Bpearl ======== -->
+
+    <!-- ======== Hokuyo ======== -->
+    <node name="urg_node" pkg="urg_node" type="urg_node" output="screen" launch-prefix="bash -c 'sleep 3.0; $0 $@' ">
+        <param name="ip_address" value="192.168.1.150" />
+        <param name="serial_port" value="" />
+        <param name="serial_baud" value="115200" />
+        <param name="frame_id" value="laser" />
+        <param name="calibrate_time" value="true" />
+        <param name="publish_intensity" value="false" />
+        <param name="publish_multiecho" value="false" />
+        <param name="angle_min" value="-3.14" />
+        <param name="angle_max" value="3.14" />
+    </node>
+    <!-- ======== Hokuyo ======== -->
+
+    <!-- ======== Map server ======== -->
+    <include file="$(find magni)/launch/map_server.launch">
+        <arg name="map_yaml" value="$(find magni)/test/map.yaml" />
+    </include>
+    <!-- ======== Map server ======== -->
+
+    <!-- ======== Amcl ======== -->
+    <rosparam command="load" file="$(find magni)/param/amcl_improved.yaml" />
+    <node pkg="amcl" type="amcl" name="amcl" output="screen"></node>
+    <!-- ======== Amcl ======== -->
+
+    <!-- ======== Move base ======== -->
+    <!-- For troubleshooting: Subs to voxel grid and Pubs the marker to rviz for display -->
+    <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
+        <remap from="voxel_grid" to="/move_base/local_costmap/voxel_grid_robosense_rbpearl/voxel_grid" />
+    </node>
+
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+        <rosparam command="load" file="$(find magni)/test/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find magni)/test/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find magni)/test/local_costmap_params.yaml" />
+        <rosparam command="load" file="$(find magni)/test/global_costmap_params.yaml" />
+    </node>
+    <!-- ======== Move base ======== -->
+
+</launch>
