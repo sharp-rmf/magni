@@ -17,8 +17,8 @@ TrajectoryPlannerROS:
   holonomic_robot: false
 
   yaw_goal_tolerance: 0.1  # 0.05
-  xy_goal_tolerance: 0.05  # 0.10
-  latch_xy_goal_tolerance: false
+  xy_goal_tolerance: 0.15  # 0.10
+  latch_xy_goal_tolerance: true
 
   # Forward Simulation Parameters
   sim_time: 4.0       # default: 1.0

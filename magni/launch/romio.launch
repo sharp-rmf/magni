@@ -15,42 +15,29 @@
 
     <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
 
-    <!-- Run a VoxelGrid filter to clean NaNs and downsample the data -->
-    <!-- <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
-      <remap from="~input" to="/rslidar_points" />
-      <rosparam>
-        filter_field_name: z
-        filter_limit_min: 0.01
-        filter_limit_max: 1.5
-        filter_limit_negative: False
-        leaf_size: 0.01
-      </rosparam>
-    </node> -->
+    <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
+        <remap from="~input" to="/rslidar_points" />
+        <rosparam>
+          filter_field_name: z
+          filter_limit_min: 0.01
+          filter_limit_max: 5.0
+          filter_limit_negative: False
+          leaf_size: 0.1
+        </rosparam>
 
-    <!-- <node pkg="nodelet" type="nodelet" name="pointcloud_to_laserscan_nodelet" args="load pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet pcl_manager"> -->
-    <!-- ======== input topics name ======== -->
-    <!-- <remap from="/cloud_in" to="/rslidar_points" /> -->
-    <!-- ======== output topics name ======== -->
-    <!-- <remap from="/scan" to="/scan_rslidar_flattened" />
-
-        <param name="min_height" value="0.05" />
-        <param name="max_height" value="1.50" />
-        <param name="target_frame" value="base_link" />
-
-        <param name="angle_min" value="-1.5707" />
-        <param name="angle_max" value="1.5707" />
-        <param name="angle_increment" value="0.004363" />
-        <param name="scan_time" value="1.0/10.0" />
-        <param name="range_min" value="0.4" />
-        <param name="range_max" value="5" />
-        <param name="use_inf" value="false" />
     </node>
 
-    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="rb_laser_range_filter">
-        <rosparam command="load" file="$(find magni)/config/my_rbpearl_laser_config.yaml" />
-        <remap from="scan" to="scan_rslidar_flattened" />
-        <remap from="scan_filtered" to="scan_rslidar_flattened_new" />
-    </node> -->
+    <!-- Run a StatisticalOutlierRemoval filter to clean out the noise points (ghost) -->
+    <!-- The input is the output from VoxelGrid -->
+    <node pkg="nodelet" type="nodelet" name="outlier_removal" args="load pcl/StatisticalOutlierRemoval pcl_manager" output="screen">
+        <remap from="~input" to="/voxel_grid/output" />
+        <rosparam>
+            mean_k: 5
+            stddev: 2
+            <!-- The smaller this value, the more powerful the filter will clear out noise points-->
+            negative: False
+        </rosparam>
+    </node>
     <!-- ======== RS Bpearl ======== -->
 
     <!-- ======== Rplidars ======== -->
@@ -110,7 +97,7 @@
     <!-- ======== Map server ======== -->
 
     <!-- ======== Amcl ======== -->
-    <rosparam command="load" file="$(find magni)/param/amcl.yaml" />
+    <rosparam command="load" file="$(find magni)/param/amcl_improved.yaml" />
     <node pkg="amcl" type="amcl" name="amcl" output="screen" launch-prefix="bash -c 'sleep 13.0; $0 $@' "></node>
     <!-- ======== Amcl ======== -->
 
@@ -119,7 +106,7 @@
     <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
         <remap from="voxel_grid" to="/move_base/local_costmap/voxel_grid_robosense_rbpearl/voxel_grid" />
     </node>
-    
+
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
         <rosparam command="load" file="$(find magni)/param/costmap_common_params.yaml" ns="local_costmap" />
         <rosparam command="load" file="$(find magni)/param/costmap_common_params.yaml" ns="global_costmap" />
