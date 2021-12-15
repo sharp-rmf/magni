@@ -1,4 +1,4 @@
-base_global_planner: navfn/NavfnROS
+base_global_planner: navfn/NavfnROS # global_planner/GlobalPlanner # navfn/NavfnROS
 base_local_planner: dwa_local_planner/DWAPlannerROS #eband_local_planner/EBandPlannerROS #dwa_local_planner/DWAPlannerROS #eband_local_planner/EBandPlannerROS
 clearing_rotation_allowed: false
 recovery_behavior_enabled: false

@@ -1,0 +1,5 @@
+# ADD ROS master 
+export ROS_MASTER_URI=http://Ward45Bot.local:11311/
+export ROS_IP=192.168.1.100
+#export ROS_MASTER_URI=http://Ward45Bot.local:11311
+export ROS_PARALLEL_JOBS=-j1 # Limit the number of compile threads due to memory limits

@@ -1,0 +1,21 @@
+127.0.0.1	localhost
+#127.0.1.1	pegasus-lite-nuc-001
+#127.0.0.1	mrccc.chart.com.sg
+127.0.1.1	Ward45Bot 
+
+10.233.0.80     chart-desktop-1 chart-desktop-1.local
+10.233.29.77    kj-APEX-15 kj-APEX-15.local
+# 10.233.29.244	jh-P95-96-97Ex-Rx jh-P95-96-97Ex-Rx.local
+
+# Wireguard
+10.11.12.10 	jh-P95-96-97Ex-Rx jh-P95-96-97Ex-Rx.local 
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+10.233.29.75	magni2 magni2.local
+192.168.1.100   TallDeliveryMagni pi
