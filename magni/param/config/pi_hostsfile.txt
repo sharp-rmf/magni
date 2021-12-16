@@ -1,0 +1,10 @@
+127.0.0.1       localhost
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+
+127.0.1.1       TallDeliveryMagni TallDeliveryMagni.local
+10.233.29.244	jh-P95-96-97Ex-Rx jh-P95-96-97Ex-Rx.local
+10.233.0.80	chart-desktop-1 chart-desktop-1.local
+#192.168.1.102   Ward45Bot Ward45Bot.local
+192.168.1.102	ubuntu-NUC7i5BNH ubuntu-NUC7i5BNH.local

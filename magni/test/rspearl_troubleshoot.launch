@@ -4,12 +4,13 @@
 
   <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find magni)/test/romio.rviz" />
 
-  <node pkg="rosbag" type="play" name="player" args="--clock /home/jh/Data/romio/out.bag" />
+  <arg name="path" default="/home/jh/Data/romio/out.bag"/>
+  <node pkg="rosbag" type="play" name="player" args="--clock $(arg path)" />
 
   <!-- Publishes the voxel grid to rviz for display -->
-  <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
-    <remap from="voxel_grid" to="/costmap_node/costmap/voxel_layer/voxel_grid" />
-  </node>
+  <!-- <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
+    <remap from="voxel_grid" to="/costmap_node/costmap/rgbd_obstacle_layer/voxel_grid" />
+  </node> -->
 
   <!-- Run the costmap node -->
   <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" output="screen">

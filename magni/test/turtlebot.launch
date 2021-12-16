@@ -21,17 +21,35 @@
   <include file="$(find turtlebot3_navigation)/launch/amcl.launch" />
 
   <!-- move_base -->
-  <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
-    <arg name="cmd_vel_topic" value="/cmd_vel" />
-    <arg name="model" value="$(arg model)" />
-    <arg name="move_forward_only" value="$(arg move_forward_only)" />
-  </include>
+  <arg name="cmd_vel_topic" default="/cmd_vel" />
+  <arg name="odom_topic" default="odom" />
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_burger.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_burger.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turtlebot3_navigation)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turtlebot3_navigation)/param/global_costmap_params.yaml" command="load" />
+
+    <!-- Trying to use romio global and local planner -->
+    <rosparam command="load" file="$(find magni)/param/move_base_params.yaml" />
+    <!-- <rosparam command="load" file="$(find magni)/param/global_planner.yaml" /> -->
+    <rosparam command="load" file="$(find magni)/param/dwa_tuned.yaml" />
+    <!-- Trying to use romio global and local planner -->
+
+    <!-- <rosparam file="$(find turtlebot3_navigation)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml" command="load" /> -->
+
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
+    <remap from="odom" to="$(arg odom_topic)" />
+    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+  </node>
 
   <!-- <include file="$(find costmap_2d)/launch/example.launch" /> -->
 
   <!-- rviz -->
   <group if="$(arg open_rviz)">
-    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find magni)/test/turtle.rviz" />
   </group>
 
 </launch>
