@@ -50,6 +50,38 @@ obstacle_layer_hokuyo_laser:
       inf_is_valid: true,
     }
 
+obstacle_layer_rp_right:
+  obstacle_range: 5.0
+  raytrace_range: 19.0
+  observation_sources: front_right_scan
+  front_right_scan:
+    {
+      sensor_frame: front_right_scan,
+      data_type: LaserScan,
+      topic: front_right_scan,
+      marking: true,
+      clearing: true,
+      expected_update_rate: 0.8,
+      inf_is_valid: true,
+      observation_persistence: 0.0,
+    }
+
+obstacle_layer_rp_left:
+  obstacle_range: 5.0
+  raytrace_range: 19.0
+  observation_sources: back_left_scan
+  back_left_scan:
+    {
+      sensor_frame: back_left_scan,
+      data_type: LaserScan,
+      topic: back_left_scan,
+      marking: true,
+      clearing: true,
+      expected_update_rate: 0.8,
+      inf_is_valid: true,
+      observation_persistence: 0.0,
+    }
+
 # voxel_grid_robosense_rbpearl:
 #   z_voxels: 16
 #   z_resolution: 0.2
@@ -77,44 +109,46 @@ obstacle_layer_hokuyo_laser:
 #     data_type: "PointCloud2"
 
 pearl_obstacle_layer:
-  enabled: true
-  voxel_decay: 2.0 # seconds if linear, e^n if exponential
-  decay_model: 0 # 0=linear, 1=exponential, -1=persistent
-  voxel_size: 0.05 # meters
-  track_unknown_space: true # default space is known
-  max_obstacle_height: 1.6 # meters
-  unknown_threshold: 15 # voxel height
-  mark_threshold: 0 # voxel height
+  enabled:                  true
+  voxel_decay:              2    # seconds if linear, e^n if exponential
+  decay_model:              0     # 0=linear, 1=exponential, -1=persistent
+  voxel_size:               0.05  # meters
+  track_unknown_space:      true  # default space is known
+  max_obstacle_height:      2.0   # meters
+  unknown_threshold:        15    # voxel height
+  mark_threshold:           0     # voxel height
   update_footprint_enabled: true
-  combination_method: 1 # 1=max, 0=override
-  origin_z: 0.0 # meters
-  publish_voxel_map: true # default off
-  transform_tolerance: 0.2 # seconds
-  mapping_mode: false # default off, saves map not for navigation
-  map_save_duration: 60.0 # default 60s, how often to autosave
-  observation_sources: mark clear
-  mark:
+  combination_method:       1     # 1=max, 0=override
+  obstacle_range:           3.0   # meters
+  origin_z:                 0.0   # meters
+  publish_voxel_map:        true # default off
+  transform_tolerance:      0.2   # seconds
+  mapping_mode:             false # default off, saves map not for navigation
+  map_save_duration:        60    # default 60s, how often to autosave
+  observation_sources:   rgbd1_clear rgbd1_mark 
+  rgbd1_mark:
     data_type: PointCloud2
-    topic:  outlier_removal/output
+    topic: outlier_removal/output
     marking: true
     clearing: false
-    obstacle_range: 3.0 # meters
-    min_obstacle_height: 0.1 # default 0, meters
-    max_obstacle_height: 1.6 # default 3, meters
-    expected_update_rate: 0.0 # default 0, if not updating at this rate at least, remove from buffer
+    min_obstacle_height: 0.1     # default 0, meters
+    max_obstacle_height: 1.6     # default 3, meters
+    expected_update_rate: 0.0    # default 0, if not updating at this rate at least, remove from buffer
     observation_persistence: 0.0 # default 0, use all measurements taken during now-value, 0=latest
-    inf_is_valid: false # default false, for laser scans
-    filter: "voxel" # default passthrough, apply "voxel", "passthrough", or no filter to sensor data, recommend on
-    voxel_min_points: 0 # default 0, minimum points per voxel for voxel filter
-    clear_after_reading: true # default false, clear the buffer after the layer gets readings from it
-  clear:
+    inf_is_valid: false          # default false, for laser scans
+    filter: "voxel"              # default passthrough, apply "voxel", "passthrough", or no filter to sensor data, recommend on
+    voxel_min_points: 0          # default 0, minimum points per voxel for voxel filter
+    clear_after_reading: true    # default false, clear the buffer after the layer gets readings from it
+  rgbd1_clear:
+    enabled: true                #default true, can be toggled on/off with associated service call
     data_type: PointCloud2
-    topic:  outlier_removal/output
+    topic: outlier_removal/output
     marking: false
     clearing: true
-    max_z: 7.0 # default 0, meters
-    min_z: 0.1 # default 10, meters
-    vertical_fov_angle: 3.14159 # default 0.7, radians
-    horizontal_fov_angle: 3.14159 # default 1.04, radians
-    decay_acceleration: 5.0 # default 0, 1/s^2. If laser scanner MUST be 0
-    model_type: 1 # default 0, model type for frustum. 0=depth camera, 1=3d lidar like VLP16 or similar
+    max_z: 8.0                  # default 10, meters
+    min_z: 0.0                  # default 0, meters
+    vertical_fov_angle: 3.14159   # default 0.7, radians. For 3D lidars it's the symmetric FOV about the planar axis.
+    vertical_fov_padding: 0.05    # 3D Lidar only. Default 0, in meters 
+    horizontal_fov_angle: 3.14159  # 3D lidar scanners like the VLP16 have 360 deg horizontal FOV.
+    decay_acceleration: 1     # default 0, 1/s^2. 
+    model_type: 1               # default 0, model type for frustum. 0=depth camera, 1=3d lidar like VLP16 or similar

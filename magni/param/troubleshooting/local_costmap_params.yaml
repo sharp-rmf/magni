@@ -13,5 +13,7 @@ local_costmap:
   plugins:
     - {name: obstacle_layer_hokuyo_laser,   type: "costmap_2d::ObstacleLayer"}
     # - {name: voxel_grid_robosense_rbpearl,      type: "costmap_2d::VoxelLayer"}
+    - {name: obstacle_layer_rp_right,      type: "costmap_2d::ObstacleLayer"}
+    - {name: obstacle_layer_rp_left,      type: "costmap_2d::ObstacleLayer"}
     - {name: pearl_obstacle_layer,      type: "spatio_temporal_voxel_layer/SpatioTemporalVoxelLayer"}
     - {name: inflation_layer,               type: "costmap_2d::InflationLayer"}

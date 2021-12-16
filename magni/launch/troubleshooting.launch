@@ -1,6 +1,10 @@
 <launch>
 
     <!-- ======== TFs ======== -->
+    <node name="back_left_scan_static_transform" pkg="tf" type="static_transform_publisher" args="-0.1 0.2 0 0.02 0 0 base_link back_left_scan 100" />
+
+    <node name="front_right_scan_static_transform" pkg="tf" type="static_transform_publisher" args="0.315 -0.2 0 3.14 0 0 base_link front_right_scan 100" />
+
     <node name="laser_base_link_static_transform" pkg="tf" type="static_transform_publisher" args="0.268 0 1.19 0 0 0 base_link laser 100" />
 
     <node name="pearl_base_link_static_transform" pkg="tf" type="static_transform_publisher" args="0.21 0 1.11 0 -1.82 3.14159 base_link rslidar 100" />
@@ -36,6 +40,42 @@
     </node>
     <!-- ======== RS Bpearl ======== -->
 
+    <!-- ======== Rplidars ======== -->
+    <node name="back_left_scan" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <remap from="scan" to="back_left_scan" />
+        <param name="scan_topic_name" type="string" value="back_left_scan" />
+        <param name="serial_port" type="string" value="/dev/rplidar_top_right" />
+        <param name="serial_baudrate" type="int" value="256000" />
+        <param name="frame_id" type="string" value="back_left_scan" />
+        <param name="inverted" type="bool" value="false" />
+        <param name="angle_compensate" type="bool" value="true" />
+        <param name="scan_mode" type="string" value="Sensitivity" />
+    </node>
+
+    <node name="front_right_scan" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <remap from="scan" to="front_right_scan" />
+        <param name="scan_topic_name" type="string" value="front_right_scan" />
+        <param name="serial_port" type="string" value="/dev/rplidar_bottom_left" />
+        <param name="serial_baudrate" type="int" value="256000" />
+        <param name="frame_id" type="string" value="front_right_scan" />
+        <param name="inverted" type="bool" value="false" />
+        <param name="angle_compensate" type="bool" value="true" />
+        <param name="scan_mode" type="string" value="Sensitivity" />
+    </node>
+
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="left_rp_laser_filter">
+        <rosparam command="load" file="$(find magni)/config/left_rplidar_laser.yaml" />
+        <remap from="scan" to="back_left_scan" />
+        <remap from="scan_filtered" to="back_left_scan_filtered" />
+    </node>
+
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="right_rp_laser_filter">
+        <rosparam command="load" file="$(find magni)/config/right_rplidar_laser.yaml" />
+        <remap from="scan" to="front_right_scan" />
+        <remap from="scan_filtered" to="front_right_scan_filtered" />
+    </node>
+    <!-- ======== Rplidars ======== -->
+
     <!-- ======== Hokuyo ======== -->
     <node name="urg_node" pkg="urg_node" type="urg_node" output="screen" launch-prefix="bash -c 'sleep 3.0; $0 $@' ">
         <param name="ip_address" value="192.168.1.150" />
@@ -52,7 +92,7 @@
 
     <!-- ======== Map server ======== -->
     <include file="$(find magni)/launch/map_server.launch">
-        <arg name="map_yaml" value="$(find magni)/maps/chart/map.yaml" />
+        <arg name="map_yaml" value="$(find magni)/test/map.yaml" />
     </include>
     <!-- ======== Map server ======== -->
 
@@ -62,9 +102,9 @@
     <!-- ======== Amcl ======== -->
 
     <!-- ======== Move base ======== -->
-    <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
+    <!-- <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
         <remap from="voxel_grid" to="/move_base/local_costmap/voxel_grid_robosense_rbpearl/voxel_grid" />
-    </node>
+    </node> -->
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
         <rosparam command="load" file="$(find magni)/param/troubleshooting/costmap_common_params.yaml" ns="local_costmap" />
@@ -72,9 +112,10 @@
         <rosparam command="load" file="$(find magni)/param/troubleshooting/local_costmap_params.yaml" />
         <rosparam command="load" file="$(find magni)/param/troubleshooting/global_costmap_params.yaml" />
         <rosparam command="load" file="$(find magni)/param/troubleshooting/move_base_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/troubleshooting/dwa_local_planner_params.yaml" />
-        <rosparam command="load" file="$(find magni)/param/troubleshooting/base_local_planner_params.yaml" />
+        <rosparam command="load" file="$(find magni)/param/troubleshooting/dwa_tuned.yaml" />
     </node>
     <!-- ======== Move base ======== -->
+
+      <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find magni)/test/romio.rviz" />
 
 </launch>
