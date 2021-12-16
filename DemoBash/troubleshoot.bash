@@ -30,14 +30,10 @@ if [ $? != 0 ]; then
     tmux send-keys -t tmux_run 'sleep 20; source ~/magni_ws/devel/setup.bash && roslaunch magni troubleshooting.launch' C-m
     tmux select-layout tiled
 
-    tmux split-window -h -t tmux_run
-    tmux send-keys -t tmux_run 'sleep 30; source /opt/ros/melodic/setup.bash && source ~/magni_ws/devel/setup.bash && rviz -d ~/magni_ws/src/magni/magni/config/romio.rviz' C-m
-    tmux select-layout tiled
-
     # safety_layer
-    #tmux split-window -v -t tmux_run
-    #tmux send-keys -t tmux_run 'sleep 40; source ~/magni_ws/devel/setup.bash && roslaunch safety_layer safety_layer.launch' C-m
-    #tmux select-layout tiled
+    tmux split-window -v -t tmux_run
+    tmux send-keys -t tmux_run 'sleep 40; source ~/magni_ws/devel/setup.bash && roslaunch safety_layer safety_layer.launch' C-m
+    tmux select-layout tiled
    
     # Hybrid
     #tmux split-window -h -t tmux_run
