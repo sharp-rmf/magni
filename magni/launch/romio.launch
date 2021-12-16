@@ -102,11 +102,6 @@
     <!-- ======== Amcl ======== -->
 
     <!-- ======== Move base ======== -->
-
-    <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
-        <remap from="voxel_grid" to="/move_base/local_costmap/voxel_grid_robosense_rbpearl/voxel_grid" />
-    </node>
-
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
         <rosparam command="load" file="$(find magni)/param/costmap_common_params.yaml" ns="local_costmap" />
         <rosparam command="load" file="$(find magni)/param/costmap_common_params.yaml" ns="global_costmap" />
