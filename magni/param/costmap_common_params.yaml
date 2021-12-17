@@ -28,7 +28,7 @@ static_layer:
 # =======================
 inflation_layer:
   inflation_radius: 0.6 #DP3 ->0.15 # NTU demo -> 0.9
-  cost_scaling_factor: 5.0
+  cost_scaling_factor: 10.0
 
 # Obstacle Layer Params (Laser)
 # =====================
