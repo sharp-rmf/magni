@@ -5,7 +5,7 @@
 
   <!-- Arguments -->
   <arg name="model" value="burger" /> <!-- yummy burgers -->
-  <arg name="map_file" value="$(find magni)/test/map.yaml" />
+  <arg name="map_file" value="$(find magni)/test/map_wo_pillars.yaml" />
   <arg name="open_rviz" value="true" />
   <arg name="move_forward_only" value="false" />
 
@@ -26,19 +26,21 @@
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-    <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_burger.yaml" command="load" ns="global_costmap" />
+    <!-- <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_burger.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_burger.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find turtlebot3_navigation)/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot3_navigation)/param/global_costmap_params.yaml" command="load" />
-
-    <!-- Trying to use romio global and local planner -->
-    <rosparam command="load" file="$(find magni)/param/move_base_params.yaml" />
-    <!-- <rosparam command="load" file="$(find magni)/param/global_planner.yaml" /> -->
-    <rosparam command="load" file="$(find magni)/param/dwa_tuned.yaml" />
-    <!-- Trying to use romio global and local planner -->
-
-    <!-- <rosparam file="$(find turtlebot3_navigation)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find turtlebot3_navigation)/param/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find turtlebot3_navigation)/param/move_base_params.yaml" command="load" />
     <rosparam file="$(find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml" command="load" /> -->
+
+    <!-- Testing out romio global and local planner configs in turtlebot -->
+    <rosparam command="load" file="$(find magni)/param/turtle/costmap_common_params.yaml" ns="local_costmap" />
+    <rosparam command="load" file="$(find magni)/param/turtle/costmap_common_params.yaml" ns="global_costmap" />
+    <rosparam command="load" file="$(find magni)/param/turtle/local_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni)/param/turtle/global_costmap_params.yaml" />
+    <rosparam command="load" file="$(find magni)/param/turtle/move_base_params.yaml" />
+    <rosparam command="load" file="$(find magni)/param/turtle/dwa_tuned.yaml" />
+    <!-- Testing out romio global and local planner configs in turtlebot -->
 
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
     <remap from="odom" to="$(arg odom_topic)" />
