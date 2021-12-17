@@ -236,6 +236,34 @@ Visualization Manager:
       Use rainbow: true
       Value: false
     - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Voxel
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.10000000149011612
+      Style: Flat Squares
+      Topic: /move_base/local_costmap/pearl_obstacle_layer/voxel_grid
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
       Axes Length: 1
       Axes Radius: 0.10000000149011612
       Class: rviz/PoseWithCovariance
@@ -320,7 +348,7 @@ Visualization Manager:
       Head Length: 0.009999999776482582
       Length: 0.30000001192092896
       Line Style: Billboards
-      Line Width: 0.05000000074505806
+      Line Width: 0.20000000298023224
       Name: PurpleGlobalPath
       Offset:
         X: 0
@@ -409,13 +437,13 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
-      Enabled: true
+      Enabled: false
       Marker Topic: /visualization_marker
       Name: voxelMarkers
       Namespaces:
         {}
       Queue Size: 100
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -453,11 +481,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 97.08016204833984
+      Scale: 87.70722198486328
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: -5.302666187286377
-      Y: 5.989593982696533
+      X: -2.9448375701904297
+      Y: 1.908836841583252
     Saved: ~
 Window Geometry:
   Displays:
